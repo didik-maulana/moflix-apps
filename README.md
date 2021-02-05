@@ -1,1 +1,1 @@
-# moflix-apps
+# Moflix Apps
