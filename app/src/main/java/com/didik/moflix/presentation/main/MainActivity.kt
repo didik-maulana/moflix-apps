@@ -3,7 +3,6 @@ package com.didik.moflix.presentation.main
 import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
-import android.view.MotionEvent
 import com.didik.moflix.R
 import com.didik.moflix.core.BindingActivity
 import com.didik.moflix.databinding.ActivityMainBinding

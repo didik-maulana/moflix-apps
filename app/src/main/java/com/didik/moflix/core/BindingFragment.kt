@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.viewbinding.ViewBinding
 
-abstract class BindingFragment<V : ViewBinding> : Fragment()  {
+abstract class BindingFragment<V : ViewBinding> : Fragment() {
 
     private var _binding: V? = null
     protected val binding

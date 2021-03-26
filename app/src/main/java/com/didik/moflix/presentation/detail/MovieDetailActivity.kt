@@ -22,7 +22,6 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
-import java.lang.StringBuilder
 import kotlin.coroutines.CoroutineContext
 
 class MovieDetailActivity : BindingActivity<ActivityMovieDetailBinding>(), CoroutineScope {
@@ -82,10 +81,12 @@ class MovieDetailActivity : BindingActivity<ActivityMovieDetailBinding>(), Corou
                 putExtra(Intent.EXTRA_TEXT, movieText)
             }
 
-            startActivity(Intent.createChooser(
-                shareIntent,
-                getString(R.string.label_share)
-            ))
+            startActivity(
+                Intent.createChooser(
+                    shareIntent,
+                    getString(R.string.label_share)
+                )
+            )
         }
     }
 
