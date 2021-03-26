@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/imperial_primer"
+    android:paddingHorizontal="@dimen/size_16dp"
+    android:paddingVertical="@dimen/size_24dp"
+    tools:context=".presentation.profile.ProfileFragment">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/userPhotoImageView"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:scaleType="centerCrop"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:background="@color/black" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/nameTextView"
+        style="@style/Subtitle1"
+        android:layout_width="@dimen/size_0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/userPhotoImageView"
+        app:layout_constraintTop_toTopOf="@id/userPhotoImageView"
+        tools:text="Didik Maulana Ardiansyah" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/emailTextView"
+        style="@style/Subtitle2"
+        android:layout_width="@dimen/size_0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:textColor="#66667C"
+        app:layout_constraintEnd_toEndOf="@id/nameTextView"
+        app:layout_constraintStart_toStartOf="@id/nameTextView"
+        app:layout_constraintTop_toBottomOf="@id/nameTextView"
+        tools:text="didikmaulana49@gmail.com" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/menuTitleTextView"
+        style="@style/Headline6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="@string/title_menu"
+        android:textColor="#66667C"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/userPhotoImageView" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/changeLanguageImageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/size_16dp"
+        android:src="@drawable/ic_language"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/menuTitleTextView" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/changeLanguageTextView"
+        style="@style/Subtitle1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/size_16dp"
+        android:text="@string/change_language"
+        android:textColor="#A5A5A5"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@id/changeLanguageImageView"
+        app:layout_constraintStart_toEndOf="@id/changeLanguageImageView"
+        app:layout_constraintTop_toTopOf="@id/changeLanguageImageView" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/changeLanguageButton"
+        android:layout_width="@dimen/size_0dp"
+        android:layout_height="@dimen/size_0dp"
+        android:background="@null"
+        app:layout_constraintBottom_toBottomOf="@id/changeLanguageImageView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/changeLanguageImageView" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/appVersionTextView"
+        style="@style/Subtitle2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/size_16dp"
+        android:textColor="#767676"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:text="App Version 1.0" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

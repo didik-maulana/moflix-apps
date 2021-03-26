@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Headline5" parent="TextAppearance.MaterialComponents.Headline5">
+        <item name="android:fontFamily">@font/nunito_sans_bold</item>
+        <item name="android:textSize">24sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="lineHeight">36dp</item>
+    </style>
+
+    <style name="Headline6" parent="TextAppearance.MaterialComponents.Headline6">
+        <item name="android:fontFamily">@font/nunito_sans_semi_bold</item>
+        <item name="android:textSize">20sp</item>
+        <item name="lineHeight">30dp</item>
+    </style>
+
+    <style name="Subtitle1" parent="TextAppearance.MaterialComponents.Subtitle1">
+        <item name="android:fontFamily">@font/nunito_sans_semi_bold</item>
+        <item name="android:textSize">16sp</item>
+        <item name="lineHeight">24dp</item>
+    </style>
+
+    <style name="Subtitle2" parent="TextAppearance.MaterialComponents.Subtitle2">
+        <item name="android:fontFamily">@font/nunito_sans_regular</item>
+        <item name="android:textSize">14sp</item>
+        <item name="lineHeight">21dp</item>
+    </style>
+
+    <style name="Caption" parent="TextAppearance.MaterialComponents.Caption">
+        <item name="android:fontFamily">@font/nunito_sans_regular</item>
+        <item name="android:textSize">12sp</item>
+        <item name="lineHeight">18dp</item>
+    </style>
+</resources>
