@@ -12,7 +12,7 @@ class SeriesRepositoryImpl @Inject constructor(
 ) : SeriesRepository {
 
     override suspend fun getSeries(): List<MovieModel> {
-        val seriesModelList = localDataSource.getSeries()
-        return mapper.mapToListDomain(seriesModelList)
+        val seriesList = localDataSource.getSeries()
+        return mapper.mapToListDomain(seriesList)
     }
 }

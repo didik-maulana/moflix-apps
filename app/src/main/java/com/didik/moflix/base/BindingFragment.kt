@@ -1,4 +1,4 @@
-package com.didik.moflix.core
+package com.didik.moflix.base
 
 import android.os.Bundle
 import android.view.LayoutInflater

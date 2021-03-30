@@ -4,7 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
 import com.didik.moflix.R
-import com.didik.moflix.core.BindingActivity
+import com.didik.moflix.base.BindingActivity
 import com.didik.moflix.databinding.ActivityMainBinding
 import com.didik.moflix.presentation.movies.MoviesFragment
 import com.didik.moflix.presentation.main.MainActivity.MainMenu.*

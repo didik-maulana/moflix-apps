@@ -8,7 +8,7 @@ import coil.load
 import coil.transform.CircleCropTransformation
 import com.didik.moflix.BuildConfig
 import com.didik.moflix.R
-import com.didik.moflix.core.BindingFragment
+import com.didik.moflix.base.BindingFragment
 import com.didik.moflix.databinding.FragmentProfileBinding
 
 class ProfileFragment : BindingFragment<FragmentProfileBinding>() {

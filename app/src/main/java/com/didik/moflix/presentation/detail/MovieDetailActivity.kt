@@ -12,7 +12,7 @@ import androidx.annotation.ColorInt
 import coil.load
 import coil.transform.RoundedCornersTransformation
 import com.didik.moflix.R
-import com.didik.moflix.core.BindingActivity
+import com.didik.moflix.base.BindingActivity
 import com.didik.moflix.databinding.ActivityMovieDetailBinding
 import com.didik.moflix.domain.model.MovieModel
 import com.didik.moflix.utils.extensions.observeData

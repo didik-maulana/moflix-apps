@@ -12,7 +12,7 @@ class MovieRepositoryImpl @Inject constructor(
 ) : MovieRepository {
 
     override suspend fun getMovies(): List<MovieModel> {
-        val movieModelList = localDataSource.getMovies()
-        return mapper.mapToListDomain(movieModelList)
+        val movieList = localDataSource.getMovies()
+        return mapper.mapToListDomain(movieList)
     }
 }
