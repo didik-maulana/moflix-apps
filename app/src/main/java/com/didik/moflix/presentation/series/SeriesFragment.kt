@@ -6,7 +6,7 @@ import androidx.fragment.app.viewModels
 import com.didik.moflix.R
 import com.didik.moflix.core.BindingFragment
 import com.didik.moflix.databinding.FragmentSeriesBinding
-import com.didik.moflix.domain.entity.Movie
+import com.didik.moflix.domain.model.MovieModel
 import com.didik.moflix.presentation.detail.MovieDetailActivity
 import com.didik.moflix.utils.extensions.observeData
 import com.didik.moflix.utils.helpers.MovieItemDecoration
@@ -48,9 +48,9 @@ class SeriesFragment : BindingFragment<FragmentSeriesBinding>() {
         })
     }
 
-    private fun renderMovieList(movies: List<Movie>) {
+    private fun renderMovieList(movieModels: List<MovieModel>) {
         val headerItem = HeaderItem(getString(R.string.title_popular_series))
-        val movieItems = movies.map { movie ->
+        val movieItems = movieModels.map { movie ->
             MovieItem(movie) {
                 openMovieDetail(movie)
             }
@@ -61,7 +61,7 @@ class SeriesFragment : BindingFragment<FragmentSeriesBinding>() {
         }
     }
 
-    private fun openMovieDetail(movie: Movie) {
-        startActivity(MovieDetailActivity.newIntent(requireContext(), movie))
+    private fun openMovieDetail(movieModel: MovieModel) {
+        startActivity(MovieDetailActivity.newIntent(requireContext(), movieModel))
     }
 }

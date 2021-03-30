@@ -1,16 +1,18 @@
 package com.didik.moflix.data.mapper
 
-import com.didik.moflix.data.model.MovieModel
-import com.didik.moflix.domain.entity.Movie
+import androidx.annotation.VisibleForTesting
+import com.didik.moflix.data.response.MovieResponse
+import com.didik.moflix.domain.model.MovieModel
 import com.didik.moflix.utils.extensions.formatReleaseDate
 import com.didik.moflix.utils.extensions.toRatingFormat
 import com.didik.moflix.utils.extensions.toRatingText
 
 class MovieMapper {
 
-    private fun mapToDomain(model: MovieModel): Movie {
-        return with(model) {
-            Movie(
+    @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
+    fun mapToDomain(response: MovieResponse): MovieModel {
+        return with(response) {
+            MovieModel(
                 title = title.orEmpty(),
                 backdropUrl = "https://image.tmdb.org/t/p/w400/" + backdropPath.orEmpty(),
                 thumbnailUrl = "https://image.tmdb.org/t/p/w200/" + posterPath.orEmpty(),
@@ -22,7 +24,7 @@ class MovieMapper {
         }
     }
 
-    fun mapToListDomain(listModel: List<MovieModel>): List<Movie> {
-        return listModel.map { mapToDomain(it) }
+    fun mapToListDomain(listResponse: List<MovieResponse>): List<MovieModel> {
+        return listResponse.map { mapToDomain(it) }
     }
 }

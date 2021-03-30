@@ -1,4 +1,4 @@
-package com.didik.moflix.presentation.home
+package com.didik.moflix.presentation.movies
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -6,7 +6,7 @@ import androidx.fragment.app.viewModels
 import com.didik.moflix.R
 import com.didik.moflix.core.BindingFragment
 import com.didik.moflix.databinding.FragmentHomeBinding
-import com.didik.moflix.domain.entity.Movie
+import com.didik.moflix.domain.model.MovieModel
 import com.didik.moflix.presentation.detail.MovieDetailActivity
 import com.didik.moflix.utils.extensions.observeData
 import com.didik.moflix.utils.helpers.MovieItemDecoration
@@ -16,11 +16,11 @@ import com.xwray.groupie.GroupieAdapter
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class HomeFragment : BindingFragment<FragmentHomeBinding>() {
+class MoviesFragment : BindingFragment<FragmentHomeBinding>() {
 
     private lateinit var moviesAdapter: GroupieAdapter
 
-    private val homeViewModel: HomeViewModel by viewModels()
+    private val moviesViewModel: MoviesViewModel by viewModels()
 
     override fun initViewBinding(
         inflater: LayoutInflater,
@@ -32,7 +32,7 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>() {
     override fun renderView() {
         setupUI()
         setupObserver()
-        homeViewModel.getMovies()
+        moviesViewModel.getMovies()
     }
 
     private fun setupUI() {
@@ -45,14 +45,14 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>() {
     }
 
     private fun setupObserver() {
-        homeViewModel.movieList.observeData(viewLifecycleOwner) { movies ->
+        moviesViewModel.movieList.observeData(viewLifecycleOwner) { movies ->
             renderMovieList(movies)
         }
     }
 
-    private fun renderMovieList(movies: List<Movie>) {
+    private fun renderMovieList(movieModels: List<MovieModel>) {
         val headerItem = HeaderItem(getString(R.string.title_trending_now))
-        val movieItems = movies.map { movie ->
+        val movieItems = movieModels.map { movie ->
             MovieItem(movie) {
                 openMovieDetail(movie)
             }
@@ -63,7 +63,7 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>() {
         }
     }
 
-    private fun openMovieDetail(movie: Movie) {
-        startActivity(MovieDetailActivity.newIntent(requireContext(), movie))
+    private fun openMovieDetail(movieModel: MovieModel) {
+        startActivity(MovieDetailActivity.newIntent(requireContext(), movieModel))
     }
 }

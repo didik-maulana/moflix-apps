@@ -5,12 +5,12 @@ import coil.load
 import coil.transform.RoundedCornersTransformation
 import com.didik.moflix.R
 import com.didik.moflix.databinding.ItemMovieBinding
-import com.didik.moflix.domain.entity.Movie
+import com.didik.moflix.domain.model.MovieModel
 import com.didik.moflix.utils.extensions.setupRatingDrawable
 import com.xwray.groupie.viewbinding.BindableItem
 
 class MovieItem(
-    private val movie: Movie,
+    private val movie: MovieModel,
     private val onItemClickListener: ((position: Int) -> Unit)
 ) : BindableItem<ItemMovieBinding>() {
 

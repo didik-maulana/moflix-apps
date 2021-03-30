@@ -12,6 +12,6 @@ fun String?.formatReleaseDate(): String {
         val dateParse = parser.parse(this.orEmpty())
         formatter.format(dateParse ?: Date())
     } catch (exception: ParseException) {
-        ""
+        this.orEmpty()
     }
 }

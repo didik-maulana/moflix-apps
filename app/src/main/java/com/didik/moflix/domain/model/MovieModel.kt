@@ -1,10 +1,10 @@
-package com.didik.moflix.domain.entity
+package com.didik.moflix.domain.model
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-data class Movie(
+data class MovieModel(
     val title: String,
     val backdropUrl: String,
     val thumbnailUrl: String,

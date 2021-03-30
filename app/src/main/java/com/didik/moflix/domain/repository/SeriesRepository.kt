@@ -1,7 +1,7 @@
 package com.didik.moflix.domain.repository
 
-import com.didik.moflix.domain.entity.Movie
+import com.didik.moflix.domain.model.MovieModel
 
 interface SeriesRepository {
-    suspend fun getSeries(): List<Movie>
+    suspend fun getSeries(): List<MovieModel>
 }

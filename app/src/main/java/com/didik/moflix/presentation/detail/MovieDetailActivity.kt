@@ -14,7 +14,7 @@ import coil.transform.RoundedCornersTransformation
 import com.didik.moflix.R
 import com.didik.moflix.core.BindingActivity
 import com.didik.moflix.databinding.ActivityMovieDetailBinding
-import com.didik.moflix.domain.entity.Movie
+import com.didik.moflix.domain.model.MovieModel
 import com.didik.moflix.utils.extensions.observeData
 import com.didik.moflix.utils.extensions.setupRatingDrawable
 import com.didik.moflix.utils.helpers.ColorPalette
@@ -130,15 +130,15 @@ class MovieDetailActivity : BindingActivity<ActivityMovieDetailBinding>(), Corou
         })
     }
 
-    private fun setupUI(movie: Movie) {
-        binding.coverImageView.load(movie.backdropUrl) {
+    private fun setupUI(movieModel: MovieModel) {
+        binding.coverImageView.load(movieModel.backdropUrl) {
             crossfade(true)
             crossfade(500)
             placeholder(R.drawable.ic_movie_24)
             error(R.drawable.ic_movie_24)
         }
 
-        binding.thumbnailImageView.load(movie.thumbnailUrl) {
+        binding.thumbnailImageView.load(movieModel.thumbnailUrl) {
             crossfade(true)
             crossfade(500)
             transformations(RoundedCornersTransformation(10f))
@@ -146,14 +146,14 @@ class MovieDetailActivity : BindingActivity<ActivityMovieDetailBinding>(), Corou
             error(R.drawable.ic_movie_24)
         }
 
-        binding.titleTextView.text = movie.title
-        binding.releaseDateTextView.text = movie.releaseDate
-        binding.ratingTextView.text = movie.ratingText
-        binding.overviewTextView.text = movie.overview
+        binding.titleTextView.text = movieModel.title
+        binding.releaseDateTextView.text = movieModel.releaseDate
+        binding.ratingTextView.text = movieModel.ratingText
+        binding.overviewTextView.text = movieModel.overview
 
         binding.ratingBar.run {
             setupRatingDrawable()
-            rating = movie.rating
+            rating = movieModel.rating
         }
     }
 
@@ -161,9 +161,9 @@ class MovieDetailActivity : BindingActivity<ActivityMovieDetailBinding>(), Corou
         private const val TEXT_PLAIN_TYPE = "text/plain"
         private const val EXTRA_MOVIE = "extra_movie"
 
-        fun newIntent(context: Context, movie: Movie?): Intent {
+        fun newIntent(context: Context, movieModel: MovieModel?): Intent {
             return Intent(context, MovieDetailActivity::class.java).apply {
-                putExtra(EXTRA_MOVIE, movie)
+                putExtra(EXTRA_MOVIE, movieModel)
             }
         }
     }

@@ -3,14 +3,14 @@ package com.didik.moflix.presentation.detail
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.didik.moflix.domain.entity.Movie
+import com.didik.moflix.domain.model.MovieModel
 
 class MovieDetailViewModel : ViewModel() {
 
-    private val _movie = MutableLiveData<Movie>()
-    val movie: LiveData<Movie> = _movie
+    private val _movie = MutableLiveData<MovieModel>()
+    val movie: LiveData<MovieModel> = _movie
 
-    fun loadMovie(movie: Movie?) {
+    fun loadMovie(movie: MovieModel?) {
         movie?.let {
             _movie.value = it
         }

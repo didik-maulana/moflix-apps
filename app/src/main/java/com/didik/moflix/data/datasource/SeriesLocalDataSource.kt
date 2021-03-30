@@ -1,7 +1,7 @@
 package com.didik.moflix.data.datasource
 
-import com.didik.moflix.data.model.SeriesModel
+import com.didik.moflix.data.response.SeriesResponse
 
 interface SeriesLocalDataSource {
-    suspend fun getSeries(): List<SeriesModel>
+    suspend fun getSeries(): List<SeriesResponse>
 }
