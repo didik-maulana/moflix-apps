@@ -2,8 +2,8 @@ package com.didik.moflix.data.datasource
 
 import android.content.Context
 import com.didik.moflix.app.AppProvider
-import com.didik.moflix.data.response.SeriesResponse
 import com.didik.moflix.data.response.SeriesListResponse
+import com.didik.moflix.data.response.SeriesResponse
 import com.didik.moflix.utils.helpers.JsonHelper
 import io.kotest.core.spec.style.ShouldSpec
 import io.kotest.matchers.shouldBe

@@ -1,6 +1,6 @@
 package com.didik.moflix.utils.helpers
 
-import android.content.Context
+import com.didik.moflix.app.AppProvider
 import com.didik.moflix.data.response.MovieListResponse
 import com.didik.moflix.data.response.SeriesListResponse
 import com.squareup.moshi.Moshi
@@ -18,12 +18,12 @@ object JsonHelper {
         }.build()
     }
 
-    fun readMoviesJson(context: Context): MovieListResponse? {
+    fun readMoviesJson(): MovieListResponse? {
         val json: String?
 
         json = try {
-            val inputStream: InputStream = context.assets.open(MOVIES_FILE)
-            inputStream.bufferedReader().use { it.readText() }
+            val inputStream: InputStream? = AppProvider.context?.assets?.open(MOVIES_FILE)
+            inputStream?.bufferedReader()?.use { it.readText() }
         } catch (exception: Exception) {
             exception.printStackTrace()
             null
@@ -38,12 +38,12 @@ object JsonHelper {
         }
     }
 
-    fun readSeriesJson(context: Context): SeriesListResponse? {
+    fun readSeriesJson(): SeriesListResponse? {
         val json: String?
 
         json = try {
-            val inputStream: InputStream = context.assets.open(SERIES_FILE)
-            inputStream.bufferedReader().use { it.readText() }
+            val inputStream: InputStream? = AppProvider.context?.assets?.open(SERIES_FILE)
+            inputStream?.bufferedReader()?.use { it.readText() }
         } catch (exception: Exception) {
             exception.printStackTrace()
             null

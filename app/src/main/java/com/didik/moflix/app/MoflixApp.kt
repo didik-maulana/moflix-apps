@@ -10,4 +10,9 @@ class MoflixApp : Application() {
         super.onCreate()
         AppProvider.init(this)
     }
+
+    override fun onTerminate() {
+        AppProvider.clear()
+        super.onTerminate()
+    }
 }
