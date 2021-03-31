@@ -32,11 +32,11 @@ class MovieLocalDataSourceImplTest : ShouldSpec({
             val mockMovieListResponse = spyk(MovieListResponse(mockMovies))
 
             every { AppProvider.context } returns mockContext
-            every { JsonHelper.readMoviesJson(mockContext) } returns mockMovieListResponse
+            every { JsonHelper.readMoviesJson() } returns mockMovieListResponse
 
             // Then
             movieLocalDataSourceImpl.getMovies() shouldBe mockMovies
-            verify(exactly = 1) { JsonHelper.readMoviesJson(mockContext) }
+            verify(exactly = 1) { JsonHelper.readMoviesJson() }
         }
     }
 

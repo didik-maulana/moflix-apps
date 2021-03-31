@@ -134,16 +134,16 @@ class MovieDetailActivity : BindingActivity<ActivityMovieDetailBinding>(), Corou
         binding.coverImageView.load(movieModel.backdropUrl) {
             crossfade(true)
             crossfade(500)
-            placeholder(R.drawable.ic_movie_24)
-            error(R.drawable.ic_movie_24)
+            placeholder(R.drawable.ic_movie)
+            error(R.drawable.ic_movie)
         }
 
         binding.thumbnailImageView.load(movieModel.thumbnailUrl) {
             crossfade(true)
             crossfade(500)
             transformations(RoundedCornersTransformation(10f))
-            placeholder(R.drawable.ic_movie_24)
-            error(R.drawable.ic_movie_24)
+            placeholder(R.drawable.ic_movie)
+            error(R.drawable.ic_movie)
         }
 
         binding.titleTextView.text = movieModel.title

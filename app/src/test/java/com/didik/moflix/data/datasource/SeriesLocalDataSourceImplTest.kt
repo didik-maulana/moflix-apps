@@ -32,11 +32,11 @@ class SeriesLocalDataSourceImplTest : ShouldSpec({
             val mockSeriesListResponse = spyk(SeriesListResponse(mockSeries))
 
             every { AppProvider.context } returns mockContext
-            every { JsonHelper.readSeriesJson(mockContext) } returns mockSeriesListResponse
+            every { JsonHelper.readSeriesJson() } returns mockSeriesListResponse
 
             // Then
             seriesLocalDataSourceImpl.getSeries() shouldBe mockSeries
-            verify(exactly = 1) { JsonHelper.readSeriesJson(mockContext) }
+            verify(exactly = 1) { JsonHelper.readSeriesJson() }
         }
     }
 

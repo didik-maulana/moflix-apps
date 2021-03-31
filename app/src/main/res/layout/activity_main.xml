@@ -19,11 +19,11 @@
         android:layout_width="@dimen/size_0dp"
         android:layout_height="wrap_content"
         android:background="@color/imperial_primer"
-        app:itemIconTint="@color/bnv_selector_color"
-        app:itemTextColor="@color/bnv_selector_color"
+        app:itemIconTint="@color/bottom_menu_selector_color"
+        app:itemTextColor="@color/bottom_menu_selector_color"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:menu="@menu/bottom_nav_menu" />
+        app:menu="@menu/bottom_navigation_menu" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

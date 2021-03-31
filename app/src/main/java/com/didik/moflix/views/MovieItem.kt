@@ -33,8 +33,8 @@ class MovieItem(
             crossfade(true)
             crossfade(500)
             transformations(RoundedCornersTransformation(10f))
-            placeholder(R.drawable.ic_movie_24)
-            error(R.drawable.ic_movie_24)
+            placeholder(R.drawable.ic_movie)
+            error(R.drawable.ic_movie)
         }
     }
 
