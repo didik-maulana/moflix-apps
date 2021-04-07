@@ -1,2 +1,3 @@
 rootProject.name = "Moflix"
-include ':app'
+
+include(":app")
