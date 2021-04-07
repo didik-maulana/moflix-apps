@@ -45,66 +45,38 @@ android {
 }
 
 dependencies {
-    implementation("org.jetbrains.kotlin:kotlin-stdlib:1.4.32")
+    implementation(Libs.kotlinStdlib)
+    implementation(Libs.coreKtx)
+    implementation(Libs.appCompat)
+    implementation(Libs.material)
+    implementation(Libs.constraintLayout)
+    implementation(Libs.vectorDrawable)
+    implementation(Libs.navigationFragment)
+    implementation(Libs.navigationUI)
+    implementation(Libs.lifecycleLiveData)
+    implementation(Libs.groupie)
+    implementation(Libs.groupieViewBinding)
+    implementation(Libs.coil)
+    implementation(Libs.moshi)
 
-    // Core KTX
-    implementation("androidx.core:core-ktx:1.3.2")
+    implementation(Libs.daggerHilt)
+    kapt(Libs.daggerHiltCompiler)
+    implementation(Libs.hiltLifecycleViewModel)
+    kapt(Libs.hiltCompiler)
 
-    // App Compat
-    implementation("androidx.appcompat:appcompat:1.2.0")
+    testImplementation(Libs.mockk)
+    testImplementation(Libs.kotestRunner)
+    testImplementation(Libs.kotestAssertions)
+    testImplementation(Libs.kotestProperty)
+    testImplementation(Libs.coreTesting)
+    testImplementation(Libs.coroutineTest)
+    testImplementation(Libs.jUnit)
 
-    // Android Material
-    implementation("com.google.android.material:material:1.3.0")
-
-    // Constraint Layout
-    implementation("androidx.constraintlayout:constraintlayout:2.0.4")
-
-    // Vector Drawable
-    implementation("androidx.vectordrawable:vectordrawable:1.1.0")
-
-    // Navigation
-    implementation("androidx.navigation:navigation-fragment-ktx:2.3.4")
-    implementation("androidx.navigation:navigation-ui-ktx:2.3.4")
-
-    // Lifecycle Live Data
-    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.3.1")
-
-    // Groupie
-    implementation("com.xwray:groupie:2.9.0")
-    implementation("com.xwray:groupie-viewbinding:2.9.0")
-
-    // Coil
-    implementation("io.coil-kt:coil:1.1.1")
-
-    //Dagger Hilt
-    implementation("com.google.dagger:hilt-android:2.28-alpha")
-    kapt("com.google.dagger:hilt-android-compiler:2.28-alpha")
-    implementation("androidx.hilt:hilt-lifecycle-viewmodel:1.0.0-alpha01")
-    kapt("androidx.hilt:hilt-compiler:1.0.0-alpha01")
-
-    // Moshi
-    implementation("com.squareup.moshi:moshi-kotlin:1.9.3")
-
-    // MockK
-    testImplementation("io.mockk:mockk:1.11.0")
-
-    // Kotest
-    testImplementation("io.kotest:kotest-runner-junit5:4.4.3")
-    testImplementation("io.kotest:kotest-assertions-core:4.4.3")
-    testImplementation("io.kotest:kotest-property:4.4.3")
-
-    // Arch Core Testing
-    testImplementation("android.arch.core:core-testing:1.1.1")
-
-    // Kotlin Coroutine Test
-    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.4.3")
-
-    testImplementation("junit:junit:4.13.2")
-    androidTestImplementation("androidx.test.ext:junit:1.1.2")
-    androidTestImplementation("androidx.test.espresso:espresso-core:3.3.0")
-    androidTestImplementation("androidx.test:runner:1.3.0")
-    androidTestImplementation("androidx.test:rules:1.3.0")
-    androidTestImplementation("com.android.support.test.espresso:espresso-contrib:3.0.2") {
+    androidTestImplementation(Libs.jUnitExt)
+    androidTestImplementation(Libs.espressoCore)
+    androidTestImplementation(Libs.testRunner)
+    androidTestImplementation(Libs.testRules)
+    androidTestImplementation(Libs.espressoContrib) {
         exclude(group = "com.android.support", module = "recyclerview-v7")
     }
 }

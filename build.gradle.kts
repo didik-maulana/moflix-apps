@@ -4,9 +4,9 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath("com.android.tools.build:gradle:4.2.0-beta06")
-        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.4.32")
-        classpath("com.google.dagger:hilt-android-gradle-plugin:2.28-alpha")
+        classpath(Libs.buildGradle)
+        classpath(Libs.kotlinPlugin)
+        classpath(Libs.daggerHiltGradlePlugin)
     }
 }
 
@@ -18,8 +18,6 @@ allprojects {
     }
 }
 
-tasks {
-    val clean by registering(Delete::class) {
-        delete(buildDir)
-    }
+tasks.register("clean", Delete::class) {
+    delete(rootProject.buildDir)
 }
