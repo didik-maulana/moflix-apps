@@ -6,6 +6,8 @@ import com.didik.moflix.domain.model.MovieModel
 import com.didik.moflix.utils.extensions.formatReleaseDate
 import com.didik.moflix.utils.extensions.toRatingFormat
 import com.didik.moflix.utils.extensions.toRatingText
+import com.didik.moflix.network.helper.ImageHelper
+import com.didik.moflix.network.helper.ImageSize
 
 class MovieMapper {
 
@@ -14,8 +16,8 @@ class MovieMapper {
         return with(response) {
             MovieModel(
                 title = title.orEmpty(),
-                backdropUrl = "https://image.tmdb.org/t/p/w400/" + backdropPath.orEmpty(),
-                thumbnailUrl = "https://image.tmdb.org/t/p/w200/" + posterPath.orEmpty(),
+                backdropUrl = ImageHelper.getImageURL(ImageSize.MEDIUM, backdropPath.orEmpty()),
+                thumbnailUrl = ImageHelper.getImageURL(ImageSize.SMALL, posterPath.orEmpty()),
                 releaseDate = releaseDate.formatReleaseDate(),
                 rating = voteAverage.toRatingFormat(),
                 ratingText = voteAverage.toRatingText(),
