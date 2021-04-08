@@ -106,7 +106,7 @@ class MovieDetailActivity : BindingActivity<ActivityMovieDetailBinding>(), Corou
 
                 if (scrollPosition > maxPosition) {
                     binding.movieDetailToolbar.title = viewModel.movie.value?.title
-                    setToolbarColor(ColorPalette.IMPERIAL_PRIME)
+                    setToolbarColor(ColorPalette.GREY_SHARK)
                 } else {
                     binding.movieDetailToolbar.title = null
                     setToolbarColor(Color.TRANSPARENT)

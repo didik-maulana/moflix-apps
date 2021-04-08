@@ -8,9 +8,11 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 
-    <color name="light_blue">#c8d6e5</color>
-    <color name="storm_petrel">#506884</color>
-    <color name="imperial_primer">#181A20</color>
-    <color name="rating_default">#E1E1EA</color>
-    <color name="rating_filled">#FFAB2E</color>
+    <color name="blue_periwinkle">#FFC8D6E5</color>
+    <color name="blue_wedge_wood">#FF506884</color>
+    <color name="blue_solitude">#FFE1E1EA</color>
+
+    <color name="yellow_supernova">#FFFFAB2E</color>
+
+    <color name="grey_shark">#FF181A20</color>
 </resources>

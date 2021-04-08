@@ -2,8 +2,8 @@
     <!-- Base application theme. -->
     <style name="Theme.Moflix" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/imperial_primer</item>
-        <item name="colorPrimaryVariant">@color/imperial_primer</item>
+        <item name="colorPrimary">@color/grey_shark</item>
+        <item name="colorPrimaryVariant">@color/grey_shark</item>
         <item name="colorOnPrimary">@color/white</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/teal_200</item>

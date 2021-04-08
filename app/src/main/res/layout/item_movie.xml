@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    tools:background="@color/imperial_primer">
+    tools:background="@color/grey_shark">
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/thumbnailImageView"
@@ -52,7 +52,7 @@
         app:layout_constraintBottom_toBottomOf="@id/ratingTextView"
         app:layout_constraintStart_toStartOf="@id/titleTextView"
         app:layout_constraintTop_toTopOf="@id/ratingTextView"
-        tools:progressTint="@color/rating_filled"
+        tools:progressTint="@color/yellow_supernova"
         tools:rating="3.5" />
 
     <androidx.appcompat.widget.AppCompatTextView

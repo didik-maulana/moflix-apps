@@ -10,11 +10,11 @@ fun AppCompatRatingBar.setupRatingDrawable() {
         it.numberOfLayers >= 2
     }?.let { layerDrawable ->
         layerDrawable.getDrawable(0).run {
-            setTint(ContextCompat.getColor(context, R.color.rating_default))
+            setTint(ContextCompat.getColor(context, R.color.blue_solitude))
         }
 
         layerDrawable.getDrawable(2).run {
-            setTint(ContextCompat.getColor(context, R.color.rating_filled))
+            setTint(ContextCompat.getColor(context, R.color.yellow_supernova))
         }
     }
 }
