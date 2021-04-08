@@ -11,7 +11,7 @@ object Versions {
     const val groupie = "2.9.0"
     const val coil = "1.1.1"
     const val moshi = "1.9.3"
-    const val daggerHilt = "2.28-alpha"
+    const val daggerHilt = "2.33-beta"
     const val androidXHilt = "1.0.0-alpha01"
 }
 

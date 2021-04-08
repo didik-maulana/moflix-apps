@@ -15,48 +15,40 @@ import com.didik.moflix.domain.usecase.GetSeriesUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.android.components.ApplicationComponent
+import dagger.hilt.android.components.ActivityComponent
 import javax.inject.Singleton
 
 @Module
-@InstallIn(ApplicationComponent::class)
+@InstallIn(ActivityComponent::class)
 class AppModule {
 
     @Provides
-    @Singleton
     fun provideMovieLocalDataSource(): MovieLocalDataSource = MovieLocalDataSourceImpl()
 
     @Provides
-    @Singleton
     fun provideMovieMapper(): MovieMapper = MovieMapper()
 
     @Provides
-    @Singleton
     fun provideMovieRepository(
         localDataSource: MovieLocalDataSource,
         mapper: MovieMapper
     ): MovieRepository = MovieRepositoryImpl(localDataSource, mapper)
 
     @Provides
-    @Singleton
     fun provideGetMovieUseCase(repository: MovieRepository) = GetMoviesUseCase(repository)
 
     @Provides
-    @Singleton
     fun provideSeriesLocalDataSource(): SeriesLocalDataSource = SeriesLocalDataSourceImpl()
 
     @Provides
-    @Singleton
     fun provideSeriesMapper(): SeriesMapper = SeriesMapper()
 
     @Provides
-    @Singleton
     fun provideSeriesRepository(
         localDataSource: SeriesLocalDataSource,
         mapper: SeriesMapper
     ): SeriesRepository = SeriesRepositoryImpl(localDataSource, mapper)
 
     @Provides
-    @Singleton
     fun provideGetSeriesUseCase(repository: SeriesRepository) = GetSeriesUseCase(repository)
 }

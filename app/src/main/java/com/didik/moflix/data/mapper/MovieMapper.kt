@@ -3,11 +3,11 @@ package com.didik.moflix.data.mapper
 import androidx.annotation.VisibleForTesting
 import com.didik.moflix.data.response.MovieResponse
 import com.didik.moflix.domain.model.MovieModel
-import com.didik.moflix.network.helper.ImageHelper
-import com.didik.moflix.network.helper.ImageSize
 import com.didik.moflix.utils.extensions.formatReleaseDate
 import com.didik.moflix.utils.extensions.toRatingFormat
 import com.didik.moflix.utils.extensions.toRatingText
+import com.didik.moflix.network.helper.ImageHelper
+import com.didik.moflix.network.helper.ImageSize
 
 class MovieMapper {
 
