@@ -4,7 +4,7 @@ import android.content.Context
 import com.didik.moflix.app.AppProvider
 import com.didik.moflix.data.response.SeriesListResponse
 import com.didik.moflix.data.response.SeriesResponse
-import com.didik.moflix.utils.helpers.JsonHelper
+import com.didik.moflix.utils.helpers.JSONHelper
 import io.kotest.core.spec.style.ShouldSpec
 import io.kotest.matchers.shouldBe
 import io.mockk.*
@@ -15,7 +15,7 @@ class SeriesLocalDataSourceImplTest : ShouldSpec({
 
     beforeTest {
         mockkObject(AppProvider)
-        mockkObject(JsonHelper)
+        mockkObject(JSONHelper)
 
         seriesLocalDataSourceImpl = spyk(SeriesLocalDataSourceImpl())
     }
@@ -32,11 +32,11 @@ class SeriesLocalDataSourceImplTest : ShouldSpec({
             val mockSeriesListResponse = spyk(SeriesListResponse(mockSeries))
 
             every { AppProvider.context } returns mockContext
-            every { JsonHelper.readSeriesJson() } returns mockSeriesListResponse
+            every { JSONHelper.readSeriesJson() } returns mockSeriesListResponse
 
             // Then
             seriesLocalDataSourceImpl.getSeries() shouldBe mockSeries
-            verify(exactly = 1) { JsonHelper.readSeriesJson() }
+            verify(exactly = 1) { JSONHelper.readSeriesJson() }
         }
     }
 

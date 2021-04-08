@@ -7,7 +7,7 @@ import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import java.io.InputStream
 
-object JsonHelper {
+object JSONHelper {
 
     private const val MOVIES_FILE = "movies.json"
     private const val SERIES_FILE = "series.json"
@@ -19,9 +19,7 @@ object JsonHelper {
     }
 
     fun readMoviesJson(): MovieListResponse? {
-        val json: String?
-
-        json = try {
+        val json: String? = try {
             val inputStream: InputStream? = AppProvider.context?.assets?.open(MOVIES_FILE)
             inputStream?.bufferedReader()?.use { it.readText() }
         } catch (exception: Exception) {
@@ -39,9 +37,8 @@ object JsonHelper {
     }
 
     fun readSeriesJson(): SeriesListResponse? {
-        val json: String?
 
-        json = try {
+        val json: String? = try {
             val inputStream: InputStream? = AppProvider.context?.assets?.open(SERIES_FILE)
             inputStream?.bufferedReader()?.use { it.readText() }
         } catch (exception: Exception) {
