@@ -74,19 +74,19 @@ dependencies {
     implementation(Libs.hiltLifecycleViewModel)
     kapt(Libs.hiltCompiler)
 
-    testImplementation(Libs.mockk)
-    testImplementation(Libs.kotestRunner)
-    testImplementation(Libs.kotestAssertions)
-    testImplementation(Libs.kotestProperty)
-    testImplementation(Libs.coreTesting)
-    testImplementation(Libs.coroutineTest)
-    testImplementation(Libs.jUnit)
+    testImplementation(TestLibs.mockk)
+    testImplementation(TestLibs.kotestRunner)
+    testImplementation(TestLibs.kotestAssertions)
+    testImplementation(TestLibs.kotestProperty)
+    testImplementation(TestLibs.coreTesting)
+    testImplementation(TestLibs.coroutineTest)
+    testImplementation(TestLibs.jUnit)
 
-    androidTestImplementation(Libs.jUnitExt)
-    androidTestImplementation(Libs.espressoCore)
-    androidTestImplementation(Libs.testRunner)
-    androidTestImplementation(Libs.testRules)
-    androidTestImplementation(Libs.espressoContrib) {
+    androidTestImplementation(TestLibs.jUnitExt)
+    androidTestImplementation(TestLibs.espressoCore)
+    androidTestImplementation(TestLibs.testRunner)
+    androidTestImplementation(TestLibs.testRules)
+    androidTestImplementation(TestLibs.espressoContrib) {
         exclude(group = "com.android.support", module = "recyclerview-v7")
     }
 }

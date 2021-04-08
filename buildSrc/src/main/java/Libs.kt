@@ -13,16 +13,6 @@ object Versions {
     const val moshi = "1.9.3"
     const val daggerHilt = "2.28-alpha"
     const val androidXHilt = "1.0.0-alpha01"
-    const val mockk = "1.11.0"
-    const val kotest = "4.4.3"
-    const val coreTesting = "1.1.1"
-    const val coroutineTest = "1.4.3"
-    const val jUnit = "4.13.2"
-    const val jUnitExt = "1.1.2"
-    const val espresso = "3.3.0"
-    const val espressoContrib = "3.0.2"
-    const val testRunner = "1.3.0"
-    const val testRules = "1.3.0"
 }
 
 object Libs {
@@ -46,16 +36,4 @@ object Libs {
     const val daggerHiltGradlePlugin = "com.google.dagger:hilt-android-gradle-plugin:${Versions.daggerHilt}"
     const val hiltLifecycleViewModel = "androidx.hilt:hilt-lifecycle-viewmodel:${Versions.androidXHilt}"
     const val hiltCompiler = "androidx.hilt:hilt-compiler:${Versions.androidXHilt}"
-    const val mockk = "io.mockk:mockk:${Versions.mockk}"
-    const val kotestRunner = "io.kotest:kotest-runner-junit5:${Versions.kotest}"
-    const val kotestAssertions = "io.kotest:kotest-assertions-core:${Versions.kotest}"
-    const val kotestProperty = "io.kotest:kotest-property:${Versions.kotest}"
-    const val coreTesting = "android.arch.core:core-testing:${Versions.coreTesting}"
-    const val coroutineTest = "org.jetbrains.kotlinx:kotlinx-coroutines-test:${Versions.coroutineTest}"
-    const val jUnit = "junit:junit:${Versions.jUnit}"
-    const val jUnitExt = "androidx.test.ext:junit:${Versions.jUnitExt}"
-    const val espressoCore = "androidx.test.espresso:espresso-core:${Versions.espresso}"
-    const val espressoContrib = "com.android.support.test.espresso:espresso-contrib:${Versions.espressoContrib}"
-    const val testRunner = "androidx.test:runner:${Versions.testRunner}"
-    const val testRules = "androidx.test:rules:${Versions.testRules}"
 }
