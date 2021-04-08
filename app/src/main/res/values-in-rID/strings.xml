@@ -3,9 +3,10 @@
     <string name="title_series">Drama</string>
     <string name="title_profile">Profil</string>
     <string name="title_menu">Menu</string>
-    <string name="change_language">Ubah Bahasa</string>
-    <string name="label_app_version">Versi Aplikasi %s</string>
     <string name="title_trending_now">Sedang Trending</string>
     <string name="title_popular_series">Seri Populer</string>
+
+    <string name="label_change_language">Ubah Bahasa</string>
+    <string name="label_app_version">Versi Aplikasi %s</string>
     <string name="label_share">Bagikan</string>
 </resources>

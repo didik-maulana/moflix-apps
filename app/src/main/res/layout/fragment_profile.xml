@@ -72,7 +72,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/size_16dp"
-        android:text="@string/change_language"
+        android:text="@string/label_change_language"
         android:textColor="#A5A5A5"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@id/changeLanguageImageView"
