@@ -26,6 +26,11 @@ class MainActivityScenarioTest {
 
     @Test
     fun verifyMovieListScrolling() {
+        with(onView(withId(R.id.navigation_movies))) {
+            check(matches(isDisplayed()))
+            perform(click())
+        }
+
         with(onView(withId(R.id.moviesRecyclerView))) {
             check(matches(isDisplayed()))
 
@@ -34,6 +39,30 @@ class MainActivityScenarioTest {
             perform(RecyclerViewActions.scrollToPosition<RecyclerView.ViewHolder>(15))
             perform(RecyclerViewActions.scrollToPosition<RecyclerView.ViewHolder>(20))
         }
+    }
+
+    @Test
+    fun verifyClickMovieRedirectToDetail() {
+        with(onView(withId(R.id.navigation_movies))) {
+            check(matches(isDisplayed()))
+            perform(click())
+        }
+
+        with(onView(withId(R.id.moviesRecyclerView))) {
+            check(matches(isDisplayed()))
+
+            perform(RecyclerViewActions.scrollToPosition<RecyclerView.ViewHolder>(5))
+            perform(
+                RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(5, click())
+            )
+        }
+
+        onView(withId(R.id.coverImageView)).check(matches(isDisplayed()))
+        onView(withId(R.id.thumbnailImageView)).check(matches(isDisplayed()))
+        onView(withId(R.id.titleTextView)).check(matches(isDisplayed()))
+        onView(withId(R.id.releaseDateTextView)).check(matches(isDisplayed()))
+        onView(withId(R.id.ratingView)).check(matches(isDisplayed()))
+        onView(withId(R.id.overviewTextView)).check(matches(isDisplayed()))
     }
 
     @Test
@@ -54,6 +83,30 @@ class MainActivityScenarioTest {
     }
 
     @Test
+    fun verifyClickSeriesRedirectToDetail() {
+        with(onView(withId(R.id.navigation_series))) {
+            check(matches(isDisplayed()))
+            perform(click())
+        }
+
+        with(onView(withId(R.id.seriesRecyclerView))) {
+            check(matches(isDisplayed()))
+
+            perform(RecyclerViewActions.scrollToPosition<RecyclerView.ViewHolder>(10))
+            perform(
+                RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(10, click())
+            )
+        }
+
+        onView(withId(R.id.coverImageView)).check(matches(isDisplayed()))
+        onView(withId(R.id.thumbnailImageView)).check(matches(isDisplayed()))
+        onView(withId(R.id.titleTextView)).check(matches(isDisplayed()))
+        onView(withId(R.id.releaseDateTextView)).check(matches(isDisplayed()))
+        onView(withId(R.id.ratingView)).check(matches(isDisplayed()))
+        onView(withId(R.id.overviewTextView)).check(matches(isDisplayed()))
+    }
+
+    @Test
     fun verifyProfileMenuIsDisplayed() {
         with(onView(withId(R.id.navigation_profile))) {
             check(matches(isDisplayed()))
@@ -61,23 +114,9 @@ class MainActivityScenarioTest {
         }
 
         onView(withId(R.id.userPhotoImageView)).check(matches(isDisplayed()))
-
         onView(withId(R.id.nameTextView)).check(matches(isDisplayed()))
-
         onView(withId(R.id.emailTextView)).check(matches(isDisplayed()))
-
         onView(withId(R.id.changeLanguageButton)).check(matches(isDisplayed()))
-
         onView(withId(R.id.appVersionTextView)).check(matches(isDisplayed()))
-
-//        onView(withId(R.id.moviesRecyclerView)).perform(
-//            RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(20, click())
-//        )
-//
-//        with(onView(withContentDescription(R.string.abc_action_bar_up_description))) {
-//            check(matches(isDisplayed()))
-//
-//            perform(click())
-//        }
     }
 }
