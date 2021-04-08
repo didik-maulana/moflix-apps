@@ -54,8 +54,10 @@ class AppModule {
     fun provideGetSeriesUseCase(repository: SeriesRepository) = GetSeriesUseCase(repository)
 
     @Provides
-    fun provideMoviesViewModel(getMoviesUseCase: GetMoviesUseCase) = MoviesViewModel(getMoviesUseCase)
+    fun provideMoviesViewModel(getMoviesUseCase: GetMoviesUseCase) =
+        MoviesViewModel(getMoviesUseCase)
 
     @Provides
-    fun provideSeriesViewModel(getSeriesUseCase: GetSeriesUseCase) = SeriesViewModel(getSeriesUseCase)
+    fun provideSeriesViewModel(getSeriesUseCase: GetSeriesUseCase) =
+        SeriesViewModel(getSeriesUseCase)
 }

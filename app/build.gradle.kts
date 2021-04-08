@@ -60,7 +60,6 @@ dependencies {
     implementation(Libs.appCompat)
     implementation(Libs.material)
     implementation(Libs.constraintLayout)
-    implementation(Libs.vectorDrawable)
     implementation(Libs.navigationUI)
     implementation(Libs.lifecycleLiveData)
     implementation(Libs.groupie)
@@ -78,7 +77,6 @@ dependencies {
     testImplementation(TestLibs.kotestAssertions)
     testImplementation(TestLibs.kotestProperty)
     testImplementation(TestLibs.coreTesting)
-    testImplementation(TestLibs.coroutineTest)
     testImplementation(TestLibs.jUnit)
 
     androidTestImplementation(TestLibs.jUnitExt)
