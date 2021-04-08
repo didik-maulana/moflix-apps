@@ -61,7 +61,6 @@ dependencies {
     implementation(Libs.material)
     implementation(Libs.constraintLayout)
     implementation(Libs.vectorDrawable)
-    implementation(Libs.navigationFragment)
     implementation(Libs.navigationUI)
     implementation(Libs.lifecycleLiveData)
     implementation(Libs.groupie)

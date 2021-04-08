@@ -2,7 +2,6 @@ package com.didik.moflix.presentation.movies
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.fragment.app.viewModels
 import com.didik.moflix.R
 import com.didik.moflix.base.BindingFragment
 import com.didik.moflix.databinding.FragmentMoviesBinding
@@ -14,13 +13,15 @@ import com.didik.moflix.views.HeaderItem
 import com.didik.moflix.views.MovieItem
 import com.xwray.groupie.GroupieAdapter
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class MoviesFragment : BindingFragment<FragmentMoviesBinding>() {
 
     private lateinit var moviesAdapter: GroupieAdapter
 
-    private val moviesViewModel: MoviesViewModel by viewModels()
+    @Inject
+    lateinit var moviesViewModel: MoviesViewModel
 
     override fun initViewBinding(
         inflater: LayoutInflater,

@@ -24,7 +24,6 @@ object Libs {
     const val material = "com.google.android.material:material:${Versions.material}"
     const val constraintLayout = "androidx.constraintlayout:constraintlayout:${Versions.constraintLayout}"
     const val vectorDrawable = "androidx.vectordrawable:vectordrawable:${Versions.vectorDrawable}"
-    const val navigationFragment = "androidx.navigation:navigation-fragment-ktx:${Versions.navigation}"
     const val navigationUI = "androidx.navigation:navigation-ui-ktx:${Versions.navigation}"
     const val lifecycleLiveData = "androidx.lifecycle:lifecycle-livedata-ktx:${Versions.lifecycleLiveData}"
     const val groupie = "com.xwray:groupie:${Versions.groupie}"

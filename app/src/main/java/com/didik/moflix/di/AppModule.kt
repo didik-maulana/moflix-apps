@@ -12,11 +12,12 @@ import com.didik.moflix.domain.repository.MovieRepository
 import com.didik.moflix.domain.repository.SeriesRepository
 import com.didik.moflix.domain.usecase.GetMoviesUseCase
 import com.didik.moflix.domain.usecase.GetSeriesUseCase
+import com.didik.moflix.presentation.movies.MoviesViewModel
+import com.didik.moflix.presentation.series.SeriesViewModel
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ActivityComponent
-import javax.inject.Singleton
 
 @Module
 @InstallIn(ActivityComponent::class)
@@ -51,4 +52,10 @@ class AppModule {
 
     @Provides
     fun provideGetSeriesUseCase(repository: SeriesRepository) = GetSeriesUseCase(repository)
+
+    @Provides
+    fun provideMoviesViewModel(getMoviesUseCase: GetMoviesUseCase) = MoviesViewModel(getMoviesUseCase)
+
+    @Provides
+    fun provideSeriesViewModel(getSeriesUseCase: GetSeriesUseCase) = SeriesViewModel(getSeriesUseCase)
 }
