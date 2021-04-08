@@ -1,7 +1,7 @@
 package com.didik.moflix.data.datasource
 
 import android.content.Context
-import com.didik.moflix.app.AppProvider
+import com.didik.moflix.app.MoflixApp
 import com.didik.moflix.data.response.SeriesListResponse
 import com.didik.moflix.data.response.SeriesResponse
 import com.didik.moflix.utils.helpers.JSONHelper
@@ -14,7 +14,7 @@ class SeriesLocalDataSourceImplTest : ShouldSpec({
     lateinit var seriesLocalDataSourceImpl: SeriesLocalDataSourceImpl
 
     beforeTest {
-        mockkObject(AppProvider)
+        mockkObject(MoflixApp)
         mockkObject(JSONHelper)
 
         seriesLocalDataSourceImpl = spyk(SeriesLocalDataSourceImpl())
@@ -31,7 +31,7 @@ class SeriesLocalDataSourceImplTest : ShouldSpec({
             val mockSeries: List<SeriesResponse> = mockk()
             val mockSeriesListResponse = spyk(SeriesListResponse(mockSeries))
 
-            every { AppProvider.context } returns mockContext
+            every { MoflixApp.applicationContext } returns mockContext
             every { JSONHelper.readSeriesJson() } returns mockSeriesListResponse
 
             // Then

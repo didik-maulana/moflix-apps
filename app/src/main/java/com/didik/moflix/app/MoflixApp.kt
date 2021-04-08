@@ -1,6 +1,7 @@
 package com.didik.moflix.app
 
 import android.app.Application
+import android.content.Context
 import dagger.hilt.android.HiltAndroidApp
 
 @HiltAndroidApp
@@ -8,11 +9,10 @@ class MoflixApp : Application() {
 
     override fun onCreate() {
         super.onCreate()
-        AppProvider.init(this)
+        MoflixApp.applicationContext = applicationContext
     }
 
-    override fun onTerminate() {
-        AppProvider.clear()
-        super.onTerminate()
+    companion object {
+        lateinit var applicationContext: Context
     }
 }
