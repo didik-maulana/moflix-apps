@@ -11,19 +11,19 @@
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/userPhotoImageView"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="@dimen/size_50dp"
+        android:layout_height="@dimen/size_50dp"
         android:scaleType="centerCrop"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:background="@color/black" />
+        tools:background="@color/white" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/nameTextView"
         style="@style/Subtitle1"
         android:layout_width="@dimen/size_0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="@dimen/size_16dp"
         android:ellipsize="end"
         android:maxLines="1"
         android:textColor="@color/white"
@@ -37,10 +37,10 @@
         style="@style/Subtitle2"
         android:layout_width="@dimen/size_0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
+        android:layout_marginTop="@dimen/size_4dp"
         android:ellipsize="end"
         android:maxLines="1"
-        android:textColor="#66667C"
+        android:textColor="@color/blue_wedge_wood"
         app:layout_constraintEnd_toEndOf="@id/nameTextView"
         app:layout_constraintStart_toStartOf="@id/nameTextView"
         app:layout_constraintTop_toBottomOf="@id/nameTextView"
@@ -51,9 +51,9 @@
         style="@style/Headline6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="@dimen/size_36dp"
         android:text="@string/title_menu"
-        android:textColor="#66667C"
+        android:textColor="@color/white"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/userPhotoImageView" />
 
@@ -73,7 +73,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/size_16dp"
         android:text="@string/label_change_language"
-        android:textColor="#A5A5A5"
+        android:textColor="@color/blue_periwinkle"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@id/changeLanguageImageView"
         app:layout_constraintStart_toEndOf="@id/changeLanguageImageView"
@@ -94,8 +94,7 @@
         style="@style/Subtitle2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/size_16dp"
-        android:textColor="#767676"
+        android:textColor="@color/blue_wedge_wood"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

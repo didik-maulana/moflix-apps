@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import com.didik.moflix.R
 import com.didik.moflix.base.BindingFragment
-import com.didik.moflix.databinding.FragmentHomeBinding
+import com.didik.moflix.databinding.FragmentMoviesBinding
 import com.didik.moflix.domain.model.MovieModel
 import com.didik.moflix.presentation.detail.MovieDetailActivity
 import com.didik.moflix.utils.extensions.observeData
@@ -16,7 +16,7 @@ import com.xwray.groupie.GroupieAdapter
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class MoviesFragment : BindingFragment<FragmentHomeBinding>() {
+class MoviesFragment : BindingFragment<FragmentMoviesBinding>() {
 
     private lateinit var moviesAdapter: GroupieAdapter
 
@@ -25,8 +25,8 @@ class MoviesFragment : BindingFragment<FragmentHomeBinding>() {
     override fun initViewBinding(
         inflater: LayoutInflater,
         container: ViewGroup?
-    ): FragmentHomeBinding {
-        return FragmentHomeBinding.inflate(inflater, container, false)
+    ): FragmentMoviesBinding {
+        return FragmentMoviesBinding.inflate(inflater, container, false)
     }
 
     override fun renderView() {

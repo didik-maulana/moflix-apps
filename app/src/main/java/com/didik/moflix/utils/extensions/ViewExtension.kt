@@ -2,19 +2,18 @@ package com.didik.moflix.utils.extensions
 
 import android.graphics.drawable.LayerDrawable
 import androidx.appcompat.widget.AppCompatRatingBar
-import androidx.core.content.ContextCompat
-import com.didik.moflix.R
+import com.didik.moflix.utils.helpers.ColorPalette
 
 fun AppCompatRatingBar.setupRatingDrawable() {
     (progressDrawable as LayerDrawable).takeIf {
         it.numberOfLayers >= 2
     }?.let { layerDrawable ->
         layerDrawable.getDrawable(0).run {
-            setTint(ContextCompat.getColor(context, R.color.blue_solitude))
+            setTint(ColorPalette.BLUE_PERIWINKLE)
         }
 
         layerDrawable.getDrawable(2).run {
-            setTint(ContextCompat.getColor(context, R.color.yellow_supernova))
+            setTint(ColorPalette.YELLOW_SUPERNOVA)
         }
     }
 }

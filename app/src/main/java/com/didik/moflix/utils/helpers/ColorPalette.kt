@@ -8,4 +8,12 @@ object ColorPalette {
     @JvmField
     @ColorInt
     val GREY_SHARK = R.color.grey_shark.asColor()
+
+    @JvmField
+    @ColorInt
+    val BLUE_PERIWINKLE = R.color.blue_periwinkle.asColor()
+
+    @JvmField
+    @ColorInt
+    val YELLOW_SUPERNOVA = R.color.yellow_supernova.asColor()
 }
