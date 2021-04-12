@@ -3,6 +3,7 @@ package com.didik.moflix.data.series.datasource.remote.response
 import com.squareup.moshi.Json
 
 data class SeriesResponse(
+    @Json(name = "name")
     val name: String? = null,
 
     @Json(name = "backdrop_path")
@@ -17,5 +18,6 @@ data class SeriesResponse(
     @Json(name = "vote_average")
     val voteAverage: Float? = null,
 
+    @Json(name = "overview")
     val overview: String? = null
 )

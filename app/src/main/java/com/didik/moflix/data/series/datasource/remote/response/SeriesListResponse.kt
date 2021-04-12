@@ -1,3 +1,8 @@
 package com.didik.moflix.data.series.datasource.remote.response
 
-data class SeriesListResponse(val results: List<SeriesResponse>? = null)
+import com.squareup.moshi.Json
+
+data class SeriesListResponse(
+    @Json(name = "results")
+    val results: List<SeriesResponse>? = null
+)
