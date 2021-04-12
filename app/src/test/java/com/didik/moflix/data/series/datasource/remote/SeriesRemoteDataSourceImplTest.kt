@@ -9,15 +9,15 @@ import io.kotest.core.spec.style.ShouldSpec
 import io.kotest.matchers.shouldBe
 import io.mockk.*
 
-class SeriesLocalDataSourceImplTest : ShouldSpec({
+class SeriesRemoteDataSourceImplTest : ShouldSpec({
 
-    lateinit var seriesLocalDataSourceImpl: SeriesLocalDataSourceImpl
+    lateinit var seriesRemoteDataSourceImpl: SeriesRemoteDataSourceImpl
 
     beforeTest {
         mockkObject(MoflixApp)
         mockkObject(JSONHelper)
 
-        seriesLocalDataSourceImpl = spyk(SeriesLocalDataSourceImpl())
+        seriesRemoteDataSourceImpl = spyk(SeriesRemoteDataSourceImpl())
     }
 
     afterTest {
@@ -35,7 +35,7 @@ class SeriesLocalDataSourceImplTest : ShouldSpec({
             every { JSONHelper.readSeriesJson() } returns mockSeriesListResponse
 
             // Then
-            seriesLocalDataSourceImpl.getSeries() shouldBe mockSeries
+            seriesRemoteDataSourceImpl.getSeries() shouldBe mockSeries
             verify(exactly = 1) { JSONHelper.readSeriesJson() }
         }
     }

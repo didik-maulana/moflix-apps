@@ -7,12 +7,12 @@ import io.mockk.coEvery
 import io.mockk.mockk
 import io.mockk.unmockkAll
 
-class SeriesLocalDataSourceTest : ShouldSpec({
+class SeriesRemoteDataSourceTest : ShouldSpec({
 
-    lateinit var seriesLocalDataSource: SeriesLocalDataSource
+    lateinit var seriesRemoteDataSource: SeriesRemoteDataSource
 
     beforeTest {
-        seriesLocalDataSource = mockk()
+        seriesRemoteDataSource = mockk()
     }
 
     afterTest {
@@ -24,10 +24,10 @@ class SeriesLocalDataSourceTest : ShouldSpec({
             // Given
             val mockSeriesResponseList: List<SeriesResponse> = mockk()
 
-            coEvery { seriesLocalDataSource.getSeries() } returns mockSeriesResponseList
+            coEvery { seriesRemoteDataSource.getSeries() } returns mockSeriesResponseList
 
             // Then
-            seriesLocalDataSource.getSeries() shouldBe mockSeriesResponseList
+            seriesRemoteDataSource.getSeries() shouldBe mockSeriesResponseList
         }
     }
 

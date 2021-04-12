@@ -4,8 +4,8 @@ import com.didik.moflix.data.movies.datasource.remote.MovieRemoteDataSource
 import com.didik.moflix.data.movies.datasource.remote.MovieRemoteDataSourceImpl
 import com.didik.moflix.data.movies.mapper.MovieMapper
 import com.didik.moflix.data.movies.repository.MovieRepositoryImpl
-import com.didik.moflix.data.series.datasource.remote.SeriesLocalDataSource
-import com.didik.moflix.data.series.datasource.remote.SeriesLocalDataSourceImpl
+import com.didik.moflix.data.series.datasource.remote.SeriesRemoteDataSource
+import com.didik.moflix.data.series.datasource.remote.SeriesRemoteDataSourceImpl
 import com.didik.moflix.data.series.mapper.SeriesMapper
 import com.didik.moflix.data.series.repository.SeriesRepositoryImpl
 import com.didik.moflix.domain.repository.MovieRepository
@@ -39,16 +39,16 @@ class AppModule {
     fun provideGetMovieUseCase(repository: MovieRepository) = GetMoviesUseCase(repository)
 
     @Provides
-    fun provideSeriesLocalDataSource(): SeriesLocalDataSource = SeriesLocalDataSourceImpl()
+    fun provideSeriesLocalDataSource(): SeriesRemoteDataSource = SeriesRemoteDataSourceImpl()
 
     @Provides
     fun provideSeriesMapper(): SeriesMapper = SeriesMapper()
 
     @Provides
     fun provideSeriesRepository(
-        localDataSource: SeriesLocalDataSource,
+        remoteDataSource: SeriesRemoteDataSource,
         mapper: SeriesMapper
-    ): SeriesRepository = SeriesRepositoryImpl(localDataSource, mapper)
+    ): SeriesRepository = SeriesRepositoryImpl(remoteDataSource, mapper)
 
     @Provides
     fun provideGetSeriesUseCase(repository: SeriesRepository) = GetSeriesUseCase(repository)
