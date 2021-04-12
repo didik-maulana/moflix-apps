@@ -26,9 +26,4 @@
         <item name="lineHeight">@dimen/size_21dp</item>
     </style>
 
-    <style name="Caption" parent="TextAppearance.MaterialComponents.Caption">
-        <item name="android:fontFamily">@font/nunito_sans_regular</item>
-        <item name="android:textSize">@dimen/text_size_12sp</item>
-        <item name="lineHeight">@dimen/size_18dp</item>
-    </style>
 </resources>
