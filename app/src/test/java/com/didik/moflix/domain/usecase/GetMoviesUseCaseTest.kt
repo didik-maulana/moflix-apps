@@ -1,6 +1,6 @@
 package com.didik.moflix.domain.usecase
 
-import com.didik.moflix.data.repository.MovieRepositoryImpl
+import com.didik.moflix.data.movies.repository.MovieRepositoryImpl
 import com.didik.moflix.domain.model.MovieModel
 import io.kotest.core.spec.style.ShouldSpec
 import io.kotest.matchers.shouldBe

@@ -1,8 +1,8 @@
 package com.didik.moflix.utils.helpers
 
 import com.didik.moflix.app.MoflixApp
-import com.didik.moflix.data.response.MovieListResponse
-import com.didik.moflix.data.response.SeriesListResponse
+import com.didik.moflix.data.movies.datasource.remote.response.MovieListResponse
+import com.didik.moflix.data.series.datasource.remote.response.SeriesListResponse
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import java.io.InputStream

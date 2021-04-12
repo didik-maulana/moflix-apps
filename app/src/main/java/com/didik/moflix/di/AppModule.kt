@@ -1,13 +1,13 @@
 package com.didik.moflix.di
 
-import com.didik.moflix.data.datasource.MovieLocalDataSource
-import com.didik.moflix.data.datasource.MovieLocalDataSourceImpl
-import com.didik.moflix.data.datasource.SeriesLocalDataSource
-import com.didik.moflix.data.datasource.SeriesLocalDataSourceImpl
-import com.didik.moflix.data.mapper.MovieMapper
-import com.didik.moflix.data.mapper.SeriesMapper
-import com.didik.moflix.data.repository.MovieRepositoryImpl
-import com.didik.moflix.data.repository.SeriesRepositoryImpl
+import com.didik.moflix.data.movies.datasource.remote.MovieLocalDataSource
+import com.didik.moflix.data.movies.datasource.remote.MovieLocalDataSourceImpl
+import com.didik.moflix.data.movies.mapper.MovieMapper
+import com.didik.moflix.data.movies.repository.MovieRepositoryImpl
+import com.didik.moflix.data.series.datasource.remote.SeriesLocalDataSource
+import com.didik.moflix.data.series.datasource.remote.SeriesLocalDataSourceImpl
+import com.didik.moflix.data.series.mapper.SeriesMapper
+import com.didik.moflix.data.series.repository.SeriesRepositoryImpl
 import com.didik.moflix.domain.repository.MovieRepository
 import com.didik.moflix.domain.repository.SeriesRepository
 import com.didik.moflix.domain.usecase.GetMoviesUseCase
