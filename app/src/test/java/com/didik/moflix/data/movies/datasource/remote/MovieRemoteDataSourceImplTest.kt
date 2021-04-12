@@ -9,15 +9,15 @@ import io.kotest.core.spec.style.ShouldSpec
 import io.kotest.matchers.shouldBe
 import io.mockk.*
 
-class MovieLocalDataSourceImplTest : ShouldSpec({
+class MovieRemoteDataSourceImplTest : ShouldSpec({
 
-    lateinit var movieLocalDataSourceImpl: MovieLocalDataSourceImpl
+    lateinit var movieRemoteDataSourceImpl: MovieRemoteDataSourceImpl
 
     beforeTest {
         mockkObject(MoflixApp)
         mockkObject(JSONHelper)
 
-        movieLocalDataSourceImpl = spyk(MovieLocalDataSourceImpl())
+        movieRemoteDataSourceImpl = spyk(MovieRemoteDataSourceImpl())
     }
 
     afterTest {
@@ -35,7 +35,7 @@ class MovieLocalDataSourceImplTest : ShouldSpec({
             every { JSONHelper.readMoviesJson() } returns mockMovieListResponse
 
             // Then
-            movieLocalDataSourceImpl.getMovies() shouldBe mockMovies
+            movieRemoteDataSourceImpl.getMovies() shouldBe mockMovies
             verify(exactly = 1) { JSONHelper.readMoviesJson() }
         }
     }

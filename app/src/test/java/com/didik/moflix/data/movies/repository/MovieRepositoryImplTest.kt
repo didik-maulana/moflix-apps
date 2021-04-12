@@ -1,6 +1,6 @@
 package com.didik.moflix.data.movies.repository
 
-import com.didik.moflix.data.movies.datasource.remote.MovieLocalDataSourceImpl
+import com.didik.moflix.data.movies.datasource.remote.MovieRemoteDataSourceImpl
 import com.didik.moflix.data.movies.datasource.remote.response.MovieResponse
 import com.didik.moflix.data.movies.mapper.MovieMapper
 import com.didik.moflix.domain.model.MovieModel
@@ -10,7 +10,7 @@ import io.mockk.*
 
 class MovieRepositoryImplTest : ShouldSpec({
 
-    val mockLocalDataSource: MovieLocalDataSourceImpl = mockk()
+    val mockLocalDataSource: MovieRemoteDataSourceImpl = mockk()
     val mockMapper: MovieMapper = mockk()
     lateinit var movieRepositoryImpl: MovieRepositoryImpl
 

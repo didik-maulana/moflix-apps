@@ -1,7 +1,7 @@
 package com.didik.moflix.di
 
-import com.didik.moflix.data.movies.datasource.remote.MovieLocalDataSource
-import com.didik.moflix.data.movies.datasource.remote.MovieLocalDataSourceImpl
+import com.didik.moflix.data.movies.datasource.remote.MovieRemoteDataSource
+import com.didik.moflix.data.movies.datasource.remote.MovieRemoteDataSourceImpl
 import com.didik.moflix.data.movies.mapper.MovieMapper
 import com.didik.moflix.data.movies.repository.MovieRepositoryImpl
 import com.didik.moflix.data.series.datasource.remote.SeriesLocalDataSource
@@ -24,16 +24,16 @@ import dagger.hilt.android.components.ActivityComponent
 class AppModule {
 
     @Provides
-    fun provideMovieLocalDataSource(): MovieLocalDataSource = MovieLocalDataSourceImpl()
+    fun provideMovieRemoteDataSource(): MovieRemoteDataSource = MovieRemoteDataSourceImpl()
 
     @Provides
     fun provideMovieMapper(): MovieMapper = MovieMapper()
 
     @Provides
     fun provideMovieRepository(
-        localDataSource: MovieLocalDataSource,
+        remoteDataSource: MovieRemoteDataSource,
         mapper: MovieMapper
-    ): MovieRepository = MovieRepositoryImpl(localDataSource, mapper)
+    ): MovieRepository = MovieRepositoryImpl(remoteDataSource, mapper)
 
     @Provides
     fun provideGetMovieUseCase(repository: MovieRepository) = GetMoviesUseCase(repository)

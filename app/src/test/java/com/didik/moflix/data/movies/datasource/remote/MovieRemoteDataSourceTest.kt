@@ -7,12 +7,12 @@ import io.mockk.coEvery
 import io.mockk.mockk
 import io.mockk.unmockkAll
 
-class MovieLocalDataSourceTest : ShouldSpec({
+class MovieRemoteDataSourceTest : ShouldSpec({
 
-    lateinit var movieLocalDataSource: MovieLocalDataSource
+    lateinit var movieRemoteDataSource: MovieRemoteDataSource
 
     beforeTest {
-        movieLocalDataSource = mockk()
+        movieRemoteDataSource = mockk()
     }
 
     afterTest {
@@ -24,10 +24,10 @@ class MovieLocalDataSourceTest : ShouldSpec({
             // Given
             val mockMovieResponseList: List<MovieResponse> = mockk()
 
-            coEvery { movieLocalDataSource.getMovies() } returns mockMovieResponseList
+            coEvery { movieRemoteDataSource.getMovies() } returns mockMovieResponseList
 
             // Then
-            movieLocalDataSource.getMovies() shouldBe mockMovieResponseList
+            movieRemoteDataSource.getMovies() shouldBe mockMovieResponseList
         }
     }
 
