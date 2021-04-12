@@ -12,6 +12,8 @@ object Versions {
     const val moshi = "1.9.3"
     const val daggerHilt = "2.33-beta"
     const val androidXHilt = "1.0.0-alpha01"
+    const val retrofit = "2.9.0"
+    const val loggingInterceptor = "4.9.0"
 }
 
 object Libs {
@@ -33,4 +35,6 @@ object Libs {
     const val daggerHiltGradlePlugin = "com.google.dagger:hilt-android-gradle-plugin:${Versions.daggerHilt}"
     const val hiltLifecycleViewModel = "androidx.hilt:hilt-lifecycle-viewmodel:${Versions.androidXHilt}"
     const val hiltCompiler = "androidx.hilt:hilt-compiler:${Versions.androidXHilt}"
+    const val retrofit = "com.squareup.retrofit2:retrofit:${Versions.retrofit}"
+    const val loggingInterceptor = "com.squareup.okhttp3:logging-interceptor:${Versions.loggingInterceptor}"
 }

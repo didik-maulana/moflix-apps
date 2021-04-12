@@ -66,6 +66,8 @@ dependencies {
     implementation(Libs.groupieViewBinding)
     implementation(Libs.coil)
     implementation(Libs.moshi)
+    implementation(Libs.retrofit)
+    implementation(Libs.loggingInterceptor)
 
     implementation(Libs.daggerHilt)
     kapt(Libs.daggerHiltCompiler)
