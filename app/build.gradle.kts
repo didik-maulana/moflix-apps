@@ -30,7 +30,9 @@ android {
     }
 
     buildTypes.forEach { buildType ->
-        buildType.buildConfigField("String", "BASE_URL", "\"https://image.tmdb.org\"")
+        buildType.buildConfigField("String", "IMAGE_BASE_URL", "\"https://image.tmdb.org\"")
+        buildType.buildConfigField("String", "API_BASE_URL", "\"https://api.themoviedb.org/3/\"")
+        buildType.buildConfigField("String", "API_KEY", "\"0e8b96bbbfb9a12b5fc83724af528456\"")
     }
 
     compileOptions {
@@ -66,8 +68,10 @@ dependencies {
     implementation(Libs.groupieViewBinding)
     implementation(Libs.coil)
     implementation(Libs.moshi)
+    implementation(Libs.moshiConverter)
     implementation(Libs.retrofit)
     implementation(Libs.loggingInterceptor)
+    implementation(Libs.shimmer)
 
     implementation(Libs.daggerHilt)
     kapt(Libs.daggerHiltCompiler)

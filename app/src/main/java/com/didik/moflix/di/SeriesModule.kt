@@ -32,5 +32,6 @@ class SeriesModule {
     fun provideGetSeriesUseCase(repository: SeriesRepository) = GetSeriesUseCase(repository)
 
     @Provides
-    fun provideSeriesViewModel(getSeriesUseCase: GetSeriesUseCase) = SeriesViewModel(getSeriesUseCase)
+    fun provideSeriesViewModel(getSeriesUseCase: GetSeriesUseCase) =
+        SeriesViewModel(getSeriesUseCase)
 }

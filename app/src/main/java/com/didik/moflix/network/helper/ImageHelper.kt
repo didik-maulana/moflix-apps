@@ -8,7 +8,7 @@ object ImageHelper {
         imageSize: ImageSize,
         imagePath: String
     ): String {
-        return Uri.parse(BuildConfig.BASE_URL).buildUpon().apply {
+        return Uri.parse(BuildConfig.IMAGE_BASE_URL).buildUpon().apply {
             appendPath("t")
             appendPath("p")
             appendPath(imageSize.resolution)

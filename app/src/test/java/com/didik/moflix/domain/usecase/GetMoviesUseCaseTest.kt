@@ -12,10 +12,10 @@ import io.mockk.unmockkAll
 class GetMoviesUseCaseTest : ShouldSpec({
 
     val mockRepository: MovieRepositoryImpl = mockk()
-    lateinit var getMoviesUseCase: GetMoviesUseCase
+    lateinit var movieUseCase: MovieUseCase
 
     beforeTest {
-        getMoviesUseCase = spyk(GetMoviesUseCase(mockRepository))
+        movieUseCase = spyk(MovieUseCase(mockRepository))
     }
 
     afterTest {
@@ -30,7 +30,7 @@ class GetMoviesUseCaseTest : ShouldSpec({
             coEvery { mockRepository.getMovies() } returns mockMovieModelList
 
             // Then
-            getMoviesUseCase.getMovies() shouldBe mockMovieModelList
+            movieUseCase.getMovies() shouldBe mockMovieModelList
         }
     }
 

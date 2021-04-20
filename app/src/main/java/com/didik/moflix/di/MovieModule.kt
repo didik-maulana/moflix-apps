@@ -4,9 +4,10 @@ import com.didik.moflix.data.movies.datasource.remote.MovieRemoteDataSource
 import com.didik.moflix.data.movies.datasource.remote.MovieRemoteDataSourceImpl
 import com.didik.moflix.data.movies.mapper.MovieMapper
 import com.didik.moflix.data.movies.repository.MovieRepositoryImpl
+import com.didik.moflix.data.routes.ApiServices
 import com.didik.moflix.domain.repository.MovieRepository
-import com.didik.moflix.domain.usecase.GetMoviesUseCase
-import com.didik.moflix.presentation.movies.MoviesViewModel
+import com.didik.moflix.domain.usecase.MovieUseCase
+import com.didik.moflix.presentation.movies.MovieViewModel
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -14,10 +15,12 @@ import dagger.hilt.components.SingletonComponent
 
 @Module
 @InstallIn(SingletonComponent::class)
-class MoviesModule {
+class MovieModule {
 
     @Provides
-    fun provideMovieRemoteDataSource(): MovieRemoteDataSource = MovieRemoteDataSourceImpl()
+    fun provideMovieRemoteDataSource(apiServices: ApiServices): MovieRemoteDataSource {
+        return MovieRemoteDataSourceImpl(apiServices)
+    }
 
     @Provides
     fun provideMovieMapper(): MovieMapper = MovieMapper()
@@ -29,8 +32,8 @@ class MoviesModule {
     ): MovieRepository = MovieRepositoryImpl(remoteDataSource, mapper)
 
     @Provides
-    fun provideGetMovieUseCase(repository: MovieRepository) = GetMoviesUseCase(repository)
+    fun provideMovieUseCase(repository: MovieRepository) = MovieUseCase(repository)
 
     @Provides
-    fun provideMoviesViewModel(getMoviesUseCase: GetMoviesUseCase) = MoviesViewModel(getMoviesUseCase)
+    fun provideMovieViewModel(movieUseCase: MovieUseCase) = MovieViewModel(movieUseCase)
 }

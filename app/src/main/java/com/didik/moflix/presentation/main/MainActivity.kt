@@ -7,7 +7,7 @@ import com.didik.moflix.R
 import com.didik.moflix.base.BindingActivity
 import com.didik.moflix.databinding.ActivityMainBinding
 import com.didik.moflix.presentation.main.MainActivity.MainMenu.*
-import com.didik.moflix.presentation.movies.MoviesFragment
+import com.didik.moflix.presentation.movies.MovieFragment
 import com.didik.moflix.presentation.profile.ProfileFragment
 import com.didik.moflix.presentation.series.SeriesFragment
 import dagger.hilt.android.AndroidEntryPoint
@@ -26,7 +26,7 @@ class MainActivity : BindingActivity<ActivityMainBinding>() {
 
     private fun setupViewPager() {
         val fragments = listOf(
-            MoviesFragment(),
+            MovieFragment(),
             SeriesFragment(),
             ProfileFragment()
         )

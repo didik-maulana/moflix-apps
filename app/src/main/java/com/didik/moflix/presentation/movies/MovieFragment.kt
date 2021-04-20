@@ -2,9 +2,11 @@ package com.didik.moflix.presentation.movies
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.core.view.isVisible
 import com.didik.moflix.R
 import com.didik.moflix.base.BindingFragment
-import com.didik.moflix.databinding.FragmentMoviesBinding
+import com.didik.moflix.databinding.FragmentMovieBinding
 import com.didik.moflix.domain.model.MovieModel
 import com.didik.moflix.presentation.detail.MovieDetailActivity
 import com.didik.moflix.utils.extensions.observeData
@@ -16,24 +18,24 @@ import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class MoviesFragment : BindingFragment<FragmentMoviesBinding>() {
+class MovieFragment : BindingFragment<FragmentMovieBinding>() {
 
     private lateinit var moviesAdapter: GroupieAdapter
 
     @Inject
-    lateinit var moviesViewModel: MoviesViewModel
+    lateinit var movieViewModel: MovieViewModel
 
     override fun initViewBinding(
         inflater: LayoutInflater,
         container: ViewGroup?
-    ): FragmentMoviesBinding {
-        return FragmentMoviesBinding.inflate(inflater, container, false)
+    ): FragmentMovieBinding {
+        return FragmentMovieBinding.inflate(inflater, container, false)
     }
 
     override fun renderView() {
         setupUI()
         setupObserver()
-        moviesViewModel.getMovies()
+        movieViewModel.getMovies()
     }
 
     private fun setupUI() {
@@ -46,9 +48,21 @@ class MoviesFragment : BindingFragment<FragmentMoviesBinding>() {
     }
 
     private fun setupObserver() {
-        moviesViewModel.movieList.observeData(viewLifecycleOwner) { movies ->
-            renderMovieList(movies)
+        movieViewModel.movieState.observeData(viewLifecycleOwner) { state ->
+            when (state) {
+                is MovieState.RenderLoading -> showLoading(state.isLoading)
+                is MovieState.RenderMovies -> renderMovieList(state.data)
+                is MovieState.RenderError -> showToast(state.error)
+            }
         }
+    }
+
+    private fun showToast(message: String) {
+        Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
+    }
+
+    private fun showLoading(isLoading: Boolean) {
+        binding.progressBar.isVisible = isLoading
     }
 
     private fun renderMovieList(movieModels: List<MovieModel>) {

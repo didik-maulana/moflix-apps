@@ -1,12 +1,15 @@
 package com.didik.moflix.data.movies.datasource.remote
 
-import com.didik.moflix.data.movies.datasource.remote.response.MovieResponse
-import com.didik.moflix.utils.helpers.JSONHelper
+import com.didik.moflix.data.movies.datasource.remote.response.MovieListResponse
+import com.didik.moflix.data.routes.ApiServices
+import retrofit2.Response
+import javax.inject.Inject
 
-class MovieRemoteDataSourceImpl : MovieRemoteDataSource {
+class MovieRemoteDataSourceImpl @Inject constructor(
+    private val apiServices: ApiServices
+) : MovieRemoteDataSource {
 
-    override suspend fun getMovies(): List<MovieResponse> {
-        val movieResponse = JSONHelper.readMoviesJson()
-        return movieResponse?.results.orEmpty()
+    override suspend fun getMovies(): Response<MovieListResponse> {
+        return apiServices.getPopularMovies()
     }
 }

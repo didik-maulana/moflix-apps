@@ -2,21 +2,20 @@ package com.didik.moflix.presentation.movies
 
 import androidx.lifecycle.Observer
 import com.didik.moflix.domain.model.MovieModel
-import com.didik.moflix.domain.usecase.GetMoviesUseCase
+import com.didik.moflix.domain.usecase.MovieUseCase
 import com.didik.moflix.helpers.InstantExecutorListener
 import io.kotest.core.spec.style.ShouldSpec
-import io.kotest.matchers.shouldBe
 import io.mockk.*
 
-class MoviesViewModelTest : ShouldSpec({
+class MovieViewModelTest : ShouldSpec({
 
-    val mockGetMoviesUseCase: GetMoviesUseCase = mockk()
-    lateinit var moviesViewModel: MoviesViewModel
+    val mockMovieUseCase: MovieUseCase = mockk()
+    lateinit var movieViewModel: MovieViewModel
 
     listeners(InstantExecutorListener())
 
     beforeTest {
-        moviesViewModel = spyk(MoviesViewModel(mockGetMoviesUseCase))
+        movieViewModel = spyk(MovieViewModel(mockMovieUseCase))
     }
 
     afterTest {
@@ -30,15 +29,15 @@ class MoviesViewModelTest : ShouldSpec({
             val mockMovieListObserver: Observer<List<MovieModel>> = mockk()
 
             every { mockMovieListObserver.onChanged(any()) } just runs
-            coEvery { mockGetMoviesUseCase.getMovies() } returns mockMovieList
+            coEvery { mockMovieUseCase.getMovies() } returns mockMovieList
 
             // When
-            moviesViewModel.movieList.observeForever(mockMovieListObserver)
-            moviesViewModel.getMovies()
+            movieViewModel.movieList.observeForever(mockMovieListObserver)
+            movieViewModel.getMovies()
 
             // Then
-            moviesViewModel.movieList.value shouldBe mockMovieList
-            coVerify(exactly = 1) { mockGetMoviesUseCase.getMovies() }
+            movieViewModel.movieList.value shouldBe mockMovieList
+            coVerify(exactly = 1) { mockMovieUseCase.getMovies() }
         }
     }
 
