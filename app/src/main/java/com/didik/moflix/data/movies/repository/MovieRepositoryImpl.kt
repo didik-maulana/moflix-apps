@@ -26,4 +26,19 @@ class MovieRepositoryImpl @Inject constructor(
             ResultState.Failure(exception.message.orEmpty())
         }
     }
+
+    override suspend fun getMovieDetail(movieId: Int): ResultState<MovieModel> {
+        return try {
+            val response = remoteDataSource.getMovieDetail(movieId)
+            val result = response.body()
+            if (response.isSuccessful && result != null) {
+                val movie = mapper.mapToDomain(result)
+                ResultState.Success(movie)
+            } else {
+                ResultState.Failure(response.message())
+            }
+        } catch (exception: Exception) {
+            ResultState.Failure(exception.message.orEmpty())
+        }
+    }
 }

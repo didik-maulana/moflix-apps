@@ -5,6 +5,7 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class MovieModel(
+    val id: Int,
     val title: String,
     val backdropUrl: String,
     val thumbnailUrl: String,

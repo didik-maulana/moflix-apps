@@ -7,6 +7,7 @@ import com.didik.moflix.data.movies.repository.MovieRepositoryImpl
 import com.didik.moflix.data.routes.ApiServices
 import com.didik.moflix.domain.repository.MovieRepository
 import com.didik.moflix.domain.usecase.MovieUseCase
+import com.didik.moflix.presentation.detail.MovieDetailViewModel
 import com.didik.moflix.presentation.movies.MovieViewModel
 import dagger.Module
 import dagger.Provides
@@ -36,4 +37,7 @@ class MovieModule {
 
     @Provides
     fun provideMovieViewModel(movieUseCase: MovieUseCase) = MovieViewModel(movieUseCase)
+
+    @Provides
+    fun provideMovieDetailViewModel(movieUseCase: MovieUseCase) = MovieDetailViewModel(movieUseCase)
 }

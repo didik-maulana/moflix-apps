@@ -75,6 +75,6 @@ class SeriesFragment : BindingFragment<FragmentSeriesBinding>() {
     }
 
     private fun openMovieDetail(movieModel: MovieModel) {
-        startActivity(MovieDetailActivity.newIntent(requireContext(), movieModel))
+        startActivity(MovieDetailActivity.createIntent(requireContext(), movieModel))
     }
 }

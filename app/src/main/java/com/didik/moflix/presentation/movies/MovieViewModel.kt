@@ -16,17 +16,17 @@ class MovieViewModel @ViewModelInject constructor(
     private val movieUseCase: MovieUseCase
 ) : ViewModel() {
 
-    private val _movieState = MutableLiveData<ViewState<List<MovieModel>>>()
+    private val _moviesState = MutableLiveData<ViewState<List<MovieModel>>>()
     val movieState: LiveData<ViewState<List<MovieModel>>>
-        get() = _movieState
+        get() = _moviesState
 
     fun getMovies() {
-        _movieState.value = ViewState.RenderLoading(true)
+        _moviesState.value = ViewState.RenderLoading(true)
         viewModelScope.launch(Dispatchers.IO) {
             val result = movieUseCase.getMovies()
             launch(Dispatchers.Main) {
-                _movieState.value = ViewState.RenderLoading(false)
-                _movieState.value = when (result) {
+                _moviesState.value = ViewState.RenderLoading(false)
+                _moviesState.value = when (result) {
                     is ResultState.Success -> ViewState.RenderData(result.data)
                     is ResultState.Failure -> ViewState.RenderError(result.error)
                 }

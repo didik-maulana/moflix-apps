@@ -66,7 +66,7 @@ class MovieFragment : BindingFragment<FragmentMovieBinding>() {
         val headerItem = HeaderItem(getString(R.string.title_trending_now))
         val movieItems = movieModels.map { movie ->
             MovieItem(movie) {
-                openMovieDetail(movie)
+                openMovieDetail(movie.id)
             }
         }
         moviesAdapter.run {
@@ -75,7 +75,7 @@ class MovieFragment : BindingFragment<FragmentMovieBinding>() {
         }
     }
 
-    private fun openMovieDetail(movieModel: MovieModel) {
-        startActivity(MovieDetailActivity.newIntent(requireContext(), movieModel))
+    private fun openMovieDetail(movieId: Int) {
+        startActivity(MovieDetailActivity.createIntent(requireContext(), movieId))
     }
 }

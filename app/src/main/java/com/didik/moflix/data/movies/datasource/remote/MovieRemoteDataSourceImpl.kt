@@ -1,6 +1,7 @@
 package com.didik.moflix.data.movies.datasource.remote
 
 import com.didik.moflix.data.movies.datasource.remote.response.MovieListResponse
+import com.didik.moflix.data.movies.datasource.remote.response.MovieResponse
 import com.didik.moflix.data.routes.ApiServices
 import retrofit2.Response
 import javax.inject.Inject
@@ -11,5 +12,9 @@ class MovieRemoteDataSourceImpl @Inject constructor(
 
     override suspend fun getMovies(): Response<MovieListResponse> {
         return apiServices.getPopularMovies()
+    }
+
+    override suspend fun getMovieDetail(movieId: Int): Response<MovieResponse> {
+        return apiServices.getMovieDetail(movieId)
     }
 }

@@ -7,8 +7,8 @@ import android.graphics.drawable.ColorDrawable
 import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuItem
-import androidx.activity.viewModels
 import androidx.annotation.ColorInt
+import androidx.core.view.isVisible
 import coil.load
 import coil.transform.RoundedCornersTransformation
 import com.didik.moflix.R
@@ -17,20 +17,26 @@ import com.didik.moflix.databinding.ActivityMovieDetailBinding
 import com.didik.moflix.domain.model.MovieModel
 import com.didik.moflix.utils.extensions.observeData
 import com.didik.moflix.utils.extensions.setupRatingDrawable
+import com.didik.moflix.utils.extensions.toast
 import com.didik.moflix.utils.helpers.ColorPalette
+import com.didik.moflix.utils.state.ViewState
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 import kotlin.coroutines.CoroutineContext
 
+@AndroidEntryPoint
 class MovieDetailActivity : BindingActivity<ActivityMovieDetailBinding>(), CoroutineScope {
 
     private val job: Job by lazy { Job() }
     override val coroutineContext: CoroutineContext
         get() = job + Dispatchers.Main
 
-    private val viewModel: MovieDetailViewModel by viewModels()
+    @Inject
+    lateinit var viewModel: MovieDetailViewModel
 
     override fun initViewBinding(inflater: LayoutInflater): ActivityMovieDetailBinding {
         return ActivityMovieDetailBinding.inflate(inflater)
@@ -40,7 +46,9 @@ class MovieDetailActivity : BindingActivity<ActivityMovieDetailBinding>(), Corou
         setupObserver()
         setupActionBar()
         setupAnimatedToolbar()
-        viewModel.loadMovie(intent?.getParcelableExtra(EXTRA_MOVIE))
+
+        val movieId = intent.getIntExtra(EXTRA_MOVIE_ID, 0)
+        viewModel.loadMovieDetail(movieId)
     }
 
     override fun onDestroy() {
@@ -68,7 +76,7 @@ class MovieDetailActivity : BindingActivity<ActivityMovieDetailBinding>(), Corou
     }
 
     private fun shareMovie() {
-        viewModel.movie.value?.let { movie ->
+        viewModel.movie?.let { movie ->
             val movieText = StringBuilder().apply {
                 append(movie.title)
                 append("\n\n")
@@ -105,7 +113,7 @@ class MovieDetailActivity : BindingActivity<ActivityMovieDetailBinding>(), Corou
                 val maxPosition = binding.coverImageView.measuredHeight
 
                 if (scrollPosition > maxPosition) {
-                    binding.movieDetailToolbar.title = viewModel.movie.value?.title
+                    binding.movieDetailToolbar.title = viewModel.movie?.title
                     setToolbarColor(ColorPalette.GREY_SHARK)
                 } else {
                     binding.movieDetailToolbar.title = null
@@ -125,12 +133,21 @@ class MovieDetailActivity : BindingActivity<ActivityMovieDetailBinding>(), Corou
     }
 
     private fun setupObserver() {
-        viewModel.movie.observeData(this, { movie ->
-            setupUI(movie)
-        })
+        viewModel.movieState.observeData(this) { state ->
+            when (state) {
+                is ViewState.RenderLoading -> renderLoading(state.isLoading)
+                is ViewState.RenderData -> renderMovieDetail(state.data)
+                is ViewState.RenderError -> toast(state.error)
+            }
+        }
     }
 
-    private fun setupUI(movieModel: MovieModel) {
+    private fun renderLoading(isLoading: Boolean) {
+        binding.progressBar.isVisible = isLoading
+        binding.movieDetailScrollView.isVisible = !isLoading
+    }
+
+    private fun renderMovieDetail(movieModel: MovieModel) {
         binding.coverImageView.load(movieModel.backdropUrl) {
             crossfade(true)
             crossfade(500)
@@ -160,10 +177,17 @@ class MovieDetailActivity : BindingActivity<ActivityMovieDetailBinding>(), Corou
     companion object {
         private const val TEXT_PLAIN_TYPE = "text/plain"
         private const val EXTRA_MOVIE = "extra_movie"
+        private const val EXTRA_MOVIE_ID = "extra_movie_id"
 
-        fun newIntent(context: Context, movieModel: MovieModel?): Intent {
+        fun createIntent(context: Context, movieModel: MovieModel?): Intent {
             return Intent(context, MovieDetailActivity::class.java).apply {
                 putExtra(EXTRA_MOVIE, movieModel)
+            }
+        }
+
+        fun createIntent(context: Context, movieId: Int): Intent {
+            return Intent(context, MovieDetailActivity::class.java).apply {
+                putExtra(EXTRA_MOVIE_ID, movieId)
             }
         }
     }

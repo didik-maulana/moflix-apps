@@ -10,4 +10,8 @@ class MovieUseCase @Inject constructor(private val repository: MovieRepository) 
     suspend fun getMovies(): ResultState<List<MovieModel>> {
         return repository.getMovies()
     }
+
+    suspend fun getMovieDetail(movieId: Int): ResultState<MovieModel> {
+        return repository.getMovieDetail(movieId)
+    }
 }

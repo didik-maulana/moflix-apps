@@ -15,6 +15,7 @@ class SeriesMapper {
     fun mapToDomain(series: SeriesResponse): MovieModel {
         return with(series) {
             MovieModel(
+                id = 0,
                 title = name.orEmpty(),
                 backdropUrl = ImageHelper.getImageURL(ImageSize.MEDIUM, backdropPath.orEmpty()),
                 thumbnailUrl = ImageHelper.getImageURL(ImageSize.SMALL, posterPath.orEmpty()),
