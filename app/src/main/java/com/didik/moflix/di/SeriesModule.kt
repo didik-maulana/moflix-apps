@@ -1,11 +1,12 @@
 package com.didik.moflix.di
 
+import com.didik.moflix.data.routes.ApiServices
 import com.didik.moflix.data.series.datasource.remote.SeriesRemoteDataSource
 import com.didik.moflix.data.series.datasource.remote.SeriesRemoteDataSourceImpl
 import com.didik.moflix.data.series.mapper.SeriesMapper
 import com.didik.moflix.data.series.repository.SeriesRepositoryImpl
 import com.didik.moflix.domain.repository.SeriesRepository
-import com.didik.moflix.domain.usecase.GetSeriesUseCase
+import com.didik.moflix.domain.usecase.SeriesUseCase
 import com.didik.moflix.presentation.series.SeriesViewModel
 import dagger.Module
 import dagger.Provides
@@ -17,7 +18,9 @@ import dagger.hilt.components.SingletonComponent
 class SeriesModule {
 
     @Provides
-    fun provideSeriesLocalDataSource(): SeriesRemoteDataSource = SeriesRemoteDataSourceImpl()
+    fun provideSeriesLocalDataSource(apiServices: ApiServices): SeriesRemoteDataSource {
+        return SeriesRemoteDataSourceImpl(apiServices)
+    }
 
     @Provides
     fun provideSeriesMapper(): SeriesMapper = SeriesMapper()
@@ -29,9 +32,9 @@ class SeriesModule {
     ): SeriesRepository = SeriesRepositoryImpl(remoteDataSource, mapper)
 
     @Provides
-    fun provideGetSeriesUseCase(repository: SeriesRepository) = GetSeriesUseCase(repository)
+    fun provideSeriesUseCase(repository: SeriesRepository) = SeriesUseCase(repository)
 
     @Provides
-    fun provideSeriesViewModel(getSeriesUseCase: GetSeriesUseCase) =
-        SeriesViewModel(getSeriesUseCase)
+    fun provideSeriesViewModel(seriesUseCase: SeriesUseCase) =
+        SeriesViewModel(seriesUseCase)
 }

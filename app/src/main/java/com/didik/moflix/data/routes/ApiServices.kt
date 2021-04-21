@@ -10,6 +10,6 @@ interface ApiServices {
     @GET("movie/popular")
     suspend fun getPopularMovies(): Response<MovieListResponse>
 
-    @GET("tv/on_the_air")
-    suspend fun getOnTheAirSeries(): Response<SeriesListResponse>
+    @GET("tv/popular")
+    suspend fun getPopularSeries(): Response<SeriesListResponse>
 }

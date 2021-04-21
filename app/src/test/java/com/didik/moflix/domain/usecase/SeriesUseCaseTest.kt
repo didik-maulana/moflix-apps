@@ -8,13 +8,13 @@ import io.mockk.coEvery
 import io.mockk.mockk
 import io.mockk.spyk
 
-class GetSeriesUseCaseTest : ShouldSpec({
+class SeriesUseCaseTest : ShouldSpec({
 
     val mockRepository: SeriesRepositoryImpl = mockk()
-    lateinit var getSeriesUseCase: GetSeriesUseCase
+    lateinit var seriesUseCase: SeriesUseCase
 
     beforeTest {
-        getSeriesUseCase = spyk(GetSeriesUseCase(mockRepository))
+        seriesUseCase = spyk(SeriesUseCase(mockRepository))
     }
 
     context("getSeries") {
@@ -25,7 +25,7 @@ class GetSeriesUseCaseTest : ShouldSpec({
             coEvery { mockRepository.getSeries() } returns mockMovieModelList
 
             // Then
-            getSeriesUseCase.getSeries() shouldBe mockMovieModelList
+            seriesUseCase.getSeries() shouldBe mockMovieModelList
         }
     }
 

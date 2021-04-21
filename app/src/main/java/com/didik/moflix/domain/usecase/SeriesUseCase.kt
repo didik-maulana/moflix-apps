@@ -2,11 +2,12 @@ package com.didik.moflix.domain.usecase
 
 import com.didik.moflix.domain.model.MovieModel
 import com.didik.moflix.domain.repository.SeriesRepository
+import com.didik.moflix.utils.state.ResultState
 import javax.inject.Inject
 
-class GetSeriesUseCase @Inject constructor(private val repository: SeriesRepository) {
+class SeriesUseCase @Inject constructor(private val repository: SeriesRepository) {
 
-    suspend fun getSeries(): List<MovieModel> {
+    suspend fun getSeries(): ResultState<List<MovieModel>> {
         return repository.getSeries()
     }
 }

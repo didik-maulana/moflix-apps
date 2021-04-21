@@ -20,7 +20,7 @@ class MovieRepositoryImpl @Inject constructor(
                 val movieList = mapper.mapToListDomain(results)
                 ResultState.Success(movieList)
             } else {
-                ResultState.Failure("Gagal mengambil data film")
+                ResultState.Failure(response.message())
             }
         } catch (exception: Exception) {
             ResultState.Failure(exception.message.orEmpty())

@@ -2,13 +2,16 @@ package com.didik.moflix.presentation.series
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import com.didik.moflix.R
 import com.didik.moflix.base.BindingFragment
 import com.didik.moflix.databinding.FragmentSeriesBinding
 import com.didik.moflix.domain.model.MovieModel
 import com.didik.moflix.presentation.detail.MovieDetailActivity
 import com.didik.moflix.utils.extensions.observeData
+import com.didik.moflix.utils.extensions.toast
 import com.didik.moflix.utils.helpers.MovieItemDecoration
+import com.didik.moflix.utils.state.ViewState
 import com.didik.moflix.views.HeaderItem
 import com.didik.moflix.views.MovieItem
 import com.xwray.groupie.GroupieAdapter
@@ -45,12 +48,20 @@ class SeriesFragment : BindingFragment<FragmentSeriesBinding>() {
     }
 
     private fun setupObserver() {
-        seriesViewModel.seriesList.observeData(viewLifecycleOwner, { seriesList ->
-            renderMovieList(seriesList)
-        })
+        seriesViewModel.seriesState.observeData(viewLifecycleOwner) { state ->
+            when (state) {
+                is ViewState.RenderLoading -> renderLoading(state.isLoading)
+                is ViewState.RenderData -> renderSeriesList(state.data)
+                is ViewState.RenderError -> context?.toast(state.error)
+            }
+        }
     }
 
-    private fun renderMovieList(movieModels: List<MovieModel>) {
+    private fun renderLoading(isLoading: Boolean) {
+        binding.progressBar.isVisible = isLoading
+    }
+
+    private fun renderSeriesList(movieModels: List<MovieModel>) {
         val headerItem = HeaderItem(getString(R.string.title_popular_series))
         val movieItems = movieModels.map { movie ->
             MovieItem(movie) {

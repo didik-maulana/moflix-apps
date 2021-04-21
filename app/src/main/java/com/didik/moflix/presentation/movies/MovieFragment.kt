@@ -2,7 +2,6 @@ package com.didik.moflix.presentation.movies
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.core.view.isVisible
 import com.didik.moflix.R
 import com.didik.moflix.base.BindingFragment
@@ -10,6 +9,7 @@ import com.didik.moflix.databinding.FragmentMovieBinding
 import com.didik.moflix.domain.model.MovieModel
 import com.didik.moflix.presentation.detail.MovieDetailActivity
 import com.didik.moflix.utils.extensions.observeData
+import com.didik.moflix.utils.extensions.toast
 import com.didik.moflix.utils.helpers.MovieItemDecoration
 import com.didik.moflix.utils.state.ViewState
 import com.didik.moflix.views.HeaderItem
@@ -51,18 +51,14 @@ class MovieFragment : BindingFragment<FragmentMovieBinding>() {
     private fun setupObserver() {
         movieViewModel.movieState.observeData(viewLifecycleOwner) { state ->
             when (state) {
-                is ViewState.RenderLoading -> showLoading(state.isLoading)
+                is ViewState.RenderLoading -> renderLoading(state.isLoading)
                 is ViewState.RenderData -> renderMovieList(state.data)
-                is ViewState.RenderError -> showToast(state.error)
+                is ViewState.RenderError -> context?.toast(state.error)
             }
         }
     }
 
-    private fun showToast(message: String) {
-        Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
-    }
-
-    private fun showLoading(isLoading: Boolean) {
+    private fun renderLoading(isLoading: Boolean) {
         binding.progressBar.isVisible = isLoading
     }
 
