@@ -11,6 +11,7 @@ import com.didik.moflix.domain.model.MovieModel
 import com.didik.moflix.presentation.detail.MovieDetailActivity
 import com.didik.moflix.utils.extensions.observeData
 import com.didik.moflix.utils.helpers.MovieItemDecoration
+import com.didik.moflix.utils.state.ViewState
 import com.didik.moflix.views.HeaderItem
 import com.didik.moflix.views.MovieItem
 import com.xwray.groupie.GroupieAdapter
@@ -50,9 +51,9 @@ class MovieFragment : BindingFragment<FragmentMovieBinding>() {
     private fun setupObserver() {
         movieViewModel.movieState.observeData(viewLifecycleOwner) { state ->
             when (state) {
-                is MovieState.RenderLoading -> showLoading(state.isLoading)
-                is MovieState.RenderMovies -> renderMovieList(state.data)
-                is MovieState.RenderError -> showToast(state.error)
+                is ViewState.RenderLoading -> showLoading(state.isLoading)
+                is ViewState.RenderData -> renderMovieList(state.data)
+                is ViewState.RenderError -> showToast(state.error)
             }
         }
     }
