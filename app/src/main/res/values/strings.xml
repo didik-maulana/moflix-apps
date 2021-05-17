@@ -7,8 +7,10 @@
     <string name="title_menu">Menu</string>
     <string name="title_trending_now">Trending Now</string>
     <string name="title_popular_series">Popular Series</string>
+    <string name="title_cast">Cast</string>
 
     <string name="label_change_language">Change Language</string>
     <string name="label_app_version">App Version %s</string>
     <string name="label_share">Share</string>
+    <string name="label_watchlist">Watchlist</string>
 </resources>

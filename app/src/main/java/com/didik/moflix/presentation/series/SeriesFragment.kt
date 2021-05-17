@@ -10,7 +10,7 @@ import com.didik.moflix.domain.model.MovieModel
 import com.didik.moflix.presentation.detail.MovieDetailActivity
 import com.didik.moflix.utils.extensions.observeData
 import com.didik.moflix.utils.extensions.toast
-import com.didik.moflix.utils.helpers.MovieItemDecoration
+import com.didik.moflix.utils.helpers.CustomItemDecoration
 import com.didik.moflix.utils.state.ViewState
 import com.didik.moflix.views.HeaderItem
 import com.didik.moflix.views.MovieItem
@@ -21,7 +21,7 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class SeriesFragment : BindingFragment<FragmentSeriesBinding>() {
 
-    private lateinit var moviesAdapter: GroupieAdapter
+    private val moviesAdapter by lazy { GroupieAdapter() }
 
     @Inject
     lateinit var seriesViewModel: SeriesViewModel
@@ -40,10 +40,13 @@ class SeriesFragment : BindingFragment<FragmentSeriesBinding>() {
     }
 
     private fun setupUI() {
-        moviesAdapter = GroupieAdapter()
         binding.seriesRecyclerView.run {
             adapter = moviesAdapter
-            addItemDecoration(MovieItemDecoration(context))
+            addItemDecoration(
+                CustomItemDecoration(
+                    bottom = resources.getDimensionPixelSize(R.dimen.size_24dp)
+                )
+            )
         }
     }
 
@@ -65,7 +68,7 @@ class SeriesFragment : BindingFragment<FragmentSeriesBinding>() {
         val headerItem = HeaderItem(getString(R.string.title_popular_series))
         val movieItems = movieModels.map { movie ->
             MovieItem(movie) {
-                openMovieDetail(movie)
+                openSeriesDetail(movie.id)
             }
         }
         moviesAdapter.run {
@@ -74,7 +77,12 @@ class SeriesFragment : BindingFragment<FragmentSeriesBinding>() {
         }
     }
 
-    private fun openMovieDetail(movieModel: MovieModel) {
-        startActivity(MovieDetailActivity.createIntent(requireContext(), movieModel))
+    private fun openSeriesDetail(seriesId: Int) {
+        startActivity(
+            MovieDetailActivity.createIntent(
+                context = requireContext(),
+                seriesId = seriesId,
+            )
+        )
     }
 }

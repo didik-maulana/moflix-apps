@@ -1,9 +1,5 @@
 package com.didik.moflix.domain.model
 
-import android.os.Parcelable
-import kotlinx.parcelize.Parcelize
-
-@Parcelize
 data class MovieModel(
     val id: Int,
     val title: String,
@@ -12,5 +8,6 @@ data class MovieModel(
     val releaseDate: String,
     val rating: Float,
     val ratingText: String,
-    val overview: String
-) : Parcelable
+    val overview: String,
+    val cast: List<CastModel>
+)

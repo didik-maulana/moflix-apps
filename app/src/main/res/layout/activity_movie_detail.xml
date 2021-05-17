@@ -7,129 +7,16 @@
     android:background="@color/grey_shark"
     tools:context=".presentation.detail.MovieDetailActivity">
 
-    <ScrollView
-        android:id="@+id/movieDetailScrollView"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/movieDetailRecyclerView"
         android:layout_width="@dimen/size_0dp"
         android:layout_height="@dimen/size_0dp"
+        android:clipToPadding="false"
+        android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/movieDetailView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingBottom="@dimen/size_24dp">
-
-            <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/coverImageView"
-                android:layout_width="@dimen/size_0dp"
-                android:layout_height="@dimen/size_150dp"
-                android:scaleType="centerCrop"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:background="@color/white" />
-
-            <View
-                android:id="@+id/coverGradientView"
-                android:layout_width="@dimen/size_0dp"
-                android:layout_height="@dimen/size_0dp"
-                android:background="@drawable/gradient_cover"
-                app:layout_constraintBottom_toBottomOf="@id/coverImageView"
-                app:layout_constraintEnd_toEndOf="@id/coverImageView"
-                app:layout_constraintStart_toStartOf="@id/coverImageView"
-                app:layout_constraintTop_toTopOf="@id/coverImageView" />
-
-            <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/thumbnailImageView"
-                android:layout_width="@dimen/size_100dp"
-                android:layout_height="@dimen/size_128dp"
-                android:layout_marginTop="80dp"
-                android:scaleType="centerCrop"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:background="@color/white" />
-
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/titleTextView"
-                style="@style/Headline6"
-                android:layout_width="@dimen/size_0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/size_16dp"
-                android:layout_marginTop="@dimen/size_16dp"
-                android:ellipsize="end"
-                android:maxLines="2"
-                android:textAlignment="center"
-                android:textColor="@color/white"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/thumbnailImageView"
-                tools:text="Mulan Session" />
-
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/releaseDateTextView"
-                style="@style/Subtitle2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/size_4dp"
-                android:maxLines="1"
-                android:textColor="@color/blue_wedge_wood"
-                app:layout_constraintEnd_toEndOf="@id/titleTextView"
-                app:layout_constraintStart_toStartOf="@id/titleTextView"
-                app:layout_constraintTop_toBottomOf="@id/titleTextView"
-                tools:text="May 22, 2021" />
-
-            <LinearLayout
-                android:id="@+id/ratingView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/size_16dp"
-                android:gravity="center"
-                android:orientation="horizontal"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/releaseDateTextView">
-
-                <androidx.appcompat.widget.AppCompatRatingBar
-                    android:id="@+id/ratingBar"
-                    style="@style/Widget.AppCompat.RatingBar.Small"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:isIndicator="true"
-                    android:numStars="5"
-                    tools:progressTint="@color/yellow_supernova"
-                    tools:rating="3.5" />
-
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/ratingTextView"
-                    style="@style/Headline5"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/size_8dp"
-                    android:textColor="@color/white"
-                    tools:text="3.5" />
-
-            </LinearLayout>
-
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/overviewTextView"
-                style="@style/Subtitle2"
-                android:layout_width="@dimen/size_0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/size_16dp"
-                android:layout_marginTop="@dimen/size_24dp"
-                android:textColor="@color/white"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/ratingView"
-                tools:text="Wonder Woman comes into conflict with the Soviet Union during the Cold War in the 1980s and finds a formidable foe by the name of the Cheetah." />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-    </ScrollView>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/movieDetailAppBar"

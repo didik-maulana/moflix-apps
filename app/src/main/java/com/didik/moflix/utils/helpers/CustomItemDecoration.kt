@@ -1,12 +1,16 @@
 package com.didik.moflix.utils.helpers
 
-import android.content.Context
 import android.graphics.Rect
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.didik.moflix.R
 
-class MovieItemDecoration(private val context: Context) : RecyclerView.ItemDecoration() {
+class CustomItemDecoration(
+    private val left: Int = 0,
+    private val top: Int = 0,
+    private val right: Int = 0,
+    private val bottom: Int = 0
+) : RecyclerView.ItemDecoration() {
 
     override fun getItemOffsets(
         outRect: Rect,
@@ -15,6 +19,9 @@ class MovieItemDecoration(private val context: Context) : RecyclerView.ItemDecor
         state: RecyclerView.State
     ) {
         super.getItemOffsets(outRect, view, parent, state)
-        outRect.bottom = context.resources.getDimensionPixelSize(R.dimen.size_24dp)
+        outRect.left = left
+        outRect.top = top
+        outRect.right = right
+        outRect.bottom = bottom
     }
 }

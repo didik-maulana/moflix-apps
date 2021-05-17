@@ -10,7 +10,7 @@ import com.didik.moflix.domain.model.MovieModel
 import com.didik.moflix.presentation.detail.MovieDetailActivity
 import com.didik.moflix.utils.extensions.observeData
 import com.didik.moflix.utils.extensions.toast
-import com.didik.moflix.utils.helpers.MovieItemDecoration
+import com.didik.moflix.utils.helpers.CustomItemDecoration
 import com.didik.moflix.utils.state.ViewState
 import com.didik.moflix.views.HeaderItem
 import com.didik.moflix.views.MovieItem
@@ -21,7 +21,7 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class MovieFragment : BindingFragment<FragmentMovieBinding>() {
 
-    private lateinit var moviesAdapter: GroupieAdapter
+    private val moviesAdapter by lazy { GroupieAdapter() }
 
     @Inject
     lateinit var movieViewModel: MovieViewModel
@@ -40,11 +40,13 @@ class MovieFragment : BindingFragment<FragmentMovieBinding>() {
     }
 
     private fun setupUI() {
-        moviesAdapter = GroupieAdapter()
-
         binding.moviesRecyclerView.run {
             adapter = moviesAdapter
-            addItemDecoration(MovieItemDecoration(context))
+            addItemDecoration(
+                CustomItemDecoration(
+                    bottom = resources.getDimensionPixelSize(R.dimen.size_24dp)
+                )
+            )
         }
     }
 
@@ -76,6 +78,11 @@ class MovieFragment : BindingFragment<FragmentMovieBinding>() {
     }
 
     private fun openMovieDetail(movieId: Int) {
-        startActivity(MovieDetailActivity.createIntent(requireContext(), movieId))
+        startActivity(
+            MovieDetailActivity.createIntent(
+                context = requireContext(),
+                movieId = movieId,
+            )
+        )
     }
 }

@@ -4,7 +4,6 @@ import android.content.Context
 import com.didik.moflix.app.MoflixApp
 import com.didik.moflix.data.movies.datasource.remote.response.MovieListResponse
 import com.didik.moflix.data.movies.datasource.remote.response.MovieResponse
-import com.didik.moflix.utils.helpers.JSONHelper
 import io.kotest.core.spec.style.ShouldSpec
 import io.kotest.matchers.shouldBe
 import io.mockk.*

@@ -2,29 +2,30 @@ package com.didik.moflix.presentation.detail
 
 import android.content.Context
 import android.content.Intent
-import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuItem
 import androidx.annotation.ColorInt
 import androidx.core.view.isVisible
-import coil.load
-import coil.transform.RoundedCornersTransformation
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.didik.moflix.R
 import com.didik.moflix.base.BindingActivity
 import com.didik.moflix.databinding.ActivityMovieDetailBinding
 import com.didik.moflix.domain.model.MovieModel
+import com.didik.moflix.presentation.detail.component.CoverItem
+import com.didik.moflix.presentation.detail.component.CreditsItem
+import com.didik.moflix.presentation.detail.component.MovieDetailItem
 import com.didik.moflix.utils.extensions.observeData
-import com.didik.moflix.utils.extensions.setupRatingDrawable
 import com.didik.moflix.utils.extensions.toast
 import com.didik.moflix.utils.helpers.ColorPalette
 import com.didik.moflix.utils.state.ViewState
+import com.xwray.groupie.GroupieAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 import kotlin.coroutines.CoroutineContext
 
@@ -38,6 +39,23 @@ class MovieDetailActivity : BindingActivity<ActivityMovieDetailBinding>(), Corou
     @Inject
     lateinit var viewModel: MovieDetailViewModel
 
+    private val movieDetailAdapter by lazy { GroupieAdapter() }
+    private val movieDetailLayoutManager by lazy { LinearLayoutManager(this) }
+
+    private val recyclerViewListener = object : RecyclerView.OnScrollListener() {
+        override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+            super.onScrolled(recyclerView, dx, dy)
+            val isVisibleCover = movieDetailLayoutManager.findFirstVisibleItemPosition() != 0
+            if (isVisibleCover) {
+                binding.movieDetailToolbar.title = viewModel.movie?.title
+                setToolbarColor(ColorPalette.GREY_SHARK)
+            } else {
+                binding.movieDetailToolbar.title = null
+                setToolbarColor(ColorPalette.TRANSPARENT)
+            }
+        }
+    }
+
     override fun initViewBinding(inflater: LayoutInflater): ActivityMovieDetailBinding {
         return ActivityMovieDetailBinding.inflate(inflater)
     }
@@ -46,13 +64,12 @@ class MovieDetailActivity : BindingActivity<ActivityMovieDetailBinding>(), Corou
         setupObserver()
         setupActionBar()
         setupAnimatedToolbar()
-
-        val movieId = intent.getIntExtra(EXTRA_MOVIE_ID, 0)
-        viewModel.loadMovieDetail(movieId)
+        loadDetail()
     }
 
     override fun onDestroy() {
         job.cancel()
+        binding.movieDetailRecyclerView.removeOnScrollListener(recyclerViewListener)
         super.onDestroy()
     }
 
@@ -107,20 +124,7 @@ class MovieDetailActivity : BindingActivity<ActivityMovieDetailBinding>(), Corou
     }
 
     private fun setupAnimatedToolbar() {
-        binding.movieDetailScrollView.viewTreeObserver.addOnScrollChangedListener {
-            launch(Dispatchers.Main) {
-                val scrollPosition = binding.movieDetailScrollView.scrollY
-                val maxPosition = binding.coverImageView.measuredHeight
-
-                if (scrollPosition > maxPosition) {
-                    binding.movieDetailToolbar.title = viewModel.movie?.title
-                    setToolbarColor(ColorPalette.GREY_SHARK)
-                } else {
-                    binding.movieDetailToolbar.title = null
-                    setToolbarColor(Color.TRANSPARENT)
-                }
-            }
-        }
+        binding.movieDetailRecyclerView.addOnScrollListener(recyclerViewListener)
     }
 
     private fun setToolbarColor(@ColorInt color: Int) {
@@ -129,6 +133,24 @@ class MovieDetailActivity : BindingActivity<ActivityMovieDetailBinding>(), Corou
 
         if (currentColor != color) {
             binding.movieDetailToolbar.setBackgroundColor(color)
+        }
+    }
+
+    private fun loadDetail() {
+        intent?.run {
+            val movieId = getIntExtra(EXTRA_MOVIE_ID, 0)
+            val seriesId = getIntExtra(EXTRA_SERIES_ID, 0)
+
+            when {
+                movieId != 0 -> {
+                    viewModel.detailId = movieId
+                    viewModel.loadMovieDetail()
+                }
+                seriesId != 0 -> {
+                    viewModel.detailId = seriesId
+                    viewModel.loadSeriesDetail()
+                }
+            }
         }
     }
 
@@ -144,50 +166,48 @@ class MovieDetailActivity : BindingActivity<ActivityMovieDetailBinding>(), Corou
 
     private fun renderLoading(isLoading: Boolean) {
         binding.progressBar.isVisible = isLoading
-        binding.movieDetailScrollView.isVisible = !isLoading
+        binding.movieDetailRecyclerView.isVisible = !isLoading
     }
 
     private fun renderMovieDetail(movieModel: MovieModel) {
-        binding.coverImageView.load(movieModel.backdropUrl) {
-            crossfade(true)
-            crossfade(500)
-            placeholder(R.drawable.ic_movie)
-            error(R.drawable.ic_movie)
+        binding.movieDetailRecyclerView.run {
+            adapter = movieDetailAdapter
+            layoutManager = movieDetailLayoutManager
         }
 
-        binding.thumbnailImageView.load(movieModel.thumbnailUrl) {
-            crossfade(true)
-            crossfade(500)
-            transformations(RoundedCornersTransformation(10f))
-            placeholder(R.drawable.ic_movie)
-            error(R.drawable.ic_movie)
-        }
+        movieDetailAdapter.addAll(
+            listOf(
+                CoverItem(
+                    coverUrl = movieModel.backdropUrl,
+                    thumbnailUrl = movieModel.thumbnailUrl
+                ),
+                MovieDetailItem(movieModel)
+            )
+        )
 
-        binding.titleTextView.text = movieModel.title
-        binding.releaseDateTextView.text = movieModel.releaseDate
-        binding.ratingTextView.text = movieModel.ratingText
-        binding.overviewTextView.text = movieModel.overview
-
-        binding.ratingBar.run {
-            setupRatingDrawable()
-            rating = movieModel.rating
+        if (movieModel.cast.isNotEmpty()) {
+            movieDetailAdapter.add(
+                CreditsItem(
+                    title = getString(R.string.title_cast),
+                    credits = movieModel.cast
+                )
+            )
         }
     }
 
     companion object {
         private const val TEXT_PLAIN_TYPE = "text/plain"
-        private const val EXTRA_MOVIE = "extra_movie"
         private const val EXTRA_MOVIE_ID = "extra_movie_id"
+        private const val EXTRA_SERIES_ID = "extra_series_id"
 
-        fun createIntent(context: Context, movieModel: MovieModel?): Intent {
-            return Intent(context, MovieDetailActivity::class.java).apply {
-                putExtra(EXTRA_MOVIE, movieModel)
-            }
-        }
-
-        fun createIntent(context: Context, movieId: Int): Intent {
+        fun createIntent(
+            context: Context,
+            movieId: Int? = null,
+            seriesId: Int? = null
+        ): Intent {
             return Intent(context, MovieDetailActivity::class.java).apply {
                 putExtra(EXTRA_MOVIE_ID, movieId)
+                putExtra(EXTRA_SERIES_ID, seriesId)
             }
         }
     }

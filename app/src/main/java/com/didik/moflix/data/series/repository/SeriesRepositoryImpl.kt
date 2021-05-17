@@ -26,4 +26,19 @@ class SeriesRepositoryImpl @Inject constructor(
             ResultState.Failure(exception.message.orEmpty())
         }
     }
+
+    override suspend fun getSeriesDetail(seriesId: Int): ResultState<MovieModel> {
+        return try {
+            val response = remoteDataSource.getSeriesDetail(seriesId)
+            val result = response.body()
+            if (response.isSuccessful && result != null) {
+                val seriesDetail = mapper.mapToDomain(result)
+                ResultState.Success(seriesDetail)
+            } else {
+                ResultState.Failure(response.message())
+            }
+        } catch (exception: Exception) {
+            ResultState.Failure(exception.message.orEmpty())
+        }
+    }
 }

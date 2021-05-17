@@ -5,4 +5,5 @@ import com.didik.moflix.utils.state.ResultState
 
 interface SeriesRepository {
     suspend fun getSeries(): ResultState<List<MovieModel>>
+    suspend fun getSeriesDetail(seriesId: Int): ResultState<MovieModel>
 }

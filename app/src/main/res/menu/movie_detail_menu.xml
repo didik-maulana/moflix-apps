@@ -6,4 +6,10 @@
         android:icon="@drawable/ic_share"
         android:title="@string/label_share"
         app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/watchlist"
+        android:icon="@drawable/ic_outline_favorite"
+        android:title="@string/label_watchlist"
+        android:visible="false"
+        app:showAsAction="ifRoom" />
 </menu>

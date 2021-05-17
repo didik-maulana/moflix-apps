@@ -10,4 +10,8 @@ class SeriesUseCase @Inject constructor(private val repository: SeriesRepository
     suspend fun getSeries(): ResultState<List<MovieModel>> {
         return repository.getSeries()
     }
+
+    suspend fun getSeriesDetail(seriesId: Int): ResultState<MovieModel> {
+        return repository.getSeriesDetail(seriesId)
+    }
 }

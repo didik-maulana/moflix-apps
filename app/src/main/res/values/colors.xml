@@ -3,6 +3,7 @@
     <color name="black">#FF000000</color>
     <color name="grey_shark">#FF181A20</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="transparent">#00FFFFFF</color>
 
     <color name="blue_periwinkle">#FFC8D6E5</color>
     <color name="blue_wedge_wood">#FF506884</color>

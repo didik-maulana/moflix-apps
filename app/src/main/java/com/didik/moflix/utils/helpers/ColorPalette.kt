@@ -7,6 +7,10 @@ import com.didik.moflix.utils.extensions.asColor
 object ColorPalette {
     @JvmField
     @ColorInt
+    val TRANSPARENT = R.color.transparent.asColor()
+
+    @JvmField
+    @ColorInt
     val GREY_SHARK = R.color.grey_shark.asColor()
 
     @JvmField
