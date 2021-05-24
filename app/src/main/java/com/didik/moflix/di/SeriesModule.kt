@@ -8,6 +8,8 @@ import com.didik.moflix.data.series.repository.SeriesRepositoryImpl
 import com.didik.moflix.domain.repository.SeriesRepository
 import com.didik.moflix.domain.usecase.SeriesUseCase
 import com.didik.moflix.presentation.series.SeriesViewModel
+import com.didik.moflix.utils.dispatcher.AppDispatchers
+import com.didik.moflix.utils.dispatcher.DispatchersProvider
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -32,9 +34,8 @@ class SeriesModule {
     ): SeriesRepository = SeriesRepositoryImpl(remoteDataSource, mapper)
 
     @Provides
-    fun provideSeriesUseCase(repository: SeriesRepository) = SeriesUseCase(repository)
-
-    @Provides
-    fun provideSeriesViewModel(seriesUseCase: SeriesUseCase) =
-        SeriesViewModel(seriesUseCase)
+    fun provideSeriesUseCase(
+        repository: SeriesRepository,
+        dispatchers: DispatchersProvider
+    ) = SeriesUseCase(repository, dispatchers)
 }

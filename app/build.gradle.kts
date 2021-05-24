@@ -59,6 +59,7 @@ android {
 dependencies {
     implementation(Libs.kotlinStdlib)
     implementation(Libs.coreKtx)
+    implementation("androidx.fragment:fragment-ktx:1.3.4")
     implementation(Libs.appCompat)
     implementation(Libs.material)
     implementation(Libs.constraintLayout)
@@ -71,12 +72,10 @@ dependencies {
     implementation(Libs.moshiConverter)
     implementation(Libs.retrofit)
     implementation(Libs.loggingInterceptor)
-    implementation(Libs.shimmer)
+    implementation(Libs.swipeRefreshLayout)
 
     implementation(Libs.daggerHilt)
     kapt(Libs.daggerHiltCompiler)
-    implementation(Libs.hiltLifecycleViewModel)
-    kapt(Libs.hiltCompiler)
 
     testImplementation(TestLibs.mockk)
     testImplementation(TestLibs.kotestRunner)

@@ -10,6 +10,8 @@ import com.didik.moflix.domain.usecase.MovieUseCase
 import com.didik.moflix.domain.usecase.SeriesUseCase
 import com.didik.moflix.presentation.detail.MovieDetailViewModel
 import com.didik.moflix.presentation.movies.MovieViewModel
+import com.didik.moflix.utils.dispatcher.AppDispatchers
+import com.didik.moflix.utils.dispatcher.DispatchersProvider
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -34,16 +36,8 @@ class MovieModule {
     ): MovieRepository = MovieRepositoryImpl(remoteDataSource, mapper)
 
     @Provides
-    fun provideMovieUseCase(repository: MovieRepository) = MovieUseCase(repository)
-
-    @Provides
-    fun provideMovieViewModel(
-        movieUseCase: MovieUseCase
-    ) = MovieViewModel(movieUseCase)
-
-    @Provides
-    fun provideMovieDetailViewModel(
-        movieUseCase: MovieUseCase,
-        seriesUseCase: SeriesUseCase
-    ) = MovieDetailViewModel(movieUseCase, seriesUseCase)
+    fun provideMovieUseCase(
+        repository: MovieRepository,
+        dispatchers: DispatchersProvider
+    ) = MovieUseCase(repository, dispatchers)
 }

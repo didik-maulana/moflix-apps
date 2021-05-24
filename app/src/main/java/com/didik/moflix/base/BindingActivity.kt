@@ -2,6 +2,7 @@ package com.didik.moflix.base
 
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.viewbinding.ViewBinding
 
@@ -26,4 +27,11 @@ abstract class BindingActivity<V : ViewBinding> : AppCompatActivity() {
     abstract fun initViewBinding(inflater: LayoutInflater): V
 
     abstract fun renderView()
+
+    protected fun toast(
+        message: String,
+        duration: Int = Toast.LENGTH_SHORT
+    ) {
+        Toast.makeText(this, message, duration).show()
+    }
 }

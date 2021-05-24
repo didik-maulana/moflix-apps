@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.viewbinding.ViewBinding
 
@@ -35,4 +36,13 @@ abstract class BindingFragment<V : ViewBinding> : Fragment() {
     abstract fun initViewBinding(inflater: LayoutInflater, container: ViewGroup?): V
 
     abstract fun renderView()
+
+    protected fun toast(
+        message: String,
+        duration: Int = Toast.LENGTH_SHORT
+    ) {
+        if (context != null) {
+            Toast.makeText(context, message, duration).show()
+        }
+    }
 }

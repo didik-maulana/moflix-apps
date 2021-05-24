@@ -3,28 +3,25 @@ package com.didik.moflix.presentation.movies
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.view.isVisible
+import androidx.fragment.app.viewModels
 import com.didik.moflix.R
 import com.didik.moflix.base.BindingFragment
 import com.didik.moflix.databinding.FragmentMovieBinding
 import com.didik.moflix.domain.model.MovieModel
 import com.didik.moflix.presentation.detail.MovieDetailActivity
 import com.didik.moflix.utils.extensions.observeData
-import com.didik.moflix.utils.extensions.toast
 import com.didik.moflix.utils.helpers.CustomItemDecoration
-import com.didik.moflix.utils.state.ViewState
 import com.didik.moflix.views.HeaderItem
 import com.didik.moflix.views.MovieItem
 import com.xwray.groupie.GroupieAdapter
 import dagger.hilt.android.AndroidEntryPoint
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class MovieFragment : BindingFragment<FragmentMovieBinding>() {
 
     private val moviesAdapter by lazy { GroupieAdapter() }
 
-    @Inject
-    lateinit var movieViewModel: MovieViewModel
+    private val movieViewModel: MovieViewModel by viewModels()
 
     override fun initViewBinding(
         inflater: LayoutInflater,
@@ -35,6 +32,7 @@ class MovieFragment : BindingFragment<FragmentMovieBinding>() {
 
     override fun renderView() {
         setupUI()
+        setupSwipeRefresh()
         setupObserver()
         movieViewModel.getMovies()
     }
@@ -50,16 +48,23 @@ class MovieFragment : BindingFragment<FragmentMovieBinding>() {
         }
     }
 
+    private fun setupSwipeRefresh() {
+        binding.swipeRefreshLayout.setOnRefreshListener {
+            movieViewModel.getMovies()
+        }
+    }
+
     private fun setupObserver() {
-        movieViewModel.movieState.observeData(viewLifecycleOwner) { state ->
-            when (state) {
-                is ViewState.RenderData -> renderMovieList(state.data)
-                is ViewState.RenderError -> context.toast(state.error)
-            }
+        movieViewModel.movies.observeData(viewLifecycleOwner) { movies ->
+            renderMovieList(movies)
         }
 
         movieViewModel.isLoading.observeData(viewLifecycleOwner) { isLoading ->
-            binding.progressBar.isVisible = isLoading
+            binding.swipeRefreshLayout.isRefreshing = isLoading
+        }
+
+        movieViewModel.error.observeData(viewLifecycleOwner) { error ->
+            toast(error)
         }
     }
 
@@ -71,6 +76,7 @@ class MovieFragment : BindingFragment<FragmentMovieBinding>() {
             }
         }
         moviesAdapter.run {
+            clear()
             add(headerItem)
             addAll(movieItems)
         }

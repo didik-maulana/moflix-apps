@@ -3,6 +3,7 @@ package com.didik.moflix.presentation.movies
 import androidx.lifecycle.Observer
 import com.didik.moflix.domain.model.MovieModel
 import com.didik.moflix.domain.usecase.MovieUseCase
+import com.didik.moflix.helpers.Faker
 import com.didik.moflix.helpers.InstantExecutorListener
 import com.didik.moflix.utils.dispatcher.DispatchersProvider
 import com.didik.moflix.utils.dispatcher.TestDispatchers
@@ -14,15 +15,12 @@ import io.mockk.*
 class MovieViewModelTest : ShouldSpec({
 
     val movieUseCase: MovieUseCase = mockk()
-    val dispatcher: DispatchersProvider = TestDispatchers()
     lateinit var movieViewModel: MovieViewModel
 
     listeners(InstantExecutorListener())
 
     beforeTest {
-        movieViewModel = MovieViewModel(
-            movieUseCase = movieUseCase,
-        )
+        movieViewModel = MovieViewModel(movieUseCase)
     }
 
     afterTest {
@@ -30,9 +28,9 @@ class MovieViewModelTest : ShouldSpec({
     }
 
     context("getMovies") {
-        should("movie state is render data when result state is success") {
+        should("movies value is correct when result state is success") {
             // Given
-            val fakeMovies: List<MovieModel> = listOf()
+            val fakeMovies: List<MovieModel> = mockk()
             val moviesObserver: Observer<List<MovieModel>> = mockk()
 
             every { moviesObserver.onChanged(any()) } just runs
@@ -43,8 +41,26 @@ class MovieViewModelTest : ShouldSpec({
             movieViewModel.movies.observeForever(moviesObserver)
 
             // Then
+            movieViewModel.isLoading.value shouldBe false
             movieViewModel.movies.value shouldBe fakeMovies
             coVerify(exactly = 1) { movieUseCase.getMovies() }
+        }
+
+        should("error value is correct when result state is failure") {
+            // Given
+            val fakeError = Faker.string
+            val errorObserver: Observer<String> = mockk()
+
+            every { errorObserver.onChanged(any()) } just runs
+            coEvery { movieUseCase.getMovies() } returns ResultState.Failure(fakeError)
+
+            // When
+            movieViewModel.getMovies()
+            movieViewModel.error.observeForever(errorObserver)
+
+            // Then
+            movieViewModel.isLoading.value shouldBe false
+            movieViewModel.error.value shouldBe fakeError
         }
     }
 

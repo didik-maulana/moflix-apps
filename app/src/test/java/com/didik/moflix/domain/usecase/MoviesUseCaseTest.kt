@@ -3,6 +3,8 @@ package com.didik.moflix.domain.usecase
 import com.didik.moflix.data.movies.repository.MovieRepositoryImpl
 import com.didik.moflix.domain.model.MovieModel
 import com.didik.moflix.helpers.Faker
+import com.didik.moflix.utils.dispatcher.DispatchersProvider
+import com.didik.moflix.utils.dispatcher.TestDispatchers
 import com.didik.moflix.utils.state.ResultState
 import io.kotest.core.spec.style.ShouldSpec
 import io.kotest.matchers.shouldBe
@@ -11,13 +13,14 @@ import io.mockk.coVerify
 import io.mockk.mockk
 import io.mockk.unmockkAll
 
-class GetMoviesUseCaseTest : ShouldSpec({
+class MoviesUseCaseTest : ShouldSpec({
 
     val repository: MovieRepositoryImpl = mockk()
+    val dispatchers: DispatchersProvider = TestDispatchers()
     lateinit var movieUseCase: MovieUseCase
 
     beforeTest {
-        movieUseCase = MovieUseCase(repository)
+        movieUseCase = MovieUseCase(repository, dispatchers)
     }
 
     afterTest {

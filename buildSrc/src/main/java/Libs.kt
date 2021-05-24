@@ -11,11 +11,10 @@ object Versions {
     const val coil = "1.1.1"
     const val moshi = "1.9.3"
     const val moshiConverter = "2.9.0"
-    const val daggerHilt = "2.33-beta"
-    const val androidXHilt = "1.0.0-alpha01"
+    const val daggerHilt = "2.35"
     const val retrofit = "2.9.0"
     const val loggingInterceptor = "4.9.0"
-    const val shimmer = "0.5.0"
+    const val swipeRefreshLayout = "1.1.0"
 }
 
 object Libs {
@@ -36,9 +35,7 @@ object Libs {
     const val daggerHilt = "com.google.dagger:hilt-android:${Versions.daggerHilt}"
     const val daggerHiltCompiler = "com.google.dagger:hilt-android-compiler:${Versions.daggerHilt}"
     const val daggerHiltGradlePlugin = "com.google.dagger:hilt-android-gradle-plugin:${Versions.daggerHilt}"
-    const val hiltLifecycleViewModel = "androidx.hilt:hilt-lifecycle-viewmodel:${Versions.androidXHilt}"
-    const val hiltCompiler = "androidx.hilt:hilt-compiler:${Versions.androidXHilt}"
     const val retrofit = "com.squareup.retrofit2:retrofit:${Versions.retrofit}"
     const val loggingInterceptor = "com.squareup.okhttp3:logging-interceptor:${Versions.loggingInterceptor}"
-    const val shimmer = "com.facebook.shimmer:shimmer:${Versions.shimmer}"
+    const val swipeRefreshLayout = "androidx.swiperefreshlayout:swiperefreshlayout:${Versions.swipeRefreshLayout}"
 }

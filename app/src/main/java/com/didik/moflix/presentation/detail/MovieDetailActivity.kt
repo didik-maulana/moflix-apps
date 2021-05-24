@@ -6,6 +6,7 @@ import android.graphics.drawable.ColorDrawable
 import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuItem
+import androidx.activity.viewModels
 import androidx.annotation.ColorInt
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -17,17 +18,13 @@ import com.didik.moflix.domain.model.MovieModel
 import com.didik.moflix.presentation.detail.component.CoverItem
 import com.didik.moflix.presentation.detail.component.CreditsItem
 import com.didik.moflix.presentation.detail.component.MovieDetailItem
-import com.didik.moflix.presentation.main.MainActivity
 import com.didik.moflix.utils.extensions.observeData
-import com.didik.moflix.utils.extensions.toast
 import com.didik.moflix.utils.helpers.ColorPalette
-import com.didik.moflix.utils.state.ViewState
 import com.xwray.groupie.GroupieAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
-import javax.inject.Inject
 import kotlin.coroutines.CoroutineContext
 
 @AndroidEntryPoint
@@ -37,8 +34,7 @@ class MovieDetailActivity : BindingActivity<ActivityMovieDetailBinding>(), Corou
     override val coroutineContext: CoroutineContext
         get() = job + Dispatchers.Main
 
-    @Inject
-    lateinit var viewModel: MovieDetailViewModel
+    private val viewModel: MovieDetailViewModel by viewModels()
 
     private val movieDetailAdapter by lazy { GroupieAdapter() }
     private val movieDetailLayoutManager by lazy { LinearLayoutManager(this) }
@@ -48,7 +44,7 @@ class MovieDetailActivity : BindingActivity<ActivityMovieDetailBinding>(), Corou
             super.onScrolled(recyclerView, dx, dy)
             val isVisibleCover = movieDetailLayoutManager.findFirstVisibleItemPosition() != 0
             if (isVisibleCover) {
-                binding.movieDetailToolbar.title = viewModel.movie?.title
+                binding.movieDetailToolbar.title = viewModel.movie.value?.title
                 setToolbarColor(ColorPalette.GREY_SHARK)
             } else {
                 binding.movieDetailToolbar.title = null
@@ -65,6 +61,7 @@ class MovieDetailActivity : BindingActivity<ActivityMovieDetailBinding>(), Corou
         setupObserver()
         setupActionBar()
         setupAnimatedToolbar()
+        setupSwipeRefresh()
         loadDetail()
     }
 
@@ -94,7 +91,7 @@ class MovieDetailActivity : BindingActivity<ActivityMovieDetailBinding>(), Corou
     }
 
     private fun shareMovie() {
-        viewModel.movie?.let { movie ->
+        viewModel.movie.value?.let { movie ->
             val movieText = StringBuilder().apply {
                 append(movie.title)
                 append("\n\n")
@@ -137,6 +134,12 @@ class MovieDetailActivity : BindingActivity<ActivityMovieDetailBinding>(), Corou
         }
     }
 
+    private fun setupSwipeRefresh() {
+        binding.swipeRefreshLayout.setOnRefreshListener {
+            loadDetail()
+        }
+    }
+
     private fun loadDetail() {
         intent?.run {
             val movieId = getIntExtra(EXTRA_MOVIE_ID, 0)
@@ -144,29 +147,32 @@ class MovieDetailActivity : BindingActivity<ActivityMovieDetailBinding>(), Corou
 
             when {
                 movieId != 0 -> {
-                    viewModel.detailId = movieId
-                    viewModel.loadMovieDetail()
+                    viewModel.loadMovieDetail(movieId)
                 }
                 seriesId != 0 -> {
-                    viewModel.detailId = seriesId
-                    viewModel.loadSeriesDetail()
+                    viewModel.loadSeriesDetail(seriesId)
                 }
+                else -> onBackPressed()
             }
         }
     }
 
     private fun setupObserver() {
-        viewModel.movieState.observeData(this) { state ->
-            when (state) {
-                is ViewState.RenderLoading -> renderLoading(state.isLoading)
-                is ViewState.RenderData -> renderMovieDetail(state.data)
-                is ViewState.RenderError -> toast(state.error)
-            }
+        viewModel.movie.observeData(this) { movie ->
+            renderMovieDetail(movie)
+        }
+
+        viewModel.isLoading.observeData(this) { isLoading ->
+            renderLoading(isLoading)
+        }
+
+        viewModel.error.observeData(this) { error ->
+            toast(error)
         }
     }
 
     private fun renderLoading(isLoading: Boolean) {
-        binding.progressBar.isVisible = isLoading
+        binding.swipeRefreshLayout.isRefreshing = isLoading
         binding.movieDetailRecyclerView.isVisible = !isLoading
     }
 
@@ -176,6 +182,7 @@ class MovieDetailActivity : BindingActivity<ActivityMovieDetailBinding>(), Corou
             layoutManager = movieDetailLayoutManager
         }
 
+        movieDetailAdapter.clear()
         movieDetailAdapter.addAll(
             listOf(
                 CoverItem(

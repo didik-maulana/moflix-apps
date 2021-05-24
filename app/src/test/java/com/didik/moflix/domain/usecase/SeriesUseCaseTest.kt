@@ -3,6 +3,8 @@ package com.didik.moflix.domain.usecase
 import com.didik.moflix.data.series.repository.SeriesRepositoryImpl
 import com.didik.moflix.domain.model.MovieModel
 import com.didik.moflix.helpers.Faker
+import com.didik.moflix.utils.dispatcher.DispatchersProvider
+import com.didik.moflix.utils.dispatcher.TestDispatchers
 import com.didik.moflix.utils.state.ResultState
 import io.kotest.core.spec.style.ShouldSpec
 import io.kotest.matchers.shouldBe
@@ -14,10 +16,14 @@ import io.mockk.unmockkAll
 class SeriesUseCaseTest : ShouldSpec({
 
     val repository: SeriesRepositoryImpl = mockk()
+    val dispatchers: DispatchersProvider = TestDispatchers()
     lateinit var seriesUseCase: SeriesUseCase
 
     beforeTest {
-        seriesUseCase = SeriesUseCase(repository)
+        seriesUseCase = SeriesUseCase(
+            repository = repository,
+            dispatchers = dispatchers
+        )
     }
 
     afterTest {
