@@ -13,7 +13,7 @@ class MovieListResponseTest : ShouldSpec({
     lateinit var movieListResponse: MovieListResponse
 
     beforeTest {
-        movieListResponse = spyk(MovieListResponse(mockResults))
+        movieListResponse = MovieListResponse(mockResults)
     }
 
     afterTest {

@@ -1,22 +1,24 @@
 package com.didik.moflix.data.movies.datasource.remote
 
-import android.content.Context
-import com.didik.moflix.app.MoflixApp
 import com.didik.moflix.data.movies.datasource.remote.response.MovieListResponse
 import com.didik.moflix.data.movies.datasource.remote.response.MovieResponse
+import com.didik.moflix.data.routes.ApiServices
+import com.didik.moflix.helpers.Faker
 import io.kotest.core.spec.style.ShouldSpec
 import io.kotest.matchers.shouldBe
-import io.mockk.*
+import io.mockk.coEvery
+import io.mockk.coVerify
+import io.mockk.mockk
+import io.mockk.unmockkAll
+import retrofit2.Response
 
 class MovieRemoteDataSourceImplTest : ShouldSpec({
 
+    val apiServices: ApiServices = mockk()
     lateinit var movieRemoteDataSourceImpl: MovieRemoteDataSourceImpl
 
     beforeTest {
-        mockkObject(MoflixApp)
-        mockkObject(JSONHelper)
-
-        movieRemoteDataSourceImpl = spyk(MovieRemoteDataSourceImpl())
+        movieRemoteDataSourceImpl = MovieRemoteDataSourceImpl(apiServices)
     }
 
     afterTest {
@@ -24,18 +26,35 @@ class MovieRemoteDataSourceImplTest : ShouldSpec({
     }
 
     context("getMovies") {
-        should("fetch from local json and return list of movie model") {
+        should("fetch from api services and return response of movie list response") {
             // Given
-            val mockContext: Context = mockk()
-            val mockMovies: List<MovieResponse> = mockk()
-            val mockMovieListResponse = spyk(MovieListResponse(mockMovies))
+            val mockMoviesResponse: Response<MovieListResponse> = mockk()
 
-            every { MoflixApp.applicationContext } returns mockContext
-            every { JSONHelper.readMoviesJson() } returns mockMovieListResponse
+            coEvery { apiServices.getPopularMovies() } returns mockMoviesResponse
+
+            // When
+            val result = movieRemoteDataSourceImpl.getMovies()
 
             // Then
-            movieRemoteDataSourceImpl.getMovies() shouldBe mockMovies
-            verify(exactly = 1) { JSONHelper.readMoviesJson() }
+            result shouldBe mockMoviesResponse
+            coVerify(exactly = 1) { apiServices.getPopularMovies() }
+        }
+    }
+
+    context("getMovieDetail") {
+        should("fetch from api services and return response of movie response") {
+            // Given
+            val fakeMovieId = Faker.int
+            val mockMovieResponse: Response<MovieResponse> = mockk()
+
+            coEvery { apiServices.getMovieDetail(fakeMovieId) } returns mockMovieResponse
+
+            // When
+            val result = movieRemoteDataSourceImpl.getMovieDetail(fakeMovieId)
+
+            // Then
+            result shouldBe mockMovieResponse
+            coVerify(exactly = 1) { apiServices.getMovieDetail(fakeMovieId) }
         }
     }
 

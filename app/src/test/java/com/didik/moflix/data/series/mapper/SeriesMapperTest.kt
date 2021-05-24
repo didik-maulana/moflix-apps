@@ -1,5 +1,7 @@
 package com.didik.moflix.data.series.mapper
 
+import com.didik.moflix.data.response.CastResponse
+import com.didik.moflix.data.response.CreditsResponse
 import com.didik.moflix.data.series.datasource.remote.response.SeriesResponse
 import com.didik.moflix.domain.model.MovieModel
 import com.didik.moflix.helpers.Faker
@@ -32,15 +34,22 @@ class SeriesMapperTest : ShouldSpec({
         should("mapping series response to movie model") {
             // Given
             val fakeImageUrl = Faker.string
-            val fakeSeriesResponse = spyk(
-                SeriesResponse(
-                    name = Faker.string,
-                    backdropPath = Faker.string,
-                    posterPath = Faker.string,
-                    firstAirDate = Faker.string,
-                    voteAverage = Faker.float,
-                    overview = Faker.string
-                )
+            val fakeCastResponse = CastResponse(
+                name = Faker.string,
+                profilePath = Faker.string,
+                character = Faker.string
+            )
+            val fakeCreditsResponse = CreditsResponse(
+                cast = listOf(fakeCastResponse)
+            )
+            val fakeSeriesResponse = SeriesResponse(
+                name = Faker.string,
+                backdropPath = Faker.string,
+                posterPath = Faker.string,
+                firstAirDate = Faker.string,
+                voteAverage = Faker.float,
+                overview = Faker.string,
+                credits = fakeCreditsResponse
             )
 
             every { ImageHelper.getImageURL(any(), any()) } returns fakeImageUrl

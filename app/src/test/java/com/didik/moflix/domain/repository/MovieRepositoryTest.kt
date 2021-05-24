@@ -1,6 +1,8 @@
 package com.didik.moflix.domain.repository
 
 import com.didik.moflix.domain.model.MovieModel
+import com.didik.moflix.helpers.Faker
+import com.didik.moflix.utils.state.ResultState
 import io.kotest.core.spec.style.ShouldSpec
 import io.kotest.matchers.shouldBe
 import io.mockk.coEvery
@@ -20,14 +22,33 @@ class MovieRepositoryTest : ShouldSpec({
     }
 
     context("getMovies") {
-        should("return list of movie model") {
+        should("return result state of list movie model") {
             // Given
-            val mockMovieList: List<MovieModel> = mockk()
+            val fakeResult: ResultState<List<MovieModel>> = mockk()
 
-            coEvery { movieRepository.getMovies() } returns mockMovieList
+            coEvery { movieRepository.getMovies() } returns fakeResult
+
+            // When
+            val result = movieRepository.getMovies()
 
             // Then
-            movieRepository.getMovies() shouldBe mockMovieList
+            result shouldBe fakeResult
+        }
+    }
+
+    context("getMoviesDetail") {
+        should("return result state of movie model") {
+            // Given
+            val fakeMovieId = Faker.int
+            val fakeResult: ResultState<MovieModel> = mockk()
+
+            coEvery { movieRepository.getMovieDetail(fakeMovieId) } returns fakeResult
+
+            // When
+            val result = movieRepository.getMovieDetail(fakeMovieId)
+
+            // Then
+            result shouldBe fakeResult
         }
     }
 

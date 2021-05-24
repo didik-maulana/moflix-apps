@@ -53,15 +53,14 @@ class MovieFragment : BindingFragment<FragmentMovieBinding>() {
     private fun setupObserver() {
         movieViewModel.movieState.observeData(viewLifecycleOwner) { state ->
             when (state) {
-                is ViewState.RenderLoading -> renderLoading(state.isLoading)
                 is ViewState.RenderData -> renderMovieList(state.data)
-                is ViewState.RenderError -> context?.toast(state.error)
+                is ViewState.RenderError -> context.toast(state.error)
             }
         }
-    }
 
-    private fun renderLoading(isLoading: Boolean) {
-        binding.progressBar.isVisible = isLoading
+        movieViewModel.isLoading.observeData(viewLifecycleOwner) { isLoading ->
+            binding.progressBar.isVisible = isLoading
+        }
     }
 
     private fun renderMovieList(movieModels: List<MovieModel>) {

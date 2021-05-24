@@ -13,32 +13,24 @@ class MovieRepositoryImpl @Inject constructor(
 ) : MovieRepository {
 
     override suspend fun getMovies(): ResultState<List<MovieModel>> {
-        return try {
-            val response = remoteDataSource.getMovies()
-            if (response.isSuccessful) {
-                val results = response.body()?.results.orEmpty()
-                val movieList = mapper.mapToListDomain(results)
-                ResultState.Success(movieList)
-            } else {
-                ResultState.Failure(response.message())
-            }
-        } catch (exception: Exception) {
-            ResultState.Failure(exception.message.orEmpty())
+        val response = remoteDataSource.getMovies()
+        return if (response.isSuccessful) {
+            val results = response.body()?.results.orEmpty()
+            val movieList = mapper.mapToListDomain(results)
+            ResultState.Success(movieList)
+        } else {
+            ResultState.Failure(response.message())
         }
     }
 
     override suspend fun getMovieDetail(movieId: Int): ResultState<MovieModel> {
-        return try {
-            val response = remoteDataSource.getMovieDetail(movieId)
-            val result = response.body()
-            if (response.isSuccessful && result != null) {
-                val movie = mapper.mapToDomain(result)
-                ResultState.Success(movie)
-            } else {
-                ResultState.Failure(response.message())
-            }
-        } catch (exception: Exception) {
-            ResultState.Failure(exception.message.orEmpty())
+        val response = remoteDataSource.getMovieDetail(movieId)
+        val result = response.body()
+        return if (response.isSuccessful && result != null) {
+            val movie = mapper.mapToDomain(result)
+            ResultState.Success(movie)
+        } else {
+            ResultState.Failure(response.message())
         }
     }
 }

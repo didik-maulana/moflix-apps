@@ -13,12 +13,12 @@ interface ApiServices {
     @GET("movie/popular")
     suspend fun getPopularMovies(): Response<MovieListResponse>
 
-    @GET("movie/{id}?append_to_response=credits,reviews")
+    @GET("movie/{id}?append_to_response=credits")
     suspend fun getMovieDetail(@Path("id") movieId: Int): Response<MovieResponse>
 
     @GET("tv/popular")
     suspend fun getPopularSeries(): Response<SeriesListResponse>
 
-    @GET("tv/{id}?append_to_response=credits,reviews")
+    @GET("tv/{id}?append_to_response=credits")
     suspend fun getSeriesDetail(@Path("id") seriesId: Int): Response<SeriesResponse>
 }

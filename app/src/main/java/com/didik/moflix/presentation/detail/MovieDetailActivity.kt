@@ -17,6 +17,7 @@ import com.didik.moflix.domain.model.MovieModel
 import com.didik.moflix.presentation.detail.component.CoverItem
 import com.didik.moflix.presentation.detail.component.CreditsItem
 import com.didik.moflix.presentation.detail.component.MovieDetailItem
+import com.didik.moflix.presentation.main.MainActivity
 import com.didik.moflix.utils.extensions.observeData
 import com.didik.moflix.utils.extensions.toast
 import com.didik.moflix.utils.helpers.ColorPalette

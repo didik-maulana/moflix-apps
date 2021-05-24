@@ -37,7 +37,9 @@ class MovieModule {
     fun provideMovieUseCase(repository: MovieRepository) = MovieUseCase(repository)
 
     @Provides
-    fun provideMovieViewModel(movieUseCase: MovieUseCase) = MovieViewModel(movieUseCase)
+    fun provideMovieViewModel(
+        movieUseCase: MovieUseCase
+    ) = MovieViewModel(movieUseCase)
 
     @Provides
     fun provideMovieDetailViewModel(

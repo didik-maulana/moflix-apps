@@ -1,22 +1,24 @@
 package com.didik.moflix.data.series.datasource.remote
 
-import android.content.Context
-import com.didik.moflix.app.MoflixApp
+import com.didik.moflix.data.routes.ApiServices
 import com.didik.moflix.data.series.datasource.remote.response.SeriesListResponse
 import com.didik.moflix.data.series.datasource.remote.response.SeriesResponse
+import com.didik.moflix.helpers.Faker
 import io.kotest.core.spec.style.ShouldSpec
 import io.kotest.matchers.shouldBe
-import io.mockk.*
+import io.mockk.coEvery
+import io.mockk.coVerify
+import io.mockk.mockk
+import io.mockk.unmockkAll
+import retrofit2.Response
 
 class SeriesRemoteDataSourceImplTest : ShouldSpec({
 
+    val apiServices: ApiServices = mockk()
     lateinit var seriesRemoteDataSourceImpl: SeriesRemoteDataSourceImpl
 
     beforeTest {
-        mockkObject(MoflixApp)
-        mockkObject(JSONHelper)
-
-        seriesRemoteDataSourceImpl = spyk(SeriesRemoteDataSourceImpl())
+        seriesRemoteDataSourceImpl = SeriesRemoteDataSourceImpl(apiServices)
     }
 
     afterTest {
@@ -24,18 +26,35 @@ class SeriesRemoteDataSourceImplTest : ShouldSpec({
     }
 
     context("getSeries") {
-        should("fetch from local json and return list of series model") {
+        should("fetch from api services and return response of series list response") {
             // Given
-            val mockContext: Context = mockk()
-            val mockSeries: List<SeriesResponse> = mockk()
-            val mockSeriesListResponse = spyk(SeriesListResponse(mockSeries))
+            val fakeResponse: Response<SeriesListResponse> = mockk()
 
-            every { MoflixApp.applicationContext } returns mockContext
-            every { JSONHelper.readSeriesJson() } returns mockSeriesListResponse
+            coEvery { apiServices.getPopularSeries() } returns fakeResponse
+
+            // When
+            val result = seriesRemoteDataSourceImpl.getSeries()
 
             // Then
-            seriesRemoteDataSourceImpl.getSeries() shouldBe mockSeries
-            verify(exactly = 1) { JSONHelper.readSeriesJson() }
+            result shouldBe fakeResponse
+            coVerify(exactly = 1) { apiServices.getPopularSeries() }
+        }
+    }
+
+    context("getSeriesDetail") {
+        should("fetch from api services and return response of series response") {
+            // Given
+            val fakeSeriesId = Faker.int
+            val fakeResponse: Response<SeriesResponse> = mockk()
+
+            coEvery { apiServices.getSeriesDetail(fakeSeriesId) } returns fakeResponse
+
+            // When
+            val result = seriesRemoteDataSourceImpl.getSeriesDetail(fakeSeriesId)
+
+            // Then
+            result shouldBe fakeResponse
+            coVerify(exactly = 1) { apiServices.getSeriesDetail(fakeSeriesId) }
         }
     }
 

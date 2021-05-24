@@ -13,32 +13,24 @@ class SeriesRepositoryImpl @Inject constructor(
 ) : SeriesRepository {
 
     override suspend fun getSeries(): ResultState<List<MovieModel>> {
-        return try {
-            val response = remoteDataSource.getSeries()
-            if (response.isSuccessful) {
-                val results = response.body()?.results.orEmpty()
-                val seriesList = mapper.mapToListDomain(results)
-                ResultState.Success(seriesList)
-            } else {
-                ResultState.Failure(response.message())
-            }
-        } catch (exception: Exception) {
-            ResultState.Failure(exception.message.orEmpty())
+        val response = remoteDataSource.getSeries()
+        return if (response.isSuccessful) {
+            val results = response.body()?.results.orEmpty()
+            val seriesList = mapper.mapToListDomain(results)
+            ResultState.Success(seriesList)
+        } else {
+            ResultState.Failure(response.message())
         }
     }
 
     override suspend fun getSeriesDetail(seriesId: Int): ResultState<MovieModel> {
-        return try {
-            val response = remoteDataSource.getSeriesDetail(seriesId)
-            val result = response.body()
-            if (response.isSuccessful && result != null) {
-                val seriesDetail = mapper.mapToDomain(result)
-                ResultState.Success(seriesDetail)
-            } else {
-                ResultState.Failure(response.message())
-            }
-        } catch (exception: Exception) {
-            ResultState.Failure(exception.message.orEmpty())
+        val response = remoteDataSource.getSeriesDetail(seriesId)
+        val result = response.body()
+        return if (response.isSuccessful && result != null) {
+            val seriesDetail = mapper.mapToDomain(result)
+            ResultState.Success(seriesDetail)
+        } else {
+            ResultState.Failure(response.message())
         }
     }
 }

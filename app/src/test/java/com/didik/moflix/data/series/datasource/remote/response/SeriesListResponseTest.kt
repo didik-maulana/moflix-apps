@@ -3,17 +3,15 @@ package com.didik.moflix.data.series.datasource.remote.response
 import io.kotest.core.spec.style.ShouldSpec
 import io.kotest.matchers.shouldBe
 import io.mockk.mockk
-import io.mockk.spyk
 import io.mockk.unmockkAll
 
 class SeriesListResponseTest : ShouldSpec({
 
-    val mockResults: List<SeriesResponse> = mockk()
-
+    val fakeResults: List<SeriesResponse> = mockk()
     lateinit var seriesListResponse: SeriesListResponse
 
     beforeTest {
-        seriesListResponse = spyk(SeriesListResponse(mockResults))
+        seriesListResponse = SeriesListResponse(fakeResults)
     }
 
     afterTest {
@@ -21,7 +19,7 @@ class SeriesListResponseTest : ShouldSpec({
     }
 
     should("return correct results value when injected") {
-        seriesListResponse.results shouldBe mockResults
+        seriesListResponse.results shouldBe fakeResults
     }
 
 })

@@ -1,25 +1,27 @@
 package com.didik.moflix.data.movies.repository
 
 import com.didik.moflix.data.movies.datasource.remote.MovieRemoteDataSourceImpl
+import com.didik.moflix.data.movies.datasource.remote.response.MovieListResponse
 import com.didik.moflix.data.movies.datasource.remote.response.MovieResponse
 import com.didik.moflix.data.movies.mapper.MovieMapper
 import com.didik.moflix.domain.model.MovieModel
+import com.didik.moflix.helpers.Faker
+import com.didik.moflix.utils.state.ResultState
 import io.kotest.core.spec.style.ShouldSpec
 import io.kotest.matchers.shouldBe
 import io.mockk.*
+import retrofit2.Response
 
 class MovieRepositoryImplTest : ShouldSpec({
 
-    val mockLocalDataSource: MovieRemoteDataSourceImpl = mockk()
-    val mockMapper: MovieMapper = mockk()
+    val remoteDataSource: MovieRemoteDataSourceImpl = mockk()
+    val movieMapper: MovieMapper = mockk()
     lateinit var movieRepositoryImpl: MovieRepositoryImpl
 
     beforeTest {
-        movieRepositoryImpl = spyk(
-            MovieRepositoryImpl(
-                localDataSource = mockLocalDataSource,
-                mapper = mockMapper
-            )
+        movieRepositoryImpl = MovieRepositoryImpl(
+            remoteDataSource = remoteDataSource,
+            mapper = movieMapper
         )
     }
 
@@ -28,19 +30,81 @@ class MovieRepositoryImplTest : ShouldSpec({
     }
 
     context("getMovies") {
-        should("get movies from local data source, mapping and return list of movie") {
+        should("return result state list of movie model when response is successful") {
             // Given
-            val mockMovieResponseList: List<MovieResponse> = mockk()
-            val mockMovieModelList: List<MovieModel> = mockk()
+            val fakeResults: List<MovieResponse> = mockk()
+            val fakeResponse: Response<MovieListResponse> = mockk()
+            val fakeMovieModels: List<MovieModel> = mockk()
 
-            coEvery { mockLocalDataSource.getMovies() } returns mockMovieResponseList
-            every { mockMapper.mapToListDomain(mockMovieResponseList) } returns mockMovieModelList
+            every { fakeResponse.isSuccessful } returns true
+            every { fakeResponse.body()?.results } returns fakeResults
+            every { movieMapper.mapToListDomain(fakeResults) } returns fakeMovieModels
+            coEvery { remoteDataSource.getMovies() } returns fakeResponse
+
+            // When
+            val resultState = movieRepositoryImpl.getMovies()
 
             // Then
-            movieRepositoryImpl.getMovies() shouldBe mockMovieModelList
+            resultState shouldBe ResultState.Success(fakeMovieModels)
+            coVerify(exactly = 1) { remoteDataSource.getMovies() }
+            verify(exactly = 1) { movieMapper.mapToListDomain(fakeResults) }
+        }
 
-            coVerify(exactly = 1) { mockLocalDataSource.getMovies() }
-            verify(exactly = 1) { mockMapper.mapToListDomain(mockMovieResponseList) }
+        should("return result state failure when response is failure") {
+            // Given
+            val fakeMessage = Faker.string
+            val fakeResponse: Response<MovieListResponse> = mockk()
+
+            every { fakeResponse.isSuccessful } returns false
+            every { fakeResponse.message() } returns fakeMessage
+            coEvery { remoteDataSource.getMovies() } returns fakeResponse
+
+            // When
+            val resultState = movieRepositoryImpl.getMovies()
+
+            // Then
+            resultState shouldBe ResultState.Failure(fakeMessage)
+        }
+    }
+
+    context("getMovieDetail") {
+        should("return result state movie model when response is successful") {
+            // Given
+            val fakeMovieId = Faker.int
+            val fakeResponse: Response<MovieResponse> = mockk()
+            val fakeMovieResponse: MovieResponse = mockk()
+            val fakeMovieModel: MovieModel = mockk()
+
+            every { fakeResponse.isSuccessful } returns true
+            every { fakeResponse.body() } returns fakeMovieResponse
+            every { movieMapper.mapToDomain(fakeMovieResponse) } returns fakeMovieModel
+            coEvery { remoteDataSource.getMovieDetail(fakeMovieId) } returns fakeResponse
+
+            // When
+            val resultState = movieRepositoryImpl.getMovieDetail(fakeMovieId)
+
+            // Then
+            resultState shouldBe ResultState.Success(fakeMovieModel)
+            verify(exactly = 1) { movieMapper.mapToDomain(fakeMovieResponse) }
+            coVerify(exactly = 1) { remoteDataSource.getMovieDetail(fakeMovieId) }
+        }
+
+        should("return result state failure when response is failure") {
+            // Given
+            val fakeMovieId = Faker.int
+            val fakeMessage = Faker.string
+            val fakeResponse: Response<MovieResponse> = mockk()
+
+            every { fakeResponse.isSuccessful } returns false
+            every { fakeResponse.body() } returns null
+            every { fakeResponse.message() } returns fakeMessage
+            coEvery { remoteDataSource.getMovieDetail(fakeMovieId) } returns fakeResponse
+
+            // When
+            val resultState = movieRepositoryImpl.getMovieDetail(fakeMovieId)
+
+            // Then
+            resultState shouldBe ResultState.Failure(fakeMessage)
         }
     }
 
