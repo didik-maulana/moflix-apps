@@ -5,7 +5,6 @@ import com.didik.moflix.helpers.Faker
 import io.kotest.core.spec.style.ShouldSpec
 import io.kotest.matchers.shouldBe
 import io.mockk.mockk
-import io.mockk.spyk
 
 class SeriesResponseTest : ShouldSpec({
 

@@ -7,8 +7,6 @@ import com.didik.moflix.data.series.mapper.SeriesMapper
 import com.didik.moflix.data.series.repository.SeriesRepositoryImpl
 import com.didik.moflix.domain.repository.SeriesRepository
 import com.didik.moflix.domain.usecase.SeriesUseCase
-import com.didik.moflix.presentation.series.SeriesViewModel
-import com.didik.moflix.utils.dispatcher.AppDispatchers
 import com.didik.moflix.utils.dispatcher.DispatchersProvider
 import dagger.Module
 import dagger.Provides

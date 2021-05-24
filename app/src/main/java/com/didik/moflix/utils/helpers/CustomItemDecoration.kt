@@ -3,7 +3,6 @@ package com.didik.moflix.utils.helpers
 import android.graphics.Rect
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
-import com.didik.moflix.R
 
 class CustomItemDecoration(
     private val left: Int = 0,

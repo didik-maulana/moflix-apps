@@ -2,7 +2,6 @@ package com.didik.moflix.presentation.series
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import com.didik.moflix.R
 import com.didik.moflix.base.BindingFragment
