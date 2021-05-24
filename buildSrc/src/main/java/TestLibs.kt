@@ -8,6 +8,7 @@ object TestLibsVersions {
     const val espressoContrib = "3.0.2"
     const val testRunner = "1.3.0"
     const val testRules = "1.3.0"
+    const val idlingResource = "3.3.0"
 }
 
 object TestLibs {
@@ -20,6 +21,7 @@ object TestLibs {
     const val jUnitExt = "androidx.test.ext:junit:${TestLibsVersions.jUnitExt}"
     const val espressoCore = "androidx.test.espresso:espresso-core:${TestLibsVersions.espresso}"
     const val espressoContrib = "com.android.support.test.espresso:espresso-contrib:${TestLibsVersions.espressoContrib}"
+    const val idlingResource = "androidx.test.espresso:espresso-idling-resource:${TestLibsVersions.idlingResource}"
     const val testRunner = "androidx.test:runner:${TestLibsVersions.testRunner}"
     const val testRules = "androidx.test:rules:${TestLibsVersions.testRules}"
 }

@@ -11,6 +11,7 @@ import com.didik.moflix.domain.model.MovieModel
 import com.didik.moflix.presentation.detail.MovieDetailActivity
 import com.didik.moflix.utils.extensions.observeData
 import com.didik.moflix.utils.helpers.CustomItemDecoration
+import com.didik.moflix.utils.testing.EspressoIdlingResource
 import com.didik.moflix.views.HeaderItem
 import com.didik.moflix.views.MovieItem
 import com.xwray.groupie.GroupieAdapter
@@ -34,6 +35,8 @@ class MovieFragment : BindingFragment<FragmentMovieBinding>() {
         setupUI()
         setupSwipeRefresh()
         setupObserver()
+
+        EspressoIdlingResource.start()
         movieViewModel.getMovies()
     }
 
@@ -79,6 +82,10 @@ class MovieFragment : BindingFragment<FragmentMovieBinding>() {
             clear()
             add(headerItem)
             addAll(movieItems)
+        }
+
+        if (EspressoIdlingResource.isNotIdleNow) {
+            EspressoIdlingResource.end()
         }
     }
 

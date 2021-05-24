@@ -20,6 +20,7 @@ import com.didik.moflix.presentation.detail.component.CreditsItem
 import com.didik.moflix.presentation.detail.component.MovieDetailItem
 import com.didik.moflix.utils.extensions.observeData
 import com.didik.moflix.utils.helpers.ColorPalette
+import com.didik.moflix.utils.testing.EspressoIdlingResource
 import com.xwray.groupie.GroupieAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
@@ -141,6 +142,8 @@ class MovieDetailActivity : BindingActivity<ActivityMovieDetailBinding>(), Corou
     }
 
     private fun loadDetail() {
+        EspressoIdlingResource.start()
+
         intent?.run {
             val movieId = getIntExtra(EXTRA_MOVIE_ID, 0)
             val seriesId = getIntExtra(EXTRA_SERIES_ID, 0)
@@ -200,6 +203,10 @@ class MovieDetailActivity : BindingActivity<ActivityMovieDetailBinding>(), Corou
                     credits = movieModel.cast
                 )
             )
+        }
+
+        if (EspressoIdlingResource.isNotIdleNow) {
+            EspressoIdlingResource.end()
         }
     }
 

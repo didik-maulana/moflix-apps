@@ -16,7 +16,7 @@ class CastItem(private val cast: CastModel) : BindableItem<ItemCastBinding>() {
 
     override fun bind(viewBinding: ItemCastBinding, position: Int) {
         with(viewBinding) {
-            nameTextView.text = cast.name
+            castNameTextView.text = cast.name
             characterTextView.text = cast.character
 
             photoImageView.load(cast.photoUrl) {

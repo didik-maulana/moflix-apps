@@ -16,7 +16,7 @@
         tools:background="@color/black" />
 
     <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/nameTextView"
+        android:id="@+id/castNameTextView"
         style="@style/Subtitle2"
         android:layout_width="@dimen/size_0dp"
         android:layout_height="wrap_content"
@@ -39,7 +39,7 @@
         android:textColor="@color/blue_periwinkle"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/nameTextView"
+        app:layout_constraintTop_toBottomOf="@id/castNameTextView"
         tools:text="Josh Valentine" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
