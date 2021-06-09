@@ -14,7 +14,7 @@ class SeriesLocalDataSourceImpl @Inject constructor(
         return seriesDao.getSeries(query)
     }
 
-    override fun getSeriesById(seriesId: Int): Int = seriesDao.getSeriesById(seriesId)
+    override fun getCountSeriesById(seriesId: Int): Int = seriesDao.getCountSeriesById(seriesId)
 
     override fun insertSeries(series: SeriesEntity) = seriesDao.insertSeries(series)
 

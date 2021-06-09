@@ -12,7 +12,7 @@ interface SeriesDao {
     fun getSeries(query: SupportSQLiteQuery): DataSource.Factory<Int, SeriesEntity>
 
     @Query("SELECT COUNT(id) FROM series WHERE id = :seriesId")
-    fun getSeriesById(seriesId: Int): Int
+    fun getCountSeriesById(seriesId: Int): Int
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertSeries(series: SeriesEntity)

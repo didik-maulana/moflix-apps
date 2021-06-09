@@ -12,7 +12,7 @@ interface MovieDao {
     fun getMovies(query: SupportSQLiteQuery): DataSource.Factory<Int, MovieEntity>
 
     @Query("SELECT COUNT(id) FROM movies WHERE id = :movieId")
-    fun getMovieById(movieId: Int): Int
+    fun getCountMovieById(movieId: Int): Int
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertMovie(movie: MovieEntity)

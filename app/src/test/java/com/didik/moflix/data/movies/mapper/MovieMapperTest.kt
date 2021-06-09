@@ -31,7 +31,7 @@ class MovieMapperTest : ShouldSpec({
         unmockkAll()
     }
 
-    context("mapToDomain") {
+    context("mapResponseToDomain") {
         should("mapping movie response to movie model") {
             // Given
             val fakeImageUrl = Faker.string
@@ -69,7 +69,7 @@ class MovieMapperTest : ShouldSpec({
         }
     }
 
-    context("mapToListDomain") {
+    context("mapResponseToListDomain") {
         should("mapping list movie response to list movie model") {
             // Given
             val fakeMovieResponseList: List<MovieResponse> = mockk(relaxed = true)

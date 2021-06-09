@@ -6,7 +6,7 @@ import com.didik.moflix.data.movies.datasource.local.entities.MovieEntity
 
 interface MovieLocalDataSource {
     fun getMovies(query: SupportSQLiteQuery): DataSource.Factory<Int, MovieEntity>
-    fun getMovieById(movieId: Int): Int
+    fun getCountMovieById(movieId: Int): Int
     fun insertMovie(movie: MovieEntity)
     fun deleteMovie(movie: MovieEntity)
 }

@@ -1,16 +1,12 @@
 package com.didik.moflix.data.movies.repository
 
-import androidx.lifecycle.LiveData
-import androidx.paging.LivePagedListBuilder
-import androidx.paging.PagedList
+import androidx.paging.DataSource
+import androidx.sqlite.db.SupportSQLiteQuery
 import com.didik.moflix.data.movies.datasource.local.MovieLocalDataSource
 import com.didik.moflix.data.movies.datasource.remote.MovieRemoteDataSource
 import com.didik.moflix.data.movies.mapper.MovieMapper
 import com.didik.moflix.domain.model.MovieModel
 import com.didik.moflix.domain.repository.MovieRepository
-import com.didik.moflix.utils.helpers.FavoriteSortUtils
-import com.didik.moflix.utils.helpers.FavoriteSortUtils.Sort
-import com.didik.moflix.utils.helpers.FavoriteSortUtils.Type
 import com.didik.moflix.utils.state.ResultState
 import java.net.UnknownHostException
 import javax.inject.Inject
@@ -51,25 +47,14 @@ class MovieRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun getFavoriteMovies(sort: Sort): LiveData<PagedList<MovieModel>> {
-        val query = FavoriteSortUtils.getSortedQuery(Type.MOVIES, sort)
-        val favoriteMovies = localDataSource.getMovies(query).mapByPage { movies ->
+    override suspend fun getFavoriteMovies(query: SupportSQLiteQuery): DataSource.Factory<Int, MovieModel> {
+        return localDataSource.getMovies(query).mapByPage { movies ->
             mapper.mapEntityToListDomain(movies)
         }
-        val config = PagedList.Config.Builder()
-            .setEnablePlaceholders(true)
-            .setInitialLoadSizeHint(PAGE_CONTENT_SIZE)
-            .setPageSize(PAGE_CONTENT_SIZE)
-            .build()
-
-        return LivePagedListBuilder(
-            favoriteMovies,
-            config
-        ).build()
     }
 
     override suspend fun checkFavoriteMovie(movieId: Int): Boolean {
-        return localDataSource.getMovieById(movieId) > 0
+        return localDataSource.getCountMovieById(movieId) > 0
     }
 
     override suspend fun insertFavoriteMovie(movie: MovieModel) {
@@ -80,9 +65,5 @@ class MovieRepositoryImpl @Inject constructor(
     override suspend fun deleteFavoriteMovie(movie: MovieModel) {
         val movieEntity = mapper.mapDomainToEntity(movie)
         localDataSource.deleteMovie(movieEntity)
-    }
-
-    companion object {
-        private const val PAGE_CONTENT_SIZE = 5
     }
 }

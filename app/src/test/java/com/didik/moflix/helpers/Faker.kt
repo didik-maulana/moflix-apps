@@ -8,6 +8,7 @@ interface IFaker {
     val numericalString: String
     val int: Int
     val float: Float
+    val long: Long
 }
 
 object Faker : IFaker {
@@ -15,4 +16,5 @@ object Faker : IFaker {
     override val numericalString: String = Arb.numericDoubles().next().toString()
     override val int: Int = Arb.int().next()
     override val float: Float = Arb.float().next()
+    override val long: Long = Arb.long().next()
 }

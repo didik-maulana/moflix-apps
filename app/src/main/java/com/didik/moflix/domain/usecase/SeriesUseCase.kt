@@ -1,11 +1,10 @@
 package com.didik.moflix.domain.usecase
 
-import androidx.lifecycle.LiveData
-import androidx.paging.PagedList
+import androidx.paging.DataSource
+import androidx.sqlite.db.SupportSQLiteQuery
 import com.didik.moflix.domain.model.MovieModel
 import com.didik.moflix.domain.repository.SeriesRepository
 import com.didik.moflix.utils.dispatcher.DispatchersProvider
-import com.didik.moflix.utils.helpers.FavoriteSortUtils.Sort
 import com.didik.moflix.utils.state.ResultState
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
@@ -27,9 +26,9 @@ class SeriesUseCase @Inject constructor(
         }
     }
 
-    suspend fun getFavoriteSeries(sort: Sort): LiveData<PagedList<MovieModel>> {
+    suspend fun getFavoriteSeries(query: SupportSQLiteQuery): DataSource.Factory<Int, MovieModel> {
         return withContext(dispatchers.io) {
-            repository.getFavoriteSeries(sort)
+            repository.getFavoriteSeries(query)
         }
     }
 

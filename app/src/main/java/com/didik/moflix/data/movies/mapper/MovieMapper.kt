@@ -1,5 +1,6 @@
 package com.didik.moflix.data.movies.mapper
 
+import androidx.annotation.VisibleForTesting
 import com.didik.moflix.data.movies.datasource.local.entities.MovieEntity
 import com.didik.moflix.data.movies.datasource.remote.response.MovieResponse
 import com.didik.moflix.domain.model.CastModel
@@ -45,6 +46,7 @@ class MovieMapper {
         }
     }
 
+    @VisibleForTesting
     fun mapEntityToDomain(entity: MovieEntity): MovieModel {
         return with(entity) {
             MovieModel(

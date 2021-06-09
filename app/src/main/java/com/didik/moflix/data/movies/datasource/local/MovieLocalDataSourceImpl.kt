@@ -14,7 +14,7 @@ class MovieLocalDataSourceImpl @Inject constructor(
         return movieDao.getMovies(query)
     }
 
-    override fun getMovieById(movieId: Int): Int = movieDao.getMovieById(movieId)
+    override fun getCountMovieById(movieId: Int): Int = movieDao.getCountMovieById(movieId)
 
     override fun insertMovie(movie: MovieEntity) = movieDao.insertMovie(movie)
 
