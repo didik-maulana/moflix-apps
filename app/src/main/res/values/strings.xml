@@ -8,9 +8,22 @@
     <string name="title_trending_now">Trending Now</string>
     <string name="title_popular_series">Popular Series</string>
     <string name="title_cast">Cast</string>
+    <string name="title_favorites">Favorites</string>
+    <string name="title_favorites_order">Favorites Order</string>
 
     <string name="label_change_language">Change Language</string>
     <string name="label_app_version">App Version %s</string>
     <string name="label_share">Share</string>
-    <string name="label_watchlist">Watchlist</string>
+
+    <string name="msg_success_added_to_favorites">Successfully added to favorites</string>
+    <string name="msg_success_removed_from_favorites">Successfully removed from favorites</string>
+    <string name="msg_no_favorite_movies_found">No favorite movies found.</string>
+    <string name="msg_no_favorite_series_found">No favorite series found.</string>
+    <string name="content_favorite_sorting_button">Favorites sorting button</string>
+
+    <string-array name="array_favorites_sort">
+        <item>Newest</item>
+        <item>Oldest</item>
+        <item>Random</item>
+    </string-array>
 </resources>

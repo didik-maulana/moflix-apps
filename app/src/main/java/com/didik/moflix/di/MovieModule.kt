@@ -1,5 +1,9 @@
 package com.didik.moflix.di
 
+import com.didik.moflix.data.database.AppDatabase
+import com.didik.moflix.data.movies.datasource.local.MovieLocalDataSource
+import com.didik.moflix.data.movies.datasource.local.MovieLocalDataSourceImpl
+import com.didik.moflix.data.movies.datasource.local.room.MovieDao
 import com.didik.moflix.data.movies.datasource.remote.MovieRemoteDataSource
 import com.didik.moflix.data.movies.datasource.remote.MovieRemoteDataSourceImpl
 import com.didik.moflix.data.movies.mapper.MovieMapper
@@ -23,13 +27,28 @@ class MovieModule {
     }
 
     @Provides
+    fun provideMovieDao(appDatabase: AppDatabase): MovieDao = appDatabase.movieDao()
+
+    @Provides
+    fun provideMovieLocalDataSource(movieDao: MovieDao): MovieLocalDataSource {
+        return MovieLocalDataSourceImpl(movieDao)
+    }
+
+    @Provides
     fun provideMovieMapper(): MovieMapper = MovieMapper()
 
     @Provides
     fun provideMovieRepository(
         remoteDataSource: MovieRemoteDataSource,
+        localDataSource: MovieLocalDataSource,
         mapper: MovieMapper
-    ): MovieRepository = MovieRepositoryImpl(remoteDataSource, mapper)
+    ): MovieRepository {
+        return MovieRepositoryImpl(
+            remoteDataSource = remoteDataSource,
+            localDataSource = localDataSource,
+            mapper = mapper
+        )
+    }
 
     @Provides
     fun provideMovieUseCase(

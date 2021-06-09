@@ -6,9 +6,23 @@
     <string name="title_trending_now">Sedang Trending</string>
     <string name="title_popular_series">Seri Populer</string>
     <string name="title_cast">Pemeran</string>
+    <string name="title_favorites">Favorit</string>
+    <string name="title_favorites_order">Urutan Favorit</string>
 
     <string name="label_change_language">Ubah Bahasa</string>
     <string name="label_app_version">Versi Aplikasi %s</string>
     <string name="label_share">Bagikan</string>
-    <string name="label_watchlist">Daftar Lihat</string>
+
+    <string name="msg_success_added_to_favorites">Berhasil ditambahkan ke favorite</string>
+    <string name="msg_success_removed_from_favorites">Berhasil dihapus dari favorite</string>
+    <string name="msg_no_favorite_movies_found">Tidak ada film favorit yang ditemukan.</string>
+    <string name="msg_no_favorite_series_found">Tidak ada drama favorit yang ditemukan.</string>
+
+    <string name="content_favorite_sorting_button">Tombol mengurutkan daftar favorit</string>
+
+    <string-array name="array_favorites_sort">
+        <item>Terbaru</item>
+        <item>Terlama</item>
+        <item>Acak</item>
+    </string-array>
 </resources>

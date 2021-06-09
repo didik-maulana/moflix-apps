@@ -38,7 +38,7 @@ class SeriesRepositoryImplTest : ShouldSpec({
 
             every { fakeResponse.isSuccessful } returns true
             every { fakeResponse.body()?.results } returns fakeResults
-            every { seriesMapper.mapToListDomain(fakeResults) } returns fakeMovieModels
+            every { seriesMapper.mapResponseToListDomain(fakeResults) } returns fakeMovieModels
             coEvery { remoteDataSource.getSeries() } returns fakeResponse
 
             // When
@@ -46,7 +46,7 @@ class SeriesRepositoryImplTest : ShouldSpec({
 
             // Then
             resultState shouldBe ResultState.Success(fakeMovieModels)
-            verify(exactly = 1) { seriesMapper.mapToListDomain(fakeResults) }
+            verify(exactly = 1) { seriesMapper.mapResponseToListDomain(fakeResults) }
             coVerify(exactly = 1) { remoteDataSource.getSeries() }
         }
 
@@ -77,7 +77,7 @@ class SeriesRepositoryImplTest : ShouldSpec({
 
             every { fakeResponse.isSuccessful } returns true
             every { fakeResponse.body() } returns fakeSeriesResponse
-            every { seriesMapper.mapToDomain(fakeSeriesResponse) } returns fakeMovieModel
+            every { seriesMapper.mapResponseToDomain(fakeSeriesResponse) } returns fakeMovieModel
             coEvery { remoteDataSource.getSeriesDetail(fakeSeriesId) } returns fakeResponse
 
             // When
@@ -85,7 +85,7 @@ class SeriesRepositoryImplTest : ShouldSpec({
 
             // Then
             resultState shouldBe ResultState.Success(fakeMovieModel)
-            verify(exactly = 1) { seriesMapper.mapToDomain(fakeSeriesResponse) }
+            verify(exactly = 1) { seriesMapper.mapResponseToDomain(fakeSeriesResponse) }
             coVerify(exactly = 1) { remoteDataSource.getSeriesDetail(fakeSeriesId) }
         }
 

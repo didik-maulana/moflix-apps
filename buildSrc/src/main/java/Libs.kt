@@ -16,6 +16,10 @@ object Versions {
     const val retrofit = "2.9.0"
     const val loggingInterceptor = "4.9.0"
     const val swipeRefreshLayout = "1.1.0"
+    const val viewPager2 = "1.0.0"
+    const val room = "2.2.3"
+    const val roomRuntime = "2.2.5"
+    const val paging = "2.1.2"
 }
 
 object Libs {
@@ -40,4 +44,8 @@ object Libs {
     const val retrofit = "com.squareup.retrofit2:retrofit:${Versions.retrofit}"
     const val loggingInterceptor = "com.squareup.okhttp3:logging-interceptor:${Versions.loggingInterceptor}"
     const val swipeRefreshLayout = "androidx.swiperefreshlayout:swiperefreshlayout:${Versions.swipeRefreshLayout}"
+    const val viewPager2 = "androidx.viewpager2:viewpager2:${Versions.viewPager2}"
+    const val room = "androidx.room:room-compiler:${Versions.room}"
+    const val roomRuntime = "androidx.room:room-runtime:${Versions.roomRuntime}"
+    const val paging = "androidx.paging:paging-runtime:${Versions.paging}"
 }

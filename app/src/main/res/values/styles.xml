@@ -31,5 +31,10 @@
         <item name="android:textSize">@dimen/text_size_12sp</item>
         <item name="lineHeight">@dimen/size_18dp</item>
     </style>
+    
+    <style name="SortAlertDialog" parent="Theme.MaterialComponents.Dialog.Alert">
+        <item name="colorControlNormal">@color/blue_cornflower</item>
+        <item name="colorSecondary">@color/blue_cornflower</item>
+    </style>
 
 </resources>

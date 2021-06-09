@@ -1,5 +1,6 @@
 package com.didik.moflix.data.series.mapper
 
+import com.didik.moflix.data.series.datasource.local.entities.SeriesEntity
 import com.didik.moflix.data.series.datasource.remote.response.SeriesResponse
 import com.didik.moflix.domain.model.CastModel
 import com.didik.moflix.domain.model.MovieModel
@@ -11,7 +12,7 @@ import com.didik.moflix.utils.extensions.toRatingText
 
 class SeriesMapper {
 
-    fun mapToDomain(series: SeriesResponse): MovieModel {
+    fun mapResponseToDomain(series: SeriesResponse): MovieModel {
         return with(series) {
             MovieModel(
                 id = series.id ?: 0,
@@ -38,7 +39,44 @@ class SeriesMapper {
         }
     }
 
-    fun mapToListDomain(seriesList: List<SeriesResponse>): List<MovieModel> {
-        return seriesList.map { mapToDomain(it) }
+    fun mapResponseToListDomain(seriesList: List<SeriesResponse>): List<MovieModel> {
+        return seriesList.map { mapResponseToDomain(it) }
     }
+
+    fun mapEntityToDomain(entity: SeriesEntity): MovieModel {
+        return with(entity) {
+            MovieModel(
+                id = this.id,
+                title = title,
+                backdropUrl = "",
+                thumbnailUrl = thumbnailUrl,
+                releaseDate = releaseDate,
+                rating = rating,
+                ratingText = ratingText,
+                overview = "",
+                cast = emptyList()
+            )
+        }
+    }
+
+    fun mapEntityToListDomain(listEntity: List<SeriesEntity>): List<MovieModel> {
+        return listEntity.map { movieEntity ->
+            mapEntityToDomain(movieEntity)
+        }
+    }
+
+    fun mapDomainToEntity(model: MovieModel): SeriesEntity {
+        return with(model) {
+            SeriesEntity(
+                id = this.id,
+                title = title,
+                thumbnailUrl = thumbnailUrl,
+                releaseDate = releaseDate,
+                rating = rating,
+                ratingText = ratingText,
+                createdAt = System.currentTimeMillis()
+            )
+        }
+    }
+
 }

@@ -6,6 +6,7 @@ import com.didik.moflix.domain.usecase.MovieUseCase
 import com.didik.moflix.domain.usecase.SeriesUseCase
 import com.didik.moflix.helpers.Faker
 import com.didik.moflix.helpers.InstantExecutorListener
+import com.didik.moflix.presentation.features.movies.detail.MovieDetailViewModel
 import com.didik.moflix.utils.state.ResultState
 import io.kotest.core.spec.style.ShouldSpec
 import io.kotest.matchers.shouldBe

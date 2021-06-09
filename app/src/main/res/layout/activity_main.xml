@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.didik.moflix.views.SwipeLockableViewPager
+    <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/fragmentViewPager"
         android:layout_width="@dimen/size_0dp"
         android:layout_height="@dimen/size_0dp"

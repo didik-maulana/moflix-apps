@@ -38,7 +38,7 @@ class MovieRepositoryImplTest : ShouldSpec({
 
             every { fakeResponse.isSuccessful } returns true
             every { fakeResponse.body()?.results } returns fakeResults
-            every { movieMapper.mapToListDomain(fakeResults) } returns fakeMovieModels
+            every { movieMapper.mapResponseToListDomain(fakeResults) } returns fakeMovieModels
             coEvery { remoteDataSource.getMovies() } returns fakeResponse
 
             // When
@@ -47,7 +47,7 @@ class MovieRepositoryImplTest : ShouldSpec({
             // Then
             resultState shouldBe ResultState.Success(fakeMovieModels)
             coVerify(exactly = 1) { remoteDataSource.getMovies() }
-            verify(exactly = 1) { movieMapper.mapToListDomain(fakeResults) }
+            verify(exactly = 1) { movieMapper.mapResponseToListDomain(fakeResults) }
         }
 
         should("return result state failure when response is failure") {
@@ -77,7 +77,7 @@ class MovieRepositoryImplTest : ShouldSpec({
 
             every { fakeResponse.isSuccessful } returns true
             every { fakeResponse.body() } returns fakeMovieResponse
-            every { movieMapper.mapToDomain(fakeMovieResponse) } returns fakeMovieModel
+            every { movieMapper.mapResponseToDomain(fakeMovieResponse) } returns fakeMovieModel
             coEvery { remoteDataSource.getMovieDetail(fakeMovieId) } returns fakeResponse
 
             // When
@@ -85,7 +85,7 @@ class MovieRepositoryImplTest : ShouldSpec({
 
             // Then
             resultState shouldBe ResultState.Success(fakeMovieModel)
-            verify(exactly = 1) { movieMapper.mapToDomain(fakeMovieResponse) }
+            verify(exactly = 1) { movieMapper.mapResponseToDomain(fakeMovieResponse) }
             coVerify(exactly = 1) { remoteDataSource.getMovieDetail(fakeMovieId) }
         }
 

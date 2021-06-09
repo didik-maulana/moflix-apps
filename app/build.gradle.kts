@@ -73,7 +73,12 @@ dependencies {
     implementation(Libs.retrofit)
     implementation(Libs.loggingInterceptor)
     implementation(Libs.swipeRefreshLayout)
+    implementation(Libs.viewPager2)
+    implementation(Libs.paging)
     implementation(TestLibs.idlingResource)
+
+    implementation(Libs.roomRuntime)
+    kapt(Libs.room)
 
     implementation(Libs.daggerHilt)
     kapt(Libs.daggerHiltCompiler)

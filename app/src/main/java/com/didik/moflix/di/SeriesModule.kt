@@ -1,6 +1,10 @@
 package com.didik.moflix.di
 
+import com.didik.moflix.data.database.AppDatabase
 import com.didik.moflix.data.routes.ApiServices
+import com.didik.moflix.data.series.datasource.local.SeriesLocalDataSource
+import com.didik.moflix.data.series.datasource.local.SeriesLocalDataSourceImpl
+import com.didik.moflix.data.series.datasource.local.room.SeriesDao
 import com.didik.moflix.data.series.datasource.remote.SeriesRemoteDataSource
 import com.didik.moflix.data.series.datasource.remote.SeriesRemoteDataSourceImpl
 import com.didik.moflix.data.series.mapper.SeriesMapper
@@ -18,8 +22,16 @@ import dagger.hilt.components.SingletonComponent
 class SeriesModule {
 
     @Provides
-    fun provideSeriesLocalDataSource(apiServices: ApiServices): SeriesRemoteDataSource {
+    fun provideSeriesRemoteDataSource(apiServices: ApiServices): SeriesRemoteDataSource {
         return SeriesRemoteDataSourceImpl(apiServices)
+    }
+
+    @Provides
+    fun provideSeriesDao(appDatabase: AppDatabase): SeriesDao = appDatabase.seriesDao()
+
+    @Provides
+    fun provideSeriesLocalDataSource(seriesDao: SeriesDao): SeriesLocalDataSource {
+        return SeriesLocalDataSourceImpl(seriesDao)
     }
 
     @Provides
@@ -28,8 +40,15 @@ class SeriesModule {
     @Provides
     fun provideSeriesRepository(
         remoteDataSource: SeriesRemoteDataSource,
+        localDataSource: SeriesLocalDataSource,
         mapper: SeriesMapper
-    ): SeriesRepository = SeriesRepositoryImpl(remoteDataSource, mapper)
+    ): SeriesRepository {
+        return SeriesRepositoryImpl(
+            remoteDataSource = remoteDataSource,
+            localDataSource = localDataSource,
+            mapper = mapper
+        )
+    }
 
     @Provides
     fun provideSeriesUseCase(

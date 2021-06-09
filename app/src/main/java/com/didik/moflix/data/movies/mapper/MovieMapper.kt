@@ -1,5 +1,6 @@
 package com.didik.moflix.data.movies.mapper
 
+import com.didik.moflix.data.movies.datasource.local.entities.MovieEntity
 import com.didik.moflix.data.movies.datasource.remote.response.MovieResponse
 import com.didik.moflix.domain.model.CastModel
 import com.didik.moflix.domain.model.MovieModel
@@ -11,7 +12,7 @@ import com.didik.moflix.utils.extensions.toRatingText
 
 class MovieMapper {
 
-    fun mapToDomain(response: MovieResponse): MovieModel {
+    fun mapResponseToDomain(response: MovieResponse): MovieModel {
         return with(response) {
             MovieModel(
                 id = id ?: 0,
@@ -38,7 +39,45 @@ class MovieMapper {
         }
     }
 
-    fun mapToListDomain(listResponse: List<MovieResponse>): List<MovieModel> {
-        return listResponse.map { mapToDomain(it) }
+    fun mapResponseToListDomain(listResponse: List<MovieResponse>): List<MovieModel> {
+        return listResponse.map { movieResponse ->
+            mapResponseToDomain(movieResponse)
+        }
+    }
+
+    fun mapEntityToDomain(entity: MovieEntity): MovieModel {
+        return with(entity) {
+            MovieModel(
+                id = this.id,
+                title = title,
+                backdropUrl = "",
+                thumbnailUrl = thumbnailUrl,
+                releaseDate = releaseDate,
+                rating = rating,
+                ratingText = ratingText,
+                overview = "",
+                cast = emptyList()
+            )
+        }
+    }
+
+    fun mapEntityToListDomain(listEntity: List<MovieEntity>): List<MovieModel> {
+        return listEntity.map { movieEntity ->
+            mapEntityToDomain(movieEntity)
+        }
+    }
+
+    fun mapDomainToEntity(model: MovieModel): MovieEntity {
+        return with(model) {
+            MovieEntity(
+                id = this.id,
+                title = title,
+                thumbnailUrl = thumbnailUrl,
+                releaseDate = releaseDate,
+                rating = rating,
+                ratingText = ratingText,
+                createdAt = System.currentTimeMillis()
+            )
+        }
     }
 }

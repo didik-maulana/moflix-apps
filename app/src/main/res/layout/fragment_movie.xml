@@ -5,27 +5,16 @@
     android:id="@+id/swipeRefreshLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".presentation.movies.MovieFragment">
+    tools:context="com.didik.moflix.presentation.features.movies.list.MovieFragment">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/moviesRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/grey_shark">
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/moviesRecyclerView"
-            android:layout_width="@dimen/size_0dp"
-            android:layout_height="@dimen/size_0dp"
-            android:clipToPadding="false"
-            android:paddingHorizontal="@dimen/size_16dp"
-            android:paddingTop="@dimen/size_24dp"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:listitem="@layout/item_movie" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        android:clipToPadding="false"
+        android:paddingHorizontal="@dimen/size_16dp"
+        android:paddingTop="@dimen/size_24dp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        tools:listitem="@layout/item_movie" />
 
 </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

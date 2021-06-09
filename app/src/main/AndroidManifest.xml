@@ -14,15 +14,17 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Moflix">
         <activity
-            android:name=".presentation.splashscreen.SplashScreenActivity"
+            android:name="com.didik.moflix.presentation.features.splashscreen.SplashScreenActivity"
             android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".presentation.main.MainActivity" />
-        <activity android:name=".presentation.detail.MovieDetailActivity" />
+        <activity android:name="com.didik.moflix.presentation.features.main.MainActivity" />
+        <activity android:name="com.didik.moflix.presentation.features.movies.detail.MovieDetailActivity" />
+        <activity android:name="com.didik.moflix.presentation.features.series.detail.SeriesDetailActivity" />
     </application>
 
 </manifest>

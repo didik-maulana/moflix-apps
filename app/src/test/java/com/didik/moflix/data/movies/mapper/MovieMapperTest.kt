@@ -56,7 +56,7 @@ class MovieMapperTest : ShouldSpec({
             every { ImageHelper.getImageURL(any(), any()) } returns fakeImageUrl
 
             // Then
-            with(movieMapper.mapToDomain(fakeMovieResponse)) {
+            with(movieMapper.mapResponseToDomain(fakeMovieResponse)) {
                 title shouldBe fakeMovieResponse.title
                 backdropUrl shouldBe fakeImageUrl
                 thumbnailUrl shouldBe fakeImageUrl
@@ -75,7 +75,7 @@ class MovieMapperTest : ShouldSpec({
             val fakeMovieResponseList: List<MovieResponse> = mockk(relaxed = true)
 
             // Then
-            movieMapper.mapToListDomain(fakeMovieResponseList) shouldBe instanceOf<List<MovieModel>>()
+            movieMapper.mapResponseToListDomain(fakeMovieResponseList) shouldBe instanceOf<List<MovieModel>>()
         }
     }
 

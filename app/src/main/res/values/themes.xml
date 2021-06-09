@@ -9,6 +9,7 @@
         <item name="colorOnSecondary">@color/black</item>
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <item name="colorControlNormal">@color/white</item>
+        <item name="android:windowBackground">@color/grey_shark</item>
     </style>
 
     <style name="SplashTheme" parent="Theme.AppCompat.NoActionBar">

@@ -5,12 +5,11 @@
     android:id="@+id/swipeRefreshLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".presentation.detail.MovieDetailActivity">
+    tools:context="com.didik.moflix.presentation.features.movies.detail.MovieDetailActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/grey_shark">
+        android:layout_height="match_parent">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/movieDetailRecyclerView"
