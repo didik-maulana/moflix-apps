@@ -46,7 +46,6 @@ class MainActivityScenarioTest {
 
         with(onView(withId(R.id.moviesRecyclerView))) {
             check(matches(isDisplayed()))
-
             perform(scrollToPosition<RecyclerView.ViewHolder>(5))
             perform(scrollToPosition<RecyclerView.ViewHolder>(10))
             perform(scrollToPosition<RecyclerView.ViewHolder>(15))
@@ -148,6 +147,8 @@ class MainActivityScenarioTest {
             perform(click())
         }
 
+        onView(withId(R.id.favoriteMoviesRecyclerView)).check(matches(isDisplayed()))
+
         with(onView(withId(R.id.sortingButton))) {
             check(matches(isDisplayed()))
             perform(click())
@@ -171,8 +172,6 @@ class MainActivityScenarioTest {
             check(matches(isDisplayed()))
             perform(click())
         }
-
-        onView(withId(R.id.favoriteMoviesRecyclerView)).check(matches(isDisplayed()))
     }
 
     @Test
@@ -273,6 +272,8 @@ class MainActivityScenarioTest {
             perform(click())
         }
 
+        onView(withId(R.id.favoriteSeriesRecyclerView)).check(matches(isDisplayed()))
+
         with(onView(withId(R.id.sortingButton))) {
             check(matches(isDisplayed()))
             perform(click())
@@ -296,8 +297,6 @@ class MainActivityScenarioTest {
             check(matches(isDisplayed()))
             perform(click())
         }
-
-        onView(withId(R.id.favoriteSeriesRecyclerView)).check(matches(isDisplayed()))
     }
 
     @Test
