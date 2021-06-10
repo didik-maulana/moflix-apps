@@ -7,12 +7,12 @@ import com.didik.moflix.R
 import com.didik.moflix.base.BindingFragment
 import com.didik.moflix.databinding.FragmentMovieBinding
 import com.didik.moflix.domain.model.MovieModel
+import com.didik.moflix.presentation.components.HeaderItem
+import com.didik.moflix.presentation.components.MovieItem
 import com.didik.moflix.presentation.features.movies.detail.MovieDetailActivity
 import com.didik.moflix.utils.extensions.observeData
 import com.didik.moflix.utils.helpers.CustomItemDecoration
 import com.didik.moflix.utils.testing.EspressoIdlingResource
-import com.didik.moflix.presentation.components.HeaderItem
-import com.didik.moflix.presentation.components.MovieItem
 import com.xwray.groupie.GroupieAdapter
 import dagger.hilt.android.AndroidEntryPoint
 
