@@ -9,6 +9,7 @@ interface IFaker {
     val int: Int
     val float: Float
     val long: Long
+    val boolean: Boolean
 }
 
 object Faker : IFaker {
@@ -17,4 +18,5 @@ object Faker : IFaker {
     override val int: Int = Arb.int().next()
     override val float: Float = Arb.float().next()
     override val long: Long = Arb.long().next()
+    override val boolean: Boolean = Arb.bool().next()
 }

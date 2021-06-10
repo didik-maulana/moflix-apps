@@ -51,24 +51,20 @@ class MovieDetailViewModel @Inject constructor(
     }
 
     fun checkFavoriteMovie() {
-        viewModelScope.launch(Dispatchers.Main) {
+        viewModelScope.launch {
             _isFavorite.value = movieUseCase.checkFavoriteMovie(movieId)
         }
     }
 
     fun insertMovie() {
-        movie.value?.let { movie ->
-            viewModelScope.launch(Dispatchers.IO) {
-                movieUseCase.insertMovie(movie)
-            }
+        viewModelScope.launch(Dispatchers.IO) {
+            movieUseCase.insertFavoriteMovie(movie.value)
         }
     }
 
     fun deleteMovie() {
-        movie.value?.let { movie ->
-            viewModelScope.launch(Dispatchers.IO) {
-                movieUseCase.deleteMovie(movie)
-            }
+        viewModelScope.launch(Dispatchers.IO) {
+            movieUseCase.deleteFavoriteMovie(movie.value)
         }
     }
 

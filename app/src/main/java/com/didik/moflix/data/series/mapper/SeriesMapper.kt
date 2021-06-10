@@ -1,5 +1,7 @@
 package com.didik.moflix.data.series.mapper
 
+import androidx.annotation.VisibleForTesting
+import androidx.arch.core.util.Function
 import com.didik.moflix.data.series.datasource.local.entities.SeriesEntity
 import com.didik.moflix.data.series.datasource.remote.response.SeriesResponse
 import com.didik.moflix.domain.model.CastModel
@@ -40,9 +42,10 @@ class SeriesMapper {
     }
 
     fun mapResponseToListDomain(seriesList: List<SeriesResponse>): List<MovieModel> {
-        return seriesList.map { mapResponseToDomain(it) }
+        return seriesList.map(::mapResponseToDomain)
     }
 
+    @VisibleForTesting
     fun mapEntityToDomain(entity: SeriesEntity): MovieModel {
         return with(entity) {
             MovieModel(
@@ -59,10 +62,8 @@ class SeriesMapper {
         }
     }
 
-    fun mapEntityToListDomain(listEntity: List<SeriesEntity>): List<MovieModel> {
-        return listEntity.map { movieEntity ->
-            mapEntityToDomain(movieEntity)
-        }
+    fun getMapperEntityToDomain(): Function<SeriesEntity, MovieModel> {
+        return Function(::mapEntityToDomain)
     }
 
     fun mapDomainToEntity(model: MovieModel): SeriesEntity {

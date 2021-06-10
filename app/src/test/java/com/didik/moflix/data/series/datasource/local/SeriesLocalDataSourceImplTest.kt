@@ -22,7 +22,7 @@ class SeriesLocalDataSourceImplTest : ShouldSpec({
         unmockkAll()
     }
 
-    context("getSeries") {
+    context("get series") {
         should("call get series from series dao and return data source factory") {
             // Given
             val fakeQuery: SupportSQLiteQuery = mockk()
@@ -39,7 +39,7 @@ class SeriesLocalDataSourceImplTest : ShouldSpec({
         }
     }
 
-    context("getCountSeriesById") {
+    context("get count series by id") {
         should("call get count series by id from series dao and return integer") {
             // Given
             val fakeCount = Faker.int
@@ -56,7 +56,7 @@ class SeriesLocalDataSourceImplTest : ShouldSpec({
         }
     }
 
-    context("insertSeries") {
+    context("insert series") {
         should("call insert series from series dao") {
             // Given
             val fakeSeries: SeriesEntity = mockk()
@@ -71,7 +71,7 @@ class SeriesLocalDataSourceImplTest : ShouldSpec({
         }
     }
 
-    context("deleteSeries") {
+    context("delete series") {
         should("call delete series from series dao") {
             // Given
             val fakeSeries: SeriesEntity = mockk()

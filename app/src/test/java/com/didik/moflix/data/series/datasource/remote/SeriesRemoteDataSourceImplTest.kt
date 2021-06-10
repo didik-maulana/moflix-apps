@@ -25,7 +25,7 @@ class SeriesRemoteDataSourceImplTest : ShouldSpec({
         unmockkAll()
     }
 
-    context("getSeries") {
+    context("get series") {
         should("fetch from api services and return response of series list response") {
             // Given
             val fakeResponse: Response<SeriesListResponse> = mockk()
@@ -41,7 +41,7 @@ class SeriesRemoteDataSourceImplTest : ShouldSpec({
         }
     }
 
-    context("getSeriesDetail") {
+    context("get series detail") {
         should("fetch from api services and return response of series response") {
             // Given
             val fakeSeriesId = Faker.int

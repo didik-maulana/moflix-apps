@@ -25,7 +25,7 @@ class MovieRemoteDataSourceImplTest : ShouldSpec({
         unmockkAll()
     }
 
-    context("getMovies") {
+    context("get movies") {
         should("fetch from api services and return response of movie list response") {
             // Given
             val mockMoviesResponse: Response<MovieListResponse> = mockk()
@@ -41,7 +41,7 @@ class MovieRemoteDataSourceImplTest : ShouldSpec({
         }
     }
 
-    context("getMovieDetail") {
+    context("get movie detail") {
         should("fetch from api services and return response of movie response") {
             // Given
             val fakeMovieId = Faker.int

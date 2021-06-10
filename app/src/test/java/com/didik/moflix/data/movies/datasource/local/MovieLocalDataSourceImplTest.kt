@@ -22,7 +22,7 @@ class MovieLocalDataSourceImplTest : ShouldSpec({
         unmockkAll()
     }
 
-    context("getMovies") {
+    context("get movies") {
         should("call get movies from movie dao and return data source factory") {
             // Given
             val fakeQuery: SupportSQLiteQuery = mockk()
@@ -39,7 +39,7 @@ class MovieLocalDataSourceImplTest : ShouldSpec({
         }
     }
 
-    context("getCountMovieById") {
+    context("get count movie by id") {
         should("call get count movie by id from movie dao and return integer") {
             // Given
             val fakeCount = Faker.int
@@ -56,7 +56,7 @@ class MovieLocalDataSourceImplTest : ShouldSpec({
         }
     }
 
-    context("insertMovie") {
+    context("insert movie") {
         should("call insert movie from movie dao") {
             // Given
             val fakeMovie: MovieEntity = mockk()
@@ -71,7 +71,7 @@ class MovieLocalDataSourceImplTest : ShouldSpec({
         }
     }
 
-    context("deleteMovie") {
+    context("delete movie") {
         should("call delete movie from movie dao") {
             // Given
             val fakeMovie: MovieEntity = mockk()

@@ -38,11 +38,13 @@ class SeriesUseCase @Inject constructor(
         }
     }
 
-    suspend fun insertSeries(series: MovieModel) {
+    suspend fun insertFavoriteSeries(series: MovieModel?) {
+        if (series == null) return
         repository.insertFavoriteSeries(series)
     }
 
-    suspend fun deleteSeries(series: MovieModel) {
+    suspend fun deleteFavoriteSeries(series: MovieModel?) {
+        if (series == null) return
         repository.deleteFavoriteSeries(series)
     }
 

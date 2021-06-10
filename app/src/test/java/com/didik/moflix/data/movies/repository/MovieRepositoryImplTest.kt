@@ -1,12 +1,14 @@
 package com.didik.moflix.data.movies.repository
 
-import com.didik.moflix.data.movies.datasource.local.MovieLocalDataSourceImpl
+import androidx.sqlite.db.SupportSQLiteQuery
+import com.didik.moflix.data.movies.datasource.local.MovieLocalDataSource
 import com.didik.moflix.data.movies.datasource.local.entities.MovieEntity
-import com.didik.moflix.data.movies.datasource.remote.MovieRemoteDataSourceImpl
+import com.didik.moflix.data.movies.datasource.remote.MovieRemoteDataSource
 import com.didik.moflix.data.movies.datasource.remote.response.MovieListResponse
 import com.didik.moflix.data.movies.datasource.remote.response.MovieResponse
 import com.didik.moflix.data.movies.mapper.MovieMapper
 import com.didik.moflix.domain.model.MovieModel
+import com.didik.moflix.domain.repository.MovieRepository
 import com.didik.moflix.helpers.Faker
 import com.didik.moflix.utils.state.ResultState
 import io.kotest.core.spec.style.ShouldSpec
@@ -17,15 +19,15 @@ import java.net.UnknownHostException
 
 class MovieRepositoryImplTest : ShouldSpec({
 
-    val remoteDataSource: MovieRemoteDataSourceImpl = mockk()
-    val localDataSource: MovieLocalDataSourceImpl = mockk()
+    val remoteDataSource: MovieRemoteDataSource = mockk()
+    val localDataSource: MovieLocalDataSource = mockk()
     val movieMapper: MovieMapper = mockk()
-    lateinit var movieRepositoryImpl: MovieRepositoryImpl
+    lateinit var movieRepository: MovieRepository
 
     val fakeMovieId = Faker.int
 
     beforeTest {
-        movieRepositoryImpl = MovieRepositoryImpl(
+        movieRepository = MovieRepositoryImpl(
             remoteDataSource = remoteDataSource,
             localDataSource = localDataSource,
             mapper = movieMapper
@@ -36,7 +38,7 @@ class MovieRepositoryImplTest : ShouldSpec({
         unmockkAll()
     }
 
-    context("getMovies") {
+    context("get movies") {
         val fakeMessage = Faker.string
         val fakeResponse: Response<MovieListResponse> = mockk()
 
@@ -51,7 +53,7 @@ class MovieRepositoryImplTest : ShouldSpec({
             coEvery { remoteDataSource.getMovies() } returns fakeResponse
 
             // When
-            val resultState = movieRepositoryImpl.getMovies()
+            val resultState = movieRepository.getMovies()
 
             // Then
             resultState shouldBe ResultState.Success(fakeMovieModels)
@@ -66,7 +68,7 @@ class MovieRepositoryImplTest : ShouldSpec({
             coEvery { remoteDataSource.getMovies() } returns fakeResponse
 
             // When
-            val resultState = movieRepositoryImpl.getMovies()
+            val resultState = movieRepository.getMovies()
 
             // Then
             resultState shouldBe ResultState.Failure(fakeMessage)
@@ -77,14 +79,14 @@ class MovieRepositoryImplTest : ShouldSpec({
             coEvery { remoteDataSource.getMovies() } throws UnknownHostException(fakeMessage)
 
             // When
-            val resultState = movieRepositoryImpl.getMovies()
+            val resultState = movieRepository.getMovies()
 
             // Then
             resultState shouldBe ResultState.Failure(fakeMessage)
         }
     }
 
-    context("getMovieDetail") {
+    context("get movie detail") {
         val fakeMessage = Faker.string
         val fakeResponse: Response<MovieResponse> = mockk()
 
@@ -99,7 +101,7 @@ class MovieRepositoryImplTest : ShouldSpec({
             coEvery { remoteDataSource.getMovieDetail(fakeMovieId) } returns fakeResponse
 
             // When
-            val resultState = movieRepositoryImpl.getMovieDetail(fakeMovieId)
+            val resultState = movieRepository.getMovieDetail(fakeMovieId)
 
             // Then
             resultState shouldBe ResultState.Success(fakeMovieModel)
@@ -115,7 +117,7 @@ class MovieRepositoryImplTest : ShouldSpec({
             coEvery { remoteDataSource.getMovieDetail(fakeMovieId) } returns fakeResponse
 
             // When
-            val resultState = movieRepositoryImpl.getMovieDetail(fakeMovieId)
+            val resultState = movieRepository.getMovieDetail(fakeMovieId)
 
             // Then
             resultState shouldBe ResultState.Failure(fakeMessage)
@@ -128,20 +130,37 @@ class MovieRepositoryImplTest : ShouldSpec({
             } throws UnknownHostException(fakeMessage)
 
             // When
-            val resultState = movieRepositoryImpl.getMovieDetail(fakeMovieId)
+            val resultState = movieRepository.getMovieDetail(fakeMovieId)
 
             // Then
             resultState shouldBe ResultState.Failure(fakeMessage)
         }
     }
 
-    context("checkFavoriteMovie") {
+    context("get favorite movies") {
+        should("call get movies from local data source and call mapper") {
+            // Given
+            val fakeQuery: SupportSQLiteQuery = mockk()
+
+            every { movieMapper.getMapperEntityToDomain() } returns mockk()
+            every { localDataSource.getMovies(fakeQuery) } returns spyk()
+
+            // When
+            movieRepository.getFavoriteMovies(fakeQuery)
+
+            // Then
+            verify(exactly = 1) { localDataSource.getMovies(fakeQuery) }
+            verify { movieMapper.getMapperEntityToDomain() }
+        }
+    }
+
+    context("check favorite movie") {
         should("return true when favorite movies more than 0") {
             // Given
             every { localDataSource.getCountMovieById(fakeMovieId) } returns 1
 
             // When
-            val isFavorite = movieRepositoryImpl.checkFavoriteMovie(fakeMovieId)
+            val isFavorite = movieRepository.checkFavoriteMovie(fakeMovieId)
 
             // Then
             isFavorite shouldBe true
@@ -153,7 +172,7 @@ class MovieRepositoryImplTest : ShouldSpec({
             every { localDataSource.getCountMovieById(fakeMovieId) } returns 0
 
             // When
-            val isFavorite = movieRepositoryImpl.checkFavoriteMovie(fakeMovieId)
+            val isFavorite = movieRepository.checkFavoriteMovie(fakeMovieId)
 
             // Then
             isFavorite shouldBe false
@@ -161,7 +180,7 @@ class MovieRepositoryImplTest : ShouldSpec({
         }
     }
 
-    context("insertFavoriteMovie") {
+    context("insert favorite movie") {
         should("map domain to entity and insert from local data source") {
             // Given
             val fakeMovieModel: MovieModel = mockk()
@@ -171,7 +190,7 @@ class MovieRepositoryImplTest : ShouldSpec({
             coEvery { localDataSource.insertMovie(fakeMovieEntity) } just runs
 
             // When
-            movieRepositoryImpl.insertFavoriteMovie(fakeMovieModel)
+            movieRepository.insertFavoriteMovie(fakeMovieModel)
 
             // Then
             verify(exactly = 1) { movieMapper.mapDomainToEntity(fakeMovieModel) }
@@ -179,7 +198,7 @@ class MovieRepositoryImplTest : ShouldSpec({
         }
     }
 
-    context("deleteFavoriteMovie") {
+    context("delete favorite movie") {
         should("map domain to entity and delete from local data source") {
             // Given
             val fakeMovieModel: MovieModel = mockk()
@@ -189,7 +208,7 @@ class MovieRepositoryImplTest : ShouldSpec({
             coEvery { localDataSource.deleteMovie(fakeMovieEntity) } just runs
 
             // When
-            movieRepositoryImpl.deleteFavoriteMovie(fakeMovieModel)
+            movieRepository.deleteFavoriteMovie(fakeMovieModel)
 
             // Then
             verify(exactly = 1) { movieMapper.mapDomainToEntity(fakeMovieModel) }

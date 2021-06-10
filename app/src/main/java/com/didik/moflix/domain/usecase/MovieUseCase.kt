@@ -38,7 +38,13 @@ class MovieUseCase @Inject constructor(
         }
     }
 
-    suspend fun insertMovie(movie: MovieModel) = repository.insertFavoriteMovie(movie)
+    suspend fun insertFavoriteMovie(movie: MovieModel?) {
+        if (movie == null) return
+        repository.insertFavoriteMovie(movie)
+    }
 
-    suspend fun deleteMovie(movie: MovieModel) = repository.deleteFavoriteMovie(movie)
+    suspend fun deleteFavoriteMovie(movie: MovieModel?) {
+        if (movie == null) return
+        repository.deleteFavoriteMovie(movie)
+    }
 }

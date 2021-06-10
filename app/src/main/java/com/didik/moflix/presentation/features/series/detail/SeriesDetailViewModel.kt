@@ -51,24 +51,20 @@ class SeriesDetailViewModel @Inject constructor(
     }
 
     fun checkFavoriteSeries() {
-        viewModelScope.launch(Dispatchers.Main) {
+        viewModelScope.launch {
             _isFavorite.value = seriesUseCase.checkFavoriteSeries(seriesId)
         }
     }
 
     fun insertSeries() {
-        series.value?.let { series ->
-            viewModelScope.launch(Dispatchers.IO) {
-                seriesUseCase.insertSeries(series)
-            }
+        viewModelScope.launch(Dispatchers.IO) {
+            seriesUseCase.insertFavoriteSeries(series.value)
         }
     }
 
     fun deleteSeries() {
-        series.value?.let { series ->
-            viewModelScope.launch(Dispatchers.IO) {
-                seriesUseCase.deleteSeries(series)
-            }
+        viewModelScope.launch(Dispatchers.IO) {
+            seriesUseCase.deleteFavoriteSeries(series.value)
         }
     }
 }

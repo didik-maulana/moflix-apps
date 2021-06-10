@@ -48,9 +48,7 @@ class MovieRepositoryImpl @Inject constructor(
     }
 
     override suspend fun getFavoriteMovies(query: SupportSQLiteQuery): DataSource.Factory<Int, MovieModel> {
-        return localDataSource.getMovies(query).mapByPage { movies ->
-            mapper.mapEntityToListDomain(movies)
-        }
+        return localDataSource.getMovies(query).map(mapper.getMapperEntityToDomain())
     }
 
     override suspend fun checkFavoriteMovie(movieId: Int): Boolean {
