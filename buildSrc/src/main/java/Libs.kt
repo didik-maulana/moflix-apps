@@ -1,5 +1,5 @@
 object Versions {
-    const val buildGradle = "4.2.0-beta06"
+    const val buildGradle = "4.2.0"
     const val kotlin = "1.4.32"
     const val coreKtx = "1.3.2"
     const val fragmentKtx = "1.3.4"
